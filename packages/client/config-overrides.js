@@ -10,7 +10,7 @@ module.exports = (config, env) => {
       /* Makes sure Babel compiles the stuff in the common folder */
       babelInclude([
         path.resolve('src'),
-        fs.realpathSync('../components/src'), // THIS
+        fs.realpathSync('../shared/src'), // THIS
       ]),
     )(config, env),
   );
