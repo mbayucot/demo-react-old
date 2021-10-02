@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = lazy(() => import('./pages/HomePage'));
 const Login = lazy(() => import('./user/SignIn/SignInPage'));
-const Register = lazy(() => import('./user/register/RegisterPage'));
+const Register = lazy(() => import('./user/SignUp/SignUpPage'));
 const NoMatch = lazy(() => import('./pages/NoMatchPage'));
 
 const App = (): ReactElement => {
