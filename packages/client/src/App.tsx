@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const Home = lazy(() => import('./pages/HomePage'));
 const Login = lazy(() => import('./user/SignIn/SignInPage'));
 const Register = lazy(() => import('./user/SignUp/SignUpPage'));
+const Dashboard = lazy(() => import('./pages/DashboardPage'));
 const NoMatch = lazy(() => import('./pages/NoMatchPage'));
 
 const App = (): ReactElement => {
@@ -21,6 +22,10 @@ const App = (): ReactElement => {
 
         <Route path="/register">
           <Register />
+        </Route>
+
+        <Route path="/dashboard">
+          <Dashboard />
         </Route>
 
         <Route path="*">
