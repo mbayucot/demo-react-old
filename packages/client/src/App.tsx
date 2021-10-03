@@ -7,6 +7,9 @@ const Login = lazy(() => import('./user/SignIn/SignInPage'));
 const Register = lazy(() => import('./user/SignUp/SignUpPage'));
 const Dashboard = lazy(() => import('./pages/DashboardPage'));
 const NoMatch = lazy(() => import('./pages/NoMatchPage'));
+const UserList = lazy(() => import('./pages/UserListPage'));
+const PostList = lazy(() => import('./pages/PostListPage'));
+const Profile = lazy(() => import('./user/Profile/ProfilePage'));
 
 const App = (): ReactElement => {
   return (
@@ -26,6 +29,18 @@ const App = (): ReactElement => {
 
         <Route path="/dashboard">
           <Dashboard />
+        </Route>
+
+        <Route path="/users">
+          <UserList />
+        </Route>
+
+        <Route path="/posts">
+          <PostList />
+        </Route>
+
+        <Route path="/profile">
+          <Profile />
         </Route>
 
         <Route path="*">
