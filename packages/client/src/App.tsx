@@ -10,6 +10,10 @@ const NoMatch = lazy(() => import('./pages/NoMatchPage'));
 const UserList = lazy(() => import('./pages/UserListPage'));
 const PostList = lazy(() => import('./pages/PostListPage'));
 const Profile = lazy(() => import('./user/Profile/ProfilePage'));
+const NewUser = lazy(() => import('./pages/User/NewUserPage'));
+const EditUser = lazy(() => import('./pages/User/EditUserPage'));
+const NewPost = lazy(() => import('./pages/Post/NewPostPage'));
+const EditPost = lazy(() => import('./pages/Post/EditPostPage'));
 
 const App = (): ReactElement => {
   return (
@@ -31,8 +35,20 @@ const App = (): ReactElement => {
           <Dashboard />
         </Route>
 
+        <Route path="/users/:id/edit" children={<EditUser />} />
+
+        <Route path="/users/new">
+          <NewUser />
+        </Route>
+
         <Route path="/users">
           <UserList />
+        </Route>
+
+        <Route path="/posts/:id/edit" children={<EditPost />} />
+
+        <Route path="/posts/new">
+          <NewPost />
         </Route>
 
         <Route path="/posts">

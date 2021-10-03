@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 interface User {
   email: string;
@@ -47,7 +48,7 @@ export const validationSchema = Yup.object().shape({
     ),
 });
 
-const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const UserForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
 
   return (
@@ -62,7 +63,6 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
         }}
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <h1>Name</h1>
           <TextField
             margin="normal"
             required
@@ -116,9 +116,6 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
             error={touched.last_name && Boolean(errors.last_name)}
             helperText={touched.last_name && errors.last_name}
           />
-          <h1>Account Management</h1>
-          <p>New Password</p>
-          <button>Set New Password</button>
           <TextField
             margin="normal"
             required
@@ -133,13 +130,13 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
             Update Profile
-          </Button>
+          </LoadingButton>
         </Box>
       </Box>
     </Container>
   );
 };
 
-export default ProfileForm;
+export default UserForm;

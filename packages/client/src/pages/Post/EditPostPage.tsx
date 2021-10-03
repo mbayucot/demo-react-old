@@ -2,18 +2,23 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import PostForm from '@demo/client/src/pages/Post/PostForm';
+import { useParams } from 'react-router-dom';
 
-import SignUpForm from '@demo/client/src/user/SignUp/SignUpForm';
+import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
-import { LoginFormValues, validationSchema } from '@demo/client/src/user/SignUp/SignUpForm';
+type Params = {
+  id: string;
+};
 
-const SignUpPage: FC = () => {
+const EditPostPage: FC = () => {
+  let { id } = useParams<Params>();
+
   const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
     mapPropsToValues: () => ({
-      email: '',
-      password: '',
-      first_name: '',
-      last_name: '',
+      title: '',
+      body: '',
+      tags: [''],
     }),
 
     validationSchema: validationSchema,
@@ -21,15 +26,16 @@ const SignUpPage: FC = () => {
     handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
       console.log('here');
     },
-  })(SignUpForm);
+  })(PostForm);
 
   return (
     <Container>
       <Box>
+        {id}
         <EnhancedLoginForm />
       </Box>
     </Container>
   );
 };
 
-export default SignUpPage;
+export default EditPostPage;

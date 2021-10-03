@@ -2,18 +2,16 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import PostForm from '@demo/client/src/pages/Post/PostForm';
 
-import SignUpForm from '@demo/client/src/user/SignUp/SignUpForm';
+import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
-import { LoginFormValues, validationSchema } from '@demo/client/src/user/SignUp/SignUpForm';
-
-const SignUpPage: FC = () => {
+const NewPostPage: FC = () => {
   const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
     mapPropsToValues: () => ({
-      email: '',
-      password: '',
-      first_name: '',
-      last_name: '',
+      title: '',
+      body: '',
+      tags: [''],
     }),
 
     validationSchema: validationSchema,
@@ -21,7 +19,7 @@ const SignUpPage: FC = () => {
     handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
       console.log('here');
     },
-  })(SignUpForm);
+  })(PostForm);
 
   return (
     <Container>
@@ -32,4 +30,4 @@ const SignUpPage: FC = () => {
   );
 };
 
-export default SignUpPage;
+export default NewPostPage;
