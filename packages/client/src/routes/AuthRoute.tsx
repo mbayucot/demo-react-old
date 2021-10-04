@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
-interface RouterProps extends RouteProps {
+interface AuthRouteProps extends RouteProps {
   title: string;
 }
 
-const PublicRoute = ({ children, title, ...rest }: RouterProps): React.ReactElement => {
+const AuthRoute = ({ children, title, ...rest }: AuthRouteProps): React.ReactElement => {
   return (
     <Route
       {...rest}
@@ -20,4 +20,4 @@ const PublicRoute = ({ children, title, ...rest }: RouterProps): React.ReactElem
   );
 };
 
-export default PublicRoute;
+export default AuthRoute;
