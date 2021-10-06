@@ -3,23 +3,44 @@ import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import UserForm from '@demo/client/src/pages/User/UserForm';
+import { gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+
+export const CREATE_USER = gql`
+  mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!) {
+    createUser(email: $email, firstName: $firstName, lastName: $lastName, password: $password) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
 
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/User/UserForm';
 
 const NewUserPage: FC = () => {
+  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+
   const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
     mapPropsToValues: () => ({
       email: '',
       first_name: '',
       last_name: '',
       password: '',
-      role: '',
     }),
 
     validationSchema: validationSchema,
 
     handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
-      console.log('here');
+      await createUser({
+        variables: {
+          email: values.email,
+          firstName: values.first_name,
+          lastName: values.last_name,
+          password: values.password,
+        },
+      });
     },
   })(UserForm);
 

@@ -22,7 +22,7 @@ interface User {
   password: string;
   first_name: string;
   last_name: string;
-  role: string;
+  //role: string;
 }
 
 export type LoginFormValues = User;
@@ -37,7 +37,7 @@ export const validationSchema = Yup.object().shape({
     .required('Last name is required')
     .min(2, 'Last name is too short')
     .max(32, 'Last name is too long'),
-  role: Yup.string().required('Role is required'),
+  //role: Yup.string().required('Role is required'),
   password: Yup.string()
     .min(8, 'Password is too short')
     .max(20, 'Password is too long')
@@ -77,17 +77,6 @@ const UserForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             error={touched.email && Boolean(errors.email)}
             helperText={touched.email && errors.email}
           />
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            //value={age}
-            label="Role"
-            //onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
           <TextField
             margin="normal"
             required
