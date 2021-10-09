@@ -20,6 +20,7 @@ const authenticationSlice = createSlice({
     loginFailure(state) {
       state.loader = false;
       state.isAuthenticated = false;
+      localStorage.removeItem('token');
     },
   },
 });
