@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   DataGrid,
   GridColDef,
@@ -28,8 +28,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const GET_USERS = gql`
-  query GetUsers {
-    users(page: 1, limit: 10) {
+  query GetUsers($page: Int, $query: String!) {
+    users(page: $page, query: $query) {
       collection {
         id
         email
@@ -106,7 +106,13 @@ const useStyles = makeStyles(
   { defaultTheme },
 );
 
-const CustomToolbar: FC = () => {
+interface QuickSearchToolbarProps {
+  clearSearch: () => void;
+  onChange: () => void;
+  value: string;
+}
+
+const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarProps) => {
   let history = useHistory();
   const classes = useStyles();
 
@@ -125,8 +131,8 @@ const CustomToolbar: FC = () => {
       <div>
         <TextField
           variant="standard"
-          //value={props.value}
-          //onChange={props.onChange}
+          value={props.value}
+          onChange={props.onChange}
           placeholder="Search…"
           className={classes.textField}
           InputProps={{
@@ -136,8 +142,8 @@ const CustomToolbar: FC = () => {
                 title="Clear"
                 aria-label="Clear"
                 size="small"
-                //style={{ visibility: props.value ? 'visible' : 'hidden' }}
-                //onClick={props.clearSearch}
+                style={{ visibility: props.value ? 'visible' : 'hidden' }}
+                onClick={props.clearSearch}
               >
                 <ClearIcon fontSize="small" />
               </IconButton>
@@ -187,7 +193,11 @@ const CustomNoRowsOverlay = () => {
 };
 
 const UserListPage: FC = () => {
-  const { loading, error, data, refetch } = useQuery(GET_USERS);
+  const [page, setPage] = useState(0);
+  const [query, setSearchText] = React.useState('');
+  const { loading, error, data, refetch } = useQuery(GET_USERS, {
+    variables: { page, query },
+  });
   const [destroyUser] = useMutation(DELETE_USER);
   let history = useHistory();
 
@@ -199,7 +209,6 @@ const UserListPage: FC = () => {
   };
 
   const handleClose = () => {
-    console.log('handleClose');
     setOpen(false);
   };
 
@@ -217,7 +226,6 @@ const UserListPage: FC = () => {
   );
 
   const onDeleteUser = async () => {
-    console.log('here');
     await destroyUser({
       variables: {
         id: id,
@@ -234,6 +242,14 @@ const UserListPage: FC = () => {
     },
     [],
   );
+
+  const requestSearch = (searchValue: string) => {
+    setSearchText(searchValue);
+  };
+
+  const setNewPage = (newPage: any) => {
+    setPage(newPage + 1);
+  };
 
   const columns = React.useMemo(
     () => [
@@ -263,12 +279,26 @@ const UserListPage: FC = () => {
         <DataGrid
           rows={data.users.collection}
           columns={columns}
-          loading={false}
+          loading={loading}
           hideFooterSelectedRowCount={true}
           disableColumnMenu={true}
+          page={page}
+          onPageChange={(newPage) => setNewPage(newPage)}
+          pagination
+          pageSize={10}
+          rowCount={data.users.metadata.totalCount}
+          paginationMode="server"
+          rowsPerPageOptions={[10]}
           components={{
             Toolbar: CustomToolbar,
             NoRowsOverlay: CustomNoRowsOverlay,
+          }}
+          componentsProps={{
+            toolbar: {
+              value: query,
+              onChange: (event: React.ChangeEvent<HTMLInputElement>) => requestSearch(event.target.value),
+              clearSearch: () => requestSearch(''),
+            },
           }}
         />
       </div>
