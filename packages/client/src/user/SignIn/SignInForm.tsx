@@ -25,8 +25,8 @@ export type LoginFormValues = Pick<User, 'email' | 'password'>;
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
   password: Yup.string()
-    .min(8, 'Password is too short')
-    .max(20, 'Password is too long')
+    //.min(8, 'Password is too short')
+    //.max(20, 'Password is too long')
     .required('Password is required'),
 });
 
