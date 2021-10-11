@@ -1,6 +1,7 @@
 import React, { FC, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import PrivateRoute from './PrivateRoute';
 
 const Home = lazy(() => import('../pages/HomePage'));
 const Login = lazy(() => import('../user/SignIn/SignInPage'));
@@ -16,8 +17,6 @@ const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 
 const AppRoutes: FC = () => {
-  //const { user } = useAuth();
-
   return (
     <Suspense fallback={<CircularProgress />}>
       <Switch>
@@ -33,33 +32,37 @@ const AppRoutes: FC = () => {
           <Register />
         </Route>
 
-        <Route path="/dashboard">
+        <PrivateRoute path="/dashboard">
           <Dashboard />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/users/:id/edit" children={<EditUser />} />
+        <PrivateRoute path="/users/:id/edit">
+          <EditUser />
+        </PrivateRoute>
 
-        <Route path="/users/new">
+        <PrivateRoute path="/users/new">
           <NewUser />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/users">
+        <PrivateRoute path="/users">
           <UserList />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/posts/:id/edit" children={<EditPost />} />
+        <PrivateRoute path="/posts/:id/edit">
+          <EditPost />
+        </PrivateRoute>
 
-        <Route path="/posts/new">
+        <PrivateRoute path="/posts/new">
           <NewPost />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/posts">
+        <PrivateRoute path="/posts">
           <PostList />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/profile">
+        <PrivateRoute path="/profile">
           <Profile />
-        </Route>
+        </PrivateRoute>
 
         <Route path="*">
           <NoMatch />

@@ -2,22 +2,23 @@ import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
+import Layout from '../layouts/private/Layout';
+
 interface RouterProps extends RouteProps {
-  title: string;
+  title?: string;
 }
 
-const PublicRoute = ({ children, title, ...rest }: RouterProps): React.ReactElement => {
+const PrivateRoute = ({ children, title, ...rest }: RouterProps): React.ReactElement => {
   return (
     <Route
       {...rest}
       render={() => (
         <>
-          <Helmet title={title} />
-          <div>{children}</div>
+          <Layout>{children}</Layout>
         </>
       )}
     />
   );
 };
 
-export default PublicRoute;
+export default PrivateRoute;

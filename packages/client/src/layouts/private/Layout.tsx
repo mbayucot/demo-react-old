@@ -72,7 +72,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-const DashboardPage: FC = () => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const toggleDrawer = () => {
@@ -174,7 +178,7 @@ const DashboardPage: FC = () => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <p>content area</p>
+            {children}
           </Container>
         </Box>
       </Box>
@@ -182,4 +186,4 @@ const DashboardPage: FC = () => {
   );
 };
 
-export default DashboardPage;
+export default Layout;
