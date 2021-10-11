@@ -7,6 +7,7 @@ import {
   GridActionsCellItem,
   GridRowId,
   GridOverlay,
+  GridSortModel,
 } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { gql, useQuery, useMutation } from '@apollo/client';
@@ -28,8 +29,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const GET_POSTS = gql`
-  query GetArticles($page: Int, $query: String!) {
-    articles(page: $page, query: $query) {
+  query GetArticles($page: Int, $query: String!, $sort: String!) {
+    articles(page: $page, query: $query, sort: $sort) {
       collection {
         id
         title
@@ -195,14 +196,20 @@ const CustomNoRowsOverlay = () => {
 const PostListPage: FC = () => {
   const [page, setPage] = useState(0);
   const [query, setSearchText] = React.useState('');
+  const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'date', sort: 'asc' }]);
+
   const { loading, error, data, refetch } = useQuery(GET_POSTS, {
-    variables: { page, query },
+    variables: { page, query, sort: sortModel.length === 0 ? 'asc' : sortModel[0].sort },
   });
   const [destroyArticle] = useMutation(DELETE_POST);
   let history = useHistory();
 
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState<GridRowId>();
+
+  const handleSortModelChange = (newModel: GridSortModel) => {
+    setSortModel(newModel);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -213,7 +220,6 @@ const PostListPage: FC = () => {
   };
 
   const handleConfirm = () => {
-    console.log('handleConfirm');
     setOpen(false);
     onDeleteUser();
   };
@@ -253,9 +259,9 @@ const PostListPage: FC = () => {
 
   const columns = React.useMemo(
     () => [
-      { field: 'title', headerName: 'Title' },
-      { field: 'author', headerName: 'Author' },
-      { field: 'date', headerName: 'Date' },
+      { field: 'title', headerName: 'Title', width: 150 },
+      { field: 'author', headerName: 'Author', width: 150 },
+      { field: 'date', headerName: 'Date', width: 150 },
       {
         field: 'actions',
         type: 'actions',
@@ -288,6 +294,9 @@ const PostListPage: FC = () => {
           rowCount={data.articles.metadata.totalCount}
           paginationMode="server"
           rowsPerPageOptions={[10]}
+          sortingMode="server"
+          sortModel={sortModel}
+          onSortModelChange={handleSortModelChange}
           components={{
             Toolbar: CustomToolbar,
             NoRowsOverlay: CustomNoRowsOverlay,

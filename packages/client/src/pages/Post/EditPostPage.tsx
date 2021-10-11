@@ -6,6 +6,7 @@ import PostForm from '@demo/client/src/pages/Post/PostForm';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 import { UPDATE_USER } from '../User/EditUserPage';
@@ -42,6 +43,7 @@ export const UPDATE_POST = gql`
 `;
 
 const EditPostPage: FC = () => {
+  let history = useHistory();
   let { id } = useParams<Params>();
 
   const { loading, error, data } = useQuery(GET_POST, {
@@ -75,6 +77,7 @@ const EditPostPage: FC = () => {
           },
         },
       });
+      history.push('/posts');
     },
   })(PostForm);
 
