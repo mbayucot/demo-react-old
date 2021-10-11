@@ -8,7 +8,6 @@ import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/User/UserForm';
-import { CREATE_USER } from './NewUserPage';
 
 type Params = {
   id: string;
