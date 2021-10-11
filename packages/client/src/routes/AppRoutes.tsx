@@ -15,6 +15,7 @@ const NewUser = lazy(() => import('../pages/User/NewUserPage'));
 const EditUser = lazy(() => import('../pages/User/EditUserPage'));
 const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
+const UnAuthorized = lazy(() => import('../pages/UnAuthorizedPage'));
 
 const AppRoutes: FC = () => {
   return (
@@ -66,6 +67,10 @@ const AppRoutes: FC = () => {
 
         <Route path="*">
           <NoMatch />
+        </Route>
+
+        <Route path="/unauthorized">
+          <UnAuthorized />
         </Route>
       </Switch>
     </Suspense>
