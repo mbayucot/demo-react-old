@@ -20,10 +20,22 @@ const authenticationSlice = createSlice({
     loginFailure(state) {
       state.loader = false;
       state.isAuthenticated = false;
+    },
+    logout(state) {
+      state.loader = false;
+      state.isAuthenticated = false;
+    },
+    logoutSuccess(state) {
+      state.loader = false;
+      state.isAuthenticated = false;
       localStorage.removeItem('token');
+    },
+    logoutFailure(state) {
+      state.loader = false;
+      state.isAuthenticated = false;
     },
   },
 });
 
-export const { login, loginSuccess, loginFailure } = authenticationSlice.actions;
+export const { login, logout, loginSuccess, loginFailure, logoutSuccess, logoutFailure } = authenticationSlice.actions;
 export default authenticationSlice.reducer;

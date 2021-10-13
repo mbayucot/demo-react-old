@@ -21,6 +21,9 @@ import { MainListItems } from './listItems';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
+import { logout } from '../../features/authentication/authenticationSlice';
 
 const drawerWidth: number = 240;
 
@@ -77,6 +80,8 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const authState = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const toggleDrawer = () => {
@@ -89,6 +94,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
   };
 
   return (
@@ -144,6 +154,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           </Toolbar>

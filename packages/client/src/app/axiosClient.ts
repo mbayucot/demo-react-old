@@ -33,3 +33,7 @@ axiosClient.interceptors.request.use((config: AxiosRequestConfig) => {
 export function postRequest(URL: string, payload: object) {
   return axiosClient.post(`/${URL}`, payload).then((response) => response);
 }
+
+export function deleteRequest(URL: string) {
+  return axiosClient.delete(`/${URL}`).then((response) => response);
+}
