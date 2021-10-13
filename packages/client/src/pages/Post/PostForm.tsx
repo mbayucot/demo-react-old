@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import Avatar from '@mui/material/Avatar';
@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
+import { FacebookSelector } from '@charkour/react-reactions';
 
 interface Post {
   title: string;
@@ -32,6 +33,20 @@ export const validationSchema = Yup.object().shape({
 
 const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
+  const [showReaction, setShowReaction] = useState<boolean>(false);
+  const [showComment, setShowComment] = useState<boolean>(false);
+
+  const handleLikeClick = async () => {
+    setShowReaction(true);
+  };
+
+  const handleReaction = (label: string) => {
+    setShowReaction(!showReaction);
+  };
+
+  const handleComment = () => {
+    setShowComment(!showComment);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -77,6 +92,13 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             Save
           </LoadingButton>
         </Box>
+      </Box>
+      <Box>{showReaction && <FacebookSelector onSelect={handleReaction} />}</Box>
+      <Box>
+        <button className="mr-4" onClick={handleLikeClick}>
+          Like
+        </button>
+        <button onClick={handleComment}>Comment</button>
       </Box>
     </Container>
   );

@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-import { store } from './app/store';
+import { store, persistor } from './app/store';
 import { Provider } from 'react-redux';
 import { setContext } from '@apollo/client/link/context';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_HOST_URL}/graphql`,
@@ -31,9 +32,11 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </PersistGate>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root'),
