@@ -10,12 +10,13 @@ import { FacebookSelector } from '@charkour/react-reactions';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { UPDATE_POST } from './EditPostPage';
+import AsyncCreatableSelect from 'react-select/async-creatable';
 
 interface Post {
   id?: number;
   title: string;
   body: string;
-  tags: string[];
+  tag_list: string[];
 }
 
 export type Reaction = 'none' | 'thumb' | 'like' | 'love' | 'haha' | 'wow' | 'sad' | 'angry';
@@ -54,7 +55,7 @@ export const validationSchema = Yup.object().shape({
 });
 
 const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
-  const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
+  const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
   const [showComment, setShowComment] = useState<boolean>(false);
   const [reaction, setReaction] = useState<Reaction>('none');
 
@@ -128,6 +129,25 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             onChange={handleChange}
             error={touched.body && Boolean(errors.body)}
             helperText={touched.body && errors.body}
+          />
+          <AsyncCreatableSelect
+            cacheOptions
+            defaultOptions
+            placeholder="Tags"
+            inputId="tags"
+            name="tags"
+            //loadOptions={TagAPI.all}
+            styles={{
+              container: (base) => ({
+                ...base,
+                width: 250,
+              }),
+            }}
+            isClearable
+            isMulti
+            onChange={(value) => {
+              setFieldValue('tag_list', value ? value.map((x: any) => x.label) : '');
+            }}
           />
           <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
             Save

@@ -19,6 +19,7 @@ type ArticleAttributes = {
   id?: number;
   title?: string;
   body?: string;
+  tag_list?: string;
 };
 
 const GET_POST = gql`
@@ -57,13 +58,14 @@ const EditPostPage: FC = () => {
     {
       title: string;
       body: string;
+      tag_list: string[];
     },
     LoginFormValues
   >({
     mapPropsToValues: (props) => ({
       title: props.title || '',
       body: props.body || '',
-      tags: [''],
+      tag_list: [''],
     }),
 
     validationSchema: validationSchema,
@@ -75,6 +77,7 @@ const EditPostPage: FC = () => {
           attributes: {
             title: values.title,
             body: values.body,
+            tag_list: values.tag_list,
           },
         },
       });

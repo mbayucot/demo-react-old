@@ -8,8 +8,8 @@ import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
 export const CREATE_POST = gql`
-  mutation CreateArticle($title: String!, $body: String!) {
-    createArticle(title: $title, body: $body) {
+  mutation CreateArticle($title: String!, $body: String!, $tagList: [String!]!) {
+    createArticle(title: $title, body: $body, tagList: $tagList) {
       article {
         id
         title
@@ -28,7 +28,7 @@ const NewPostPage: FC = () => {
     mapPropsToValues: () => ({
       title: '',
       body: '',
-      tags: [''],
+      tag_list: [''],
     }),
 
     validationSchema: validationSchema,
@@ -38,6 +38,7 @@ const NewPostPage: FC = () => {
         variables: {
           title: values.title,
           body: values.body,
+          tagList: values.tag_list,
         },
       });
       history.push('/posts');
