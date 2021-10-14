@@ -9,6 +9,7 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,11 +75,11 @@ const HomePage: FC = () => {
             <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
           </Search>
           <nav>
-            <Link variant="button" color="text.primary" href="#" sx={{ my: 1, mx: 1.5 }}>
+            <Link component={RouterLink} variant="button" color="text.primary" to={'/login'} sx={{ my: 1, mx: 1.5 }}>
               Sign in
             </Link>
           </nav>
-          <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
+          <Button component={RouterLink} to={'/register'} variant="outlined" sx={{ my: 1, mx: 1.5 }}>
             Sign up
           </Button>
         </Toolbar>

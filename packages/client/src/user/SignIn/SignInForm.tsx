@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface User {
   email: string;
@@ -91,13 +92,8 @@ const SignInForm = (props: FormikProps<LoginFormValues>): React.ReactElement => 
             Sign In
           </LoadingButton>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={RouterLink} to={'/register'} variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

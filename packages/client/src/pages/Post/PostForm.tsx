@@ -33,15 +33,24 @@ export const validationSchema = Yup.object().shape({
 
 const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
-  const [showReaction, setShowReaction] = useState<boolean>(false);
   const [showComment, setShowComment] = useState<boolean>(false);
 
-  const handleLikeClick = async () => {
-    setShowReaction(true);
+  const [reactionController, setReactionController] = useState({
+    toggler: false,
+    reaction: 'like',
+  });
+
+  const handleLikeClick = () => {
+    setReactionController((prevValues) => {
+      return { ...prevValues, toggler: !reactionController.toggler };
+    });
   };
 
   const handleReaction = (label: string) => {
-    setShowReaction(!showReaction);
+    setReactionController({
+      toggler: !reactionController.toggler,
+      reaction: label,
+    });
   };
 
   const handleComment = () => {
@@ -93,7 +102,8 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
           </LoadingButton>
         </Box>
       </Box>
-      <Box>{showReaction && <FacebookSelector onSelect={handleReaction} />}</Box>
+      <Box>{reactionController.toggler && <FacebookSelector onSelect={handleReaction} />}</Box>
+      <Box>{showComment && <p>Comment box</p>}</Box>
       <Box>
         <button className="mr-4" onClick={handleLikeClick}>
           Like

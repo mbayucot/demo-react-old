@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface User {
   email: string;
@@ -64,11 +65,10 @@ const SignUpForm = (props: FormikProps<LoginFormValues>): React.ReactElement => 
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
-                name="firstName"
+                name="first_name"
                 required
                 fullWidth
-                id="firstName"
+                id="first_name"
                 label="First Name"
                 autoFocus
                 value={values.first_name}
@@ -81,10 +81,9 @@ const SignUpForm = (props: FormikProps<LoginFormValues>): React.ReactElement => 
               <TextField
                 required
                 fullWidth
-                id="lastName"
+                id="last_name"
                 label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+                name="last_name"
                 value={values.last_name}
                 onChange={handleChange}
                 error={touched.last_name && Boolean(errors.last_name)}
@@ -133,7 +132,7 @@ const SignUpForm = (props: FormikProps<LoginFormValues>): React.ReactElement => 
           </LoadingButton>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={RouterLink} to={'/login'} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
