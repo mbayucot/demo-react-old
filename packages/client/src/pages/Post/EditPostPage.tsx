@@ -16,6 +16,7 @@ type Params = {
 };
 
 type ArticleAttributes = {
+  id?: number;
   title?: string;
   body?: string;
 };

@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import { FacebookSelector } from '@charkour/react-reactions';
+import { gql, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { UPDATE_POST } from './EditPostPage';
 
 interface Post {
+  id?: number;
   title: string;
   body: string;
   tags: string[];
 }
+
+export const REACT_POST = gql`
+  mutation reactArticle($id: ID!, $weight: Int!) {
+    reactArticle(id: $id, weight: $weight) {
+      article {
+        id
+        title
+      }
+    }
+  }
+`;
 
 export type LoginFormValues = Post;
 
@@ -35,6 +40,8 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
   const [showComment, setShowComment] = useState<boolean>(false);
 
+  const [reactPost] = useMutation(REACT_POST);
+
   const [reactionController, setReactionController] = useState({
     toggler: false,
     reaction: 'like',
@@ -46,10 +53,17 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
     });
   };
 
-  const handleReaction = (label: string) => {
+  const handleReaction = async (label: string) => {
     setReactionController({
       toggler: !reactionController.toggler,
       reaction: label,
+    });
+
+    await reactPost({
+      variables: {
+        id: 1,
+        weight: 1,
+      },
     });
   };
 
