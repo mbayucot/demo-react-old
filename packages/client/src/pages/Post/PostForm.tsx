@@ -18,6 +18,23 @@ interface Post {
   tags: string[];
 }
 
+export type Reaction = 'none' | 'thumb' | 'like' | 'love' | 'haha' | 'wow' | 'sad' | 'angry';
+
+type Options = {
+  [key: number]: Reaction;
+};
+
+export const voteWeights: Options = {
+  0: 'none',
+  1: 'thumb',
+  2: 'like',
+  3: 'love',
+  4: 'haha',
+  5: 'wow',
+  6: 'sad',
+  7: 'angry',
+};
+
 export const REACT_POST = gql`
   mutation reactArticle($id: ID!, $weight: Int!) {
     reactArticle(id: $id, weight: $weight) {
@@ -39,6 +56,7 @@ export const validationSchema = Yup.object().shape({
 const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
   const [showComment, setShowComment] = useState<boolean>(false);
+  const [reaction, setReaction] = useState<Reaction>('none');
 
   const [reactPost] = useMutation(REACT_POST);
 
