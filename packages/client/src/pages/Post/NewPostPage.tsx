@@ -18,6 +18,11 @@ export const CREATE_POST = gql`
   }
 `;
 
+type Tag = {
+  id: number;
+  name: string;
+};
+
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
 const NewPostPage: FC = () => {
@@ -28,7 +33,7 @@ const NewPostPage: FC = () => {
     mapPropsToValues: () => ({
       title: '',
       body: '',
-      tag_list: [''],
+      tags: [],
     }),
 
     validationSchema: validationSchema,

@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PostForm from '@demo/client/src/pages/Post/PostForm';
 import { useParams } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
@@ -13,6 +13,11 @@ import { UPDATE_USER } from '../User/EditUserPage';
 
 type Params = {
   id: string;
+};
+
+type Tag = {
+  id: number;
+  name: string;
 };
 
 type ArticleAttributes = {
@@ -29,6 +34,10 @@ const GET_POST = gql`
       title
       body
       slug
+      tags {
+        id
+        name
+      }
     }
   }
 `;
@@ -58,14 +67,14 @@ const EditPostPage: FC = () => {
     {
       title: string;
       body: string;
-      tag_list: string[];
+      tags: Tag[];
     },
     LoginFormValues
   >({
     mapPropsToValues: (props) => ({
       title: props.title || '',
       body: props.body || '',
-      tag_list: [''],
+      tags: props.tags || {},
     }),
 
     validationSchema: validationSchema,

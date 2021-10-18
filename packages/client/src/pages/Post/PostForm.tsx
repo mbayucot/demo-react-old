@@ -7,16 +7,23 @@ import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import { FacebookSelector } from '@charkour/react-reactions';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { UPDATE_POST } from './EditPostPage';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import { client } from '../../index';
+
+type Tag = {
+  id: number;
+  name: string;
+};
 
 interface Post {
   id?: number;
   title: string;
   body: string;
-  tag_list: string[];
+  tags: Tag[];
+  tag_list?: string[];
 }
 
 export type Reaction = 'none' | 'thumb' | 'like' | 'love' | 'haha' | 'wow' | 'sad' | 'angry';
@@ -35,6 +42,24 @@ export const voteWeights: Options = {
   6: 'sad',
   7: 'angry',
 };
+
+const GET_TAGS = gql`
+  query GetTags {
+    tags {
+      id
+      name
+    }
+  }
+`;
+
+const query = gql`
+  query GetTags($query: String!) {
+    tags(query: $query) {
+      id
+      name
+    }
+  }
+`;
 
 export const REACT_POST = gql`
   mutation reactArticle($id: ID!, $weight: Int!) {
@@ -58,6 +83,10 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
   const [showComment, setShowComment] = useState<boolean>(false);
   const [reaction, setReaction] = useState<Reaction>('none');
+  const [searchText, setSearchText] = useState('');
+
+  //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
+  const { loading, error, data } = useQuery(GET_TAGS);
 
   const [reactPost] = useMutation(REACT_POST);
 
@@ -90,6 +119,13 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
     setShowComment(!showComment);
   };
 
+  const loadOptions = (inputValue: string, callback: (options: any) => void) => {
+    client.query({ query, variables: { query: inputValue } }).then((response) => {
+      callback(response.data.tags.map((x: any) => ({ value: x.id, label: x.name })));
+    });
+  };
+
+  // @ts-ignore
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -136,7 +172,9 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             placeholder="Tags"
             inputId="tags"
             name="tags"
-            //loadOptions={TagAPI.all}
+            // onInputChange={handleInputChange}
+            //defaultValue={values.tags.map((x: any) => ({ value: x.id, label: x.name }))}
+            loadOptions={loadOptions}
             styles={{
               container: (base) => ({
                 ...base,
