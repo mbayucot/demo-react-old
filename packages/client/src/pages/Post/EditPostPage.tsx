@@ -9,7 +9,6 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
-import { UPDATE_USER } from '../User/EditUserPage';
 
 type Params = {
   id: string;
@@ -20,7 +19,7 @@ type Tag = {
   name: string;
 };
 
-type ArticleAttributes = {
+type PostAttributes = {
   id?: number;
   title?: string;
   body?: string;
@@ -28,8 +27,8 @@ type ArticleAttributes = {
 };
 
 const GET_POST = gql`
-  query GetArticle($id: ID!) {
-    article(id: $id) {
+  query GetPost($id: ID!) {
+    post(id: $id) {
       id
       title
       body
@@ -43,9 +42,9 @@ const GET_POST = gql`
 `;
 
 export const UPDATE_POST = gql`
-  mutation updateArticle($id: ID!, $attributes: ArticleAttributes!) {
+  mutation UpdatePost($id: ID!, $attributes: PostAttributes!) {
     updateArticle(id: $id, attributes: $attributes) {
-      article {
+      post {
         id
         title
       }
@@ -100,7 +99,7 @@ const EditPostPage: FC = () => {
   return (
     <Container>
       <Box>
-        <EnhancedLoginForm {...data.article} />
+        <EnhancedLoginForm {...data.post} />
       </Box>
     </Container>
   );

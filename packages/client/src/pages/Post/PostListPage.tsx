@@ -29,8 +29,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const GET_POSTS = gql`
-  query GetArticles($page: Int, $query: String!, $sort: String!) {
-    articles(page: $page, query: $query, sort: $sort) {
+  query GetPosts($page: Int, $query: String!, $sort: String!) {
+    posts(page: $page, query: $query, sort: $sort) {
       collection {
         id
         title
@@ -48,9 +48,9 @@ const GET_POSTS = gql`
 `;
 
 export const DELETE_POST = gql`
-  mutation destroyArticle($id: ID!) {
-    destroyArticle(id: $id) {
-      article {
+  mutation destroyPost($id: ID!) {
+    destroyPost(id: $id) {
+      post {
         id
         title
       }
@@ -201,7 +201,7 @@ const PostListPage: FC = () => {
   const { loading, error, data, refetch } = useQuery(GET_POSTS, {
     variables: { page, query, sort: sortModel.length === 0 ? 'asc' : sortModel[0].sort },
   });
-  const [destroyArticle] = useMutation(DELETE_POST);
+  const [destroyPost] = useMutation(DELETE_POST);
   let history = useHistory();
 
   const [open, setOpen] = React.useState(false);
@@ -232,7 +232,7 @@ const PostListPage: FC = () => {
   );
 
   const onDeleteUser = async () => {
-    await destroyArticle({
+    await destroyPost({
       variables: {
         id: id,
       },
@@ -272,7 +272,7 @@ const PostListPage: FC = () => {
         ],
       },
     ],
-    [editPost, destroyArticle],
+    [editPost, destroyPost],
   );
 
   if (loading) return <p>'Loading...'</p>;
@@ -282,7 +282,7 @@ const PostListPage: FC = () => {
     <>
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
-          rows={data.articles.collection}
+          rows={data.posts.collection}
           columns={columns}
           loading={loading}
           hideFooterSelectedRowCount={true}
@@ -291,7 +291,7 @@ const PostListPage: FC = () => {
           onPageChange={(newPage) => setNewPage(newPage)}
           pagination
           pageSize={10}
-          rowCount={data.articles.metadata.totalCount}
+          rowCount={data.posts.metadata.totalCount}
           paginationMode="server"
           rowsPerPageOptions={[10]}
           sortingMode="server"

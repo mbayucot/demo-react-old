@@ -8,9 +8,9 @@ import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
 export const CREATE_POST = gql`
-  mutation CreateArticle($title: String!, $body: String!, $tagList: [String!]!) {
-    createArticle(title: $title, body: $body, tagList: $tagList) {
-      article {
+  mutation createPost($title: String!, $body: String!, $tagList: [String!]!) {
+    createPost(title: $title, body: $body, tagList: $tagList) {
+      post {
         id
         title
       }
@@ -27,7 +27,7 @@ import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/P
 
 const NewPostPage: FC = () => {
   let history = useHistory();
-  const [createArticle, { data, loading, error }] = useMutation(CREATE_POST);
+  const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
 
   const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
     mapPropsToValues: () => ({
@@ -39,7 +39,7 @@ const NewPostPage: FC = () => {
     validationSchema: validationSchema,
 
     handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
-      await createArticle({
+      await createPost({
         variables: {
           title: values.title,
           body: values.body,

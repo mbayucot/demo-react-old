@@ -62,9 +62,9 @@ const query = gql`
 `;
 
 export const REACT_POST = gql`
-  mutation reactArticle($id: ID!, $weight: Int!) {
-    reactArticle(id: $id, weight: $weight) {
-      article {
+  mutation reactPost($id: ID!, $weight: Int!) {
+    reactPost(id: $id, weight: $weight) {
+      post {
         id
         title
       }
