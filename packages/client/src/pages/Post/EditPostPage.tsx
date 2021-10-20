@@ -64,6 +64,7 @@ const EditPostPage: FC = () => {
 
   const EnhancedLoginForm = withFormik<
     {
+      id?: number;
       title: string;
       body: string;
       tags: Tag[];
@@ -71,6 +72,7 @@ const EditPostPage: FC = () => {
     LoginFormValues
   >({
     mapPropsToValues: (props) => ({
+      id: props.id || undefined,
       title: props.title || '',
       body: props.body || '',
       tags: props.tags || {},

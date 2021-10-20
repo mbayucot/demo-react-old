@@ -8,6 +8,7 @@ import {
   GridRowId,
   GridOverlay,
   GridSortModel,
+  GridValueGetterParams,
 } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { gql, useQuery, useMutation } from '@apollo/client';
@@ -36,6 +37,12 @@ const GET_POSTS = gql`
         title
         body
         slug
+        updatedAt
+        user {
+          id
+          firstName
+          lastName
+        }
       }
       metadata {
         totalPages
@@ -260,8 +267,15 @@ const PostListPage: FC = () => {
   const columns = React.useMemo(
     () => [
       { field: 'title', headerName: 'Title', width: 150 },
-      { field: 'author', headerName: 'Author', width: 150 },
-      { field: 'date', headerName: 'Date', width: 150 },
+      {
+        field: 'fullName',
+        headerName: 'Full name',
+        description: 'This column has a value getter and is not sortable.',
+        sortable: false,
+        width: 160,
+        valueGetter: (params: GridValueGetterParams) => `${params.row.user.firstName} ${params.row.user.lastName}`,
+      },
+      { field: 'updatedAt', headerName: 'Date', width: 150 },
       {
         field: 'actions',
         type: 'actions',

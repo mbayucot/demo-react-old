@@ -12,6 +12,7 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_POST } from './EditPostPage';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { client } from '../../index';
+import { icons, type2 } from './icon';
 
 type Tag = {
   id: number;
@@ -41,6 +42,14 @@ export const voteWeights: Options = {
   5: 'wow',
   6: 'sad',
   7: 'angry',
+};
+export const weights: any = {
+  like: 1,
+  love: 2,
+  haha: 3,
+  wow: 4,
+  sad: 5,
+  angry: 6,
 };
 
 const GET_TAGS = gql`
@@ -90,7 +99,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
 
   const [reactPost] = useMutation(REACT_POST);
 
-  const [reactionController, setReactionController] = useState({
+  const [reactionController, setReactionController] = useState<{ toggler: boolean; reaction: any }>({
     toggler: false,
     reaction: 'like',
   });
@@ -109,8 +118,8 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
 
     await reactPost({
       variables: {
-        id: 1,
-        weight: 1,
+        id: values.id,
+        weight: weights[reactionController.reaction],
       },
     });
   };
@@ -196,7 +205,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
       <Box>{showComment && <p>Comment box</p>}</Box>
       <Box>
         <button className="mr-4" onClick={handleLikeClick}>
-          Like
+          <img src={icons[reactionController.reaction]} />
         </button>
         <button onClick={handleComment}>Comment</button>
       </Box>
