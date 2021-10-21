@@ -26,6 +26,13 @@ type PostAttributes = {
   tag_list?: string;
 };
 
+export type Comment = {
+  id: number;
+  post_id: number;
+  body: string;
+  children: Comment[];
+};
+
 const GET_POST = gql`
   query GetPost($id: ID!) {
     post(id: $id) {
@@ -36,6 +43,18 @@ const GET_POST = gql`
       tags {
         id
         name
+      }
+      comments {
+        id
+        body
+        postId
+        ancestry
+        children {
+          id
+          body
+          postId
+          ancestry
+        }
       }
     }
   }
@@ -68,6 +87,7 @@ const EditPostPage: FC = () => {
       title: string;
       body: string;
       tags: Tag[];
+      comments: Comment[];
     },
     LoginFormValues
   >({
@@ -76,6 +96,7 @@ const EditPostPage: FC = () => {
       title: props.title || '',
       body: props.body || '',
       tags: props.tags || {},
+      comments: props.comments || [],
     }),
 
     validationSchema: validationSchema,

@@ -1,7 +1,43 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
-const CommentListItem: FC = () => {
-  return <p>Login page</p>;
+import CommentForm from './CommentForm';
+
+export type Comment = {
+  id: number;
+  post_id: number;
+  body: string;
+  children: Comment[];
+};
+
+export interface Comments {
+  post_id: number;
+  children: Comment[];
+  count?: number;
+}
+
+const CommentListItem: FC<Comment> = ({ id, post_id, body, children }) => {
+  const [showReply, setShowReply] = useState<boolean>(false);
+  const [items, setItems] = useState<Comment[]>(children);
+
+  const handleReplyClick = () => {
+    setShowReply(true);
+  };
+
+  const handleSuccess = (comment: Comment) => {
+    setItems([...items, comment]);
+  };
+
+  return (
+    <div>
+      <div className="border-solid">{body}</div>
+      <button onClick={handleReplyClick}>Reply</button>
+      <div className="pl-4">
+        {items && items.map((row: Comment) => <CommentListItem {...row} key={row.id} />)}
+
+        {showReply && <CommentForm post_id={post_id} parent_id={id} onSuccess={handleSuccess} />}
+      </div>
+    </div>
+  );
 };
 
 export default CommentListItem;

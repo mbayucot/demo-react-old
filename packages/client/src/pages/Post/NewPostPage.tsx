@@ -4,7 +4,6 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PostForm from '@demo/client/src/pages/Post/PostForm';
 import { useHistory } from 'react-router-dom';
-
 import { gql, useMutation } from '@apollo/client';
 
 export const CREATE_POST = gql`
@@ -34,6 +33,7 @@ const NewPostPage: FC = () => {
       title: '',
       body: '',
       tags: [],
+      comments: [],
     }),
 
     validationSchema: validationSchema,

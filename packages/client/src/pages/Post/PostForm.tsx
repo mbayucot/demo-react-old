@@ -9,15 +9,22 @@ import Container from '@mui/material/Container';
 import { FacebookSelector } from '@charkour/react-reactions';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
-import { UPDATE_POST } from './EditPostPage';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import debounce from 'debounce';
 import { client } from '../../index';
 import { icons, type2 } from './icon';
-import debounce from 'debounce';
+import CommentList from '../../blog/comment/CommentList';
 
 type Tag = {
   id: number;
   name: string;
+};
+
+export type Comment = {
+  id: number;
+  post_id: number;
+  body: string;
+  children: Comment[];
 };
 
 interface Post {
@@ -26,6 +33,7 @@ interface Post {
   body: string;
   tags: Tag[];
   tag_list?: string[];
+  comments: Comment[];
 }
 
 export type Reaction = 'none' | 'thumb' | 'like' | 'love' | 'haha' | 'wow' | 'sad' | 'angry';
@@ -150,13 +158,6 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
 
   const debouncedChangeHandler = useMemo(() => debounce(handleHideReaction, 1000), []);
 
-  useEffect(() => {
-    return () => {
-      // @ts-ignore
-      debouncedChangeHandler.cancel();
-    };
-  }, []);
-
   const loadOptions = (inputValue: string, callback: (options: any) => void) => {
     client.query({ query, variables: { query: inputValue } }).then((response) => {
       callback(response.data.tags.map((x: any) => ({ value: x.id, label: x.name })));
@@ -229,8 +230,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
           </LoadingButton>
         </Box>
       </Box>
-      <Box>{reactionController.toggler && <FacebookSelector onSelect={handleReaction} />}</Box>
-      <Box>{showComment && <p>Comment box</p>}</Box>
+      <Box>{showComment && values && <CommentList post_id={values.id} children={values.comments} />}</Box>
       <Box>
         <button
           className="mr-4"
