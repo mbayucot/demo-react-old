@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,7 @@ import { UPDATE_POST } from './EditPostPage';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { client } from '../../index';
 import { icons, type2 } from './icon';
+import debounce from 'debounce';
 
 type Tag = {
   id: number;
@@ -44,6 +45,7 @@ export const voteWeights: Options = {
   7: 'angry',
 };
 export const weights: any = {
+  thumb: 0,
   like: 1,
   love: 2,
   haha: 3,
@@ -91,7 +93,7 @@ export const validationSchema = Yup.object().shape({
 const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
   const [showComment, setShowComment] = useState<boolean>(false);
-  const [reaction, setReaction] = useState<Reaction>('none');
+  const [reaction, setReaction] = useState<Reaction>('thumb');
   const [searchText, setSearchText] = useState('');
 
   //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
@@ -101,18 +103,26 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
 
   const [reactionController, setReactionController] = useState<{ toggler: boolean; reaction: any }>({
     toggler: false,
-    reaction: 'like',
+    reaction: 'thumb',
   });
 
-  const handleLikeClick = () => {
-    setReactionController((prevValues) => {
-      return { ...prevValues, toggler: !reactionController.toggler };
+  const handleLikeClick = async () => {
+    setReactionController({
+      toggler: false,
+      reaction: 'thumb',
+    });
+
+    await reactPost({
+      variables: {
+        id: values.id,
+        weight: 0,
+      },
     });
   };
 
   const handleReaction = async (label: string) => {
     setReactionController({
-      toggler: !reactionController.toggler,
+      toggler: false,
       reaction: label,
     });
 
@@ -127,6 +137,25 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const handleComment = () => {
     setShowComment(!showComment);
   };
+
+  const handleHideReaction = () =>
+    setReactionController((prevValues) => {
+      return { ...prevValues, toggler: false };
+    });
+
+  const handleShowReaction = () =>
+    setReactionController((prevValues) => {
+      return { ...prevValues, toggler: true };
+    });
+
+  const debouncedChangeHandler = useMemo(() => debounce(handleHideReaction, 1000), []);
+
+  useEffect(() => {
+    return () => {
+      // @ts-ignore
+      debouncedChangeHandler.cancel();
+    };
+  }, []);
 
   const loadOptions = (inputValue: string, callback: (options: any) => void) => {
     client.query({ query, variables: { query: inputValue } }).then((response) => {
@@ -181,8 +210,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             placeholder="Tags"
             inputId="tags"
             name="tags"
-            // onInputChange={handleInputChange}
-            //defaultValue={values.tags.map((x: any) => ({ value: x.id, label: x.name }))}
+            defaultValue={values.tags.map((x: any) => ({ value: x.id, label: x.name }))}
             loadOptions={loadOptions}
             styles={{
               container: (base) => ({
@@ -204,7 +232,12 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
       <Box>{reactionController.toggler && <FacebookSelector onSelect={handleReaction} />}</Box>
       <Box>{showComment && <p>Comment box</p>}</Box>
       <Box>
-        <button className="mr-4" onClick={handleLikeClick}>
+        <button
+          className="mr-4"
+          onMouseOver={handleShowReaction}
+          onMouseOut={debouncedChangeHandler}
+          onClick={handleLikeClick}
+        >
           <img src={icons[reactionController.reaction]} />
         </button>
         <button onClick={handleComment}>Comment</button>
