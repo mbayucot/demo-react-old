@@ -53,9 +53,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const HomePage: FC = () => {
+const NavBar: FC = () => {
   return (
-    <React.Fragment>
+    <>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
       <AppBar
@@ -84,8 +84,8 @@ const HomePage: FC = () => {
           </Button>
         </Toolbar>
       </AppBar>
-    </React.Fragment>
+    </>
   );
 };
 
-export default HomePage;
+export default NavBar;

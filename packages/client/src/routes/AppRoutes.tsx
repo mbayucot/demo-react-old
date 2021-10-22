@@ -2,8 +2,9 @@ import React, { FC, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
-const Home = lazy(() => import('../pages/HomePage'));
+const Home = lazy(() => import('../pages/Home/HomePage'));
 const Login = lazy(() => import('../user/SignIn/SignInPage'));
 const Register = lazy(() => import('../user/SignUp/SignUpPage'));
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
@@ -16,6 +17,7 @@ const EditUser = lazy(() => import('../pages/User/EditUserPage'));
 const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 const UnAuthorized = lazy(() => import('../pages/UnAuthorizedPage'));
+const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
 
 const AppRoutes: FC = () => {
   return (
@@ -48,6 +50,10 @@ const AppRoutes: FC = () => {
         <PrivateRoute path="/users">
           <UserList />
         </PrivateRoute>
+
+        <Route path="/post/:slug">
+          <PostDetail />
+        </Route>
 
         <PrivateRoute path="/posts/:id/edit">
           <EditPost />
