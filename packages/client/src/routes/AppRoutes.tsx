@@ -18,6 +18,7 @@ const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 const UnAuthorized = lazy(() => import('../pages/UnAuthorizedPage'));
 const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
+const Checkout = lazy(() => import('../pages/Checkout/CheckoutPage'));
 
 const AppRoutes: FC = () => {
   return (
@@ -69,6 +70,10 @@ const AppRoutes: FC = () => {
 
         <PrivateRoute path="/profile">
           <Profile />
+        </PrivateRoute>
+
+        <PrivateRoute path="/checkout">
+          <Checkout />
         </PrivateRoute>
 
         <Route path="*">
