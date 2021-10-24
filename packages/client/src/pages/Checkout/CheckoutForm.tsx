@@ -1,11 +1,23 @@
 import React from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { gql, useMutation } from '@apollo/client';
 
 import CardSection from './CardSection';
+
+export const CREATE_SUBSCRIPTION = gql`
+  mutation CreateSubscription($token: String!) {
+    createSubscription(token: $token) {
+      user {
+        id
+      }
+    }
+  }
+`;
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const [createSubscription, { data, loading, error }] = useMutation(CREATE_SUBSCRIPTION);
 
   const handleSubmit = async (event: any) => {
     // We don't want to let default form submission happen here,
@@ -33,20 +45,11 @@ export default function CheckoutForm() {
   };
 
   const stripeTokenHandler = async (token: any) => {
-    const paymentData = { token: token.id };
-
-    // Use fetch to send the token ID and any other payment data to your server.
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    const response = await fetch('/charge', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    await createSubscription({
+      variables: {
+        token: token.id,
       },
-      body: JSON.stringify(paymentData),
     });
-
-    // Return and display the result of the charge.
-    return response.json();
   };
 
   return (
