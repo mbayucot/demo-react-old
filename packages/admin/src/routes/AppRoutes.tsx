@@ -3,6 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import { AbilityContext, defineAbilityFor } from '../config/can';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 
 const Home = lazy(() => import('../pages/Home/HomePage'));
 const Login = lazy(() => import('../user/SignIn/SignInPage'));
@@ -21,70 +24,75 @@ const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
 const Checkout = lazy(() => import('../pages/Checkout/CheckoutPage'));
 
 const AppRoutes: FC = () => {
+  const user = useSelector((state: RootState) => state.authentication.user);
+  const ability = defineAbilityFor(user);
+
   return (
-    <Suspense fallback={<CircularProgress />}>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+    <AbilityContext.Provider value={ability}>
+      <Suspense fallback={<CircularProgress />}>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
 
-        <Route path="/login">
-          <Login />
-        </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
 
-        <Route path="/register">
-          <Register />
-        </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
 
-        <PrivateRoute path="/dashboard">
-          <Dashboard />
-        </PrivateRoute>
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
 
-        <PrivateRoute path="/users/:id/edit">
-          <EditUser />
-        </PrivateRoute>
+          <PrivateRoute path="/users/:id/edit">
+            <EditUser />
+          </PrivateRoute>
 
-        <PrivateRoute path="/users/new">
-          <NewUser />
-        </PrivateRoute>
+          <PrivateRoute path="/users/new">
+            <NewUser />
+          </PrivateRoute>
 
-        <PrivateRoute path="/users">
-          <UserList />
-        </PrivateRoute>
+          <PrivateRoute path="/users">
+            <UserList />
+          </PrivateRoute>
 
-        <Route path="/post/:slug">
-          <PostDetail />
-        </Route>
+          <Route path="/post/:slug">
+            <PostDetail />
+          </Route>
 
-        <PrivateRoute path="/posts/:id/edit">
-          <EditPost />
-        </PrivateRoute>
+          <PrivateRoute path="/posts/:id/edit">
+            <EditPost />
+          </PrivateRoute>
 
-        <PrivateRoute path="/posts/new">
-          <NewPost />
-        </PrivateRoute>
+          <PrivateRoute path="/posts/new">
+            <NewPost />
+          </PrivateRoute>
 
-        <PrivateRoute path="/posts">
-          <PostList />
-        </PrivateRoute>
+          <PrivateRoute path="/posts">
+            <PostList />
+          </PrivateRoute>
 
-        <PrivateRoute path="/profile">
-          <Profile />
-        </PrivateRoute>
+          <PrivateRoute path="/profile">
+            <Profile />
+          </PrivateRoute>
 
-        <PrivateRoute path="/checkout">
-          <Checkout />
-        </PrivateRoute>
+          <PrivateRoute path="/checkout">
+            <Checkout />
+          </PrivateRoute>
 
-        <Route path="*">
-          <NoMatch />
-        </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
 
-        <Route path="/unauthorized">
-          <UnAuthorized />
-        </Route>
-      </Switch>
-    </Suspense>
+          <Route path="/unauthorized">
+            <UnAuthorized />
+          </Route>
+        </Switch>
+      </Suspense>
+    </AbilityContext.Provider>
   );
 };
 
