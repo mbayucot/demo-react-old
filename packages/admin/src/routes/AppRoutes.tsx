@@ -1,0 +1,91 @@
+import React, { FC, lazy, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+
+const Home = lazy(() => import('../pages/Home/HomePage'));
+const Login = lazy(() => import('../user/SignIn/SignInPage'));
+const Register = lazy(() => import('../user/SignUp/SignUpPage'));
+const Dashboard = lazy(() => import('../pages/DashboardPage'));
+const NoMatch = lazy(() => import('../pages/NoMatchPage'));
+const UserList = lazy(() => import('../pages/User/UserListPage'));
+const PostList = lazy(() => import('../pages/Post/PostListPage'));
+const Profile = lazy(() => import('../user/Profile/ProfilePage'));
+const NewUser = lazy(() => import('../pages/User/NewUserPage'));
+const EditUser = lazy(() => import('../pages/User/EditUserPage'));
+const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
+const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
+const UnAuthorized = lazy(() => import('../pages/UnAuthorizedPage'));
+const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
+const Checkout = lazy(() => import('../pages/Checkout/CheckoutPage'));
+
+const AppRoutes: FC = () => {
+  return (
+    <Suspense fallback={<CircularProgress />}>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+
+        <Route path="/login">
+          <Login />
+        </Route>
+
+        <Route path="/register">
+          <Register />
+        </Route>
+
+        <PrivateRoute path="/dashboard">
+          <Dashboard />
+        </PrivateRoute>
+
+        <PrivateRoute path="/users/:id/edit">
+          <EditUser />
+        </PrivateRoute>
+
+        <PrivateRoute path="/users/new">
+          <NewUser />
+        </PrivateRoute>
+
+        <PrivateRoute path="/users">
+          <UserList />
+        </PrivateRoute>
+
+        <Route path="/post/:slug">
+          <PostDetail />
+        </Route>
+
+        <PrivateRoute path="/posts/:id/edit">
+          <EditPost />
+        </PrivateRoute>
+
+        <PrivateRoute path="/posts/new">
+          <NewPost />
+        </PrivateRoute>
+
+        <PrivateRoute path="/posts">
+          <PostList />
+        </PrivateRoute>
+
+        <PrivateRoute path="/profile">
+          <Profile />
+        </PrivateRoute>
+
+        <PrivateRoute path="/checkout">
+          <Checkout />
+        </PrivateRoute>
+
+        <Route path="*">
+          <NoMatch />
+        </Route>
+
+        <Route path="/unauthorized">
+          <UnAuthorized />
+        </Route>
+      </Switch>
+    </Suspense>
+  );
+};
+
+export default AppRoutes;

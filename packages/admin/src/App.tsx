@@ -1,10 +1,19 @@
 import React, { ReactElement } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import AppRoutes from './routes/AppRoutes';
+import ErrorFallbackPage from './pages/ErrorFallbackPage';
 
 const App = (): ReactElement => {
   return (
-    <div className="App">
-      <p>Hello World</p>
-    </div>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallbackPage}
+      onReset={() => {
+        window.location.reload();
+      }}
+    >
+      <AppRoutes />
+    </ErrorBoundary>
   );
 };
 
