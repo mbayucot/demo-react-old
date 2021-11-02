@@ -33,8 +33,7 @@ const GET_USERS = gql`
       collection {
         id
         email
-        firstName
-        lastName
+        name
       }
       metadata {
         totalPages

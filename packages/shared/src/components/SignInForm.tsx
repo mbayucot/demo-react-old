@@ -12,43 +12,26 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface User {
   email: string;
   password: string;
-  first_name: string;
-  last_name: string;
-  //role: string;
 }
 
-export type LoginFormValues = User;
+export type LoginFormValues = Pick<User, 'email' | 'password'>;
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
-  first_name: Yup.string()
-    .required('First name is required')
-    .min(2, 'First name is too short')
-    .max(32, 'First name is too long'),
-  last_name: Yup.string()
-    .required('Last name is required')
-    .min(2, 'Last name is too short')
-    .max(32, 'Last name is too long'),
-  //role: Yup.string().required('Role is required'),
   password: Yup.string()
-    .min(8, 'Password is too short')
-    .max(20, 'Password is too long')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      'Must contain 8 characters, one uppercase, one\n' +
-        '                lowercase, one Number and one special case character',
-    ),
+    //.min(8, 'Password is too short')
+    //.max(20, 'Password is too long')
+    .required('Password is required'),
 });
 
-const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const SignInForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
 
   return (
@@ -62,6 +45,12 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
           alignItems: 'center',
         }}
       >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -81,34 +70,6 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
             margin="normal"
             required
             fullWidth
-            id="first_name"
-            label="First name"
-            name="first_name"
-            autoComplete="first_name"
-            autoFocus
-            value={values.first_name}
-            onChange={handleChange}
-            error={touched.first_name && Boolean(errors.first_name)}
-            helperText={touched.first_name && errors.first_name}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="last_name"
-            label="Last name"
-            name="last_name"
-            autoComplete="last_name"
-            autoFocus
-            value={values.last_name}
-            onChange={handleChange}
-            error={touched.last_name && Boolean(errors.last_name)}
-            helperText={touched.last_name && errors.last_name}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
             name="password"
             label="Password"
             type="password"
@@ -119,13 +80,28 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />
-          <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
-            Update Profile
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+          <LoadingButton
+            type="submit"
+            loading={isSubmitting}
+            loadingIndicator="Loading..."
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
           </LoadingButton>
+          <Grid container>
+            <Grid item>
+              <Link component={RouterLink} to={'/register'} variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
   );
 };
 
-export default ProfileForm;
+export default SignInForm;

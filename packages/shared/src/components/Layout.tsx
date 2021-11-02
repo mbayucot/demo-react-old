@@ -24,7 +24,6 @@ import Menu from '@mui/material/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { logout } from '../../features/authentication/authenticationSlice';
-import { useHistory } from 'react-router-dom';
 
 const drawerWidth: number = 240;
 
@@ -84,7 +83,6 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-  let history = useHistory();
   const authState = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(true);
@@ -99,11 +97,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleProfile = () => {
-    history.push('/profile');
-    handleClose();
   };
 
   const handleLogout = () => {
@@ -162,7 +155,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

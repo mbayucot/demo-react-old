@@ -9,7 +9,6 @@ import { RootState } from '../app/store';
 
 const Home = lazy(() => import('../pages/Home/HomePage'));
 const Login = lazy(() => import('../user/SignIn/SignInPage'));
-const Register = lazy(() => import('../user/SignUp/SignUpPage'));
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
 const NoMatch = lazy(() => import('../pages/NoMatchPage'));
 const UserList = lazy(() => import('../pages/User/UserListPage'));
@@ -21,7 +20,6 @@ const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 const UnAuthorized = lazy(() => import('../pages/UnAuthorizedPage'));
 const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
-const Checkout = lazy(() => import('../pages/Checkout/CheckoutPage'));
 
 const AppRoutes: FC = () => {
   const user = useSelector((state: RootState) => state.authentication.user);
@@ -37,10 +35,6 @@ const AppRoutes: FC = () => {
 
           <Route path="/login">
             <Login />
-          </Route>
-
-          <Route path="/register">
-            <Register />
           </Route>
 
           <PrivateRoute path="/dashboard">
@@ -77,10 +71,6 @@ const AppRoutes: FC = () => {
 
           <PrivateRoute path="/profile">
             <Profile />
-          </PrivateRoute>
-
-          <PrivateRoute path="/checkout">
-            <Checkout />
           </PrivateRoute>
 
           <Route path="*">

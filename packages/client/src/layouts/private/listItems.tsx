@@ -28,12 +28,6 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Posts" />
       </ListItem>
-      <ListItem button onClick={() => history.push('/users')}>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItem>
     </div>
   );
 };

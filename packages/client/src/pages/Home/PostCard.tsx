@@ -5,14 +5,17 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
+import TagList from '../TagList';
+
 interface PostCardProps {
   id: number;
   title: string;
   body: string;
   slug: string;
+  tagList: string[];
 }
 
-const PostCard: FC<PostCardProps> = ({ id, title, body, slug }) => {
+const PostCard: FC<PostCardProps> = ({ id, title, body, slug, tagList }) => {
   return (
     <Card>
       <CardContent>
@@ -24,6 +27,7 @@ const PostCard: FC<PostCardProps> = ({ id, title, body, slug }) => {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {body}
         </Typography>
+        <TagList tag_list={tagList} />
       </CardContent>
       <CardActions></CardActions>
     </Card>

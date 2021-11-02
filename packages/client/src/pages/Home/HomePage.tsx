@@ -14,6 +14,7 @@ const GET_POSTS = gql`
         body
         slug
         updatedAt
+        tagList
         user {
           id
           firstName

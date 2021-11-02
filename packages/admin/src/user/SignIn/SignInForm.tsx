@@ -91,13 +91,6 @@ const SignInForm = (props: FormikProps<LoginFormValues>): React.ReactElement => 
           >
             Sign In
           </LoadingButton>
-          <Grid container>
-            <Grid item>
-              <Link component={RouterLink} to={'/register'} variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>

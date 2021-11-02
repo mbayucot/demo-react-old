@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-const TagList: FC = () => {
+const SettingsPage: FC = () => {
   return <p>Home page</p>;
 };
 
-export default TagList;
+export default SettingsPage;
