@@ -4,18 +4,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
+import { NoMatchPage, UnAuthorizedPage } from '@demo/shared';
+
 const Home = lazy(() => import('../pages/Home/HomePage'));
 const Login = lazy(() => import('../user/SignIn/SignInPage'));
 const Register = lazy(() => import('../user/SignUp/SignUpPage'));
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
-const NoMatch = lazy(() => import('../pages/NoMatchPage'));
 const PostList = lazy(() => import('../pages/Post/PostListPage'));
 const Profile = lazy(() => import('../user/Profile/ProfilePage'));
 const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
-const UnAuthorized = lazy(() => import('../pages/UnAuthorizedPage'));
 const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
 const Checkout = lazy(() => import('../pages/Checkout/CheckoutPage'));
+const NoMatch = NoMatchPage;
+const UnAuthorized = UnAuthorizedPage;
 
 const AppRoutes: FC = () => {
   return (
