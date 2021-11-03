@@ -1,4 +1,3 @@
-export { default as Button } from './Button/Button';
 export { default as ConfirmDialog } from './components/ConfirmDialog';
 export { default as SearchBar } from './components/SearchBar';
 export { default as NoRowsOverlay } from './components/NoRowsOverlay';

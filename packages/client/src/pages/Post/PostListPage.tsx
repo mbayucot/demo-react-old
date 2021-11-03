@@ -1,32 +1,20 @@
 import React, { FC, useState } from 'react';
 import {
   DataGrid,
-  GridColDef,
   GridToolbarContainer,
   GridToolbarExport,
   GridActionsCellItem,
   GridRowId,
-  GridOverlay,
   GridSortModel,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import ClearIcon from '@mui/icons-material/Clear';
-import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
 
 const GET_POSTS = gql`

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import AppRoutes from './routes/AppRoutes';
-import ErrorFallbackPage from './pages/ErrorFallbackPage';
+import { ErrorFallbackPage } from '@demo/shared';
 
 const App = (): ReactElement => {
   return (
