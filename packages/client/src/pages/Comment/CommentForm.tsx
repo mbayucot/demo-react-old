@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
-import { REACT_POST } from '../Post/PostForm';
 
 export type Comment = {
   id: number;

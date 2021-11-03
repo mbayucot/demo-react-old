@@ -40,8 +40,6 @@ const CommentForm: FC<CommentFormProps> = ({ post_id, parent_id, onSuccess }) =>
     setSearchText(e.currentTarget.value);
   };
 
-  console.log(post_id);
-
   const handleSubmit = async (value: string) => {
     try {
       await createComment({

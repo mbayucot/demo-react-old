@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,14 +6,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
-import { FacebookSelector } from '@charkour/react-reactions';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import AsyncCreatableSelect from 'react-select/async-creatable';
-import debounce from 'debounce';
 import { client } from '../../index';
-import { icons, type2 } from './icon';
-import CommentList from '../../blog/comment/CommentList';
 
 type Tag = {
   id: number;
@@ -36,32 +31,6 @@ interface Post {
   comments: Comment[];
 }
 
-export type Reaction = 'none' | 'thumb' | 'like' | 'love' | 'haha' | 'wow' | 'sad' | 'angry';
-
-type Options = {
-  [key: number]: Reaction;
-};
-
-export const voteWeights: Options = {
-  0: 'none',
-  1: 'thumb',
-  2: 'like',
-  3: 'love',
-  4: 'haha',
-  5: 'wow',
-  6: 'sad',
-  7: 'angry',
-};
-export const weights: any = {
-  thumb: 0,
-  like: 1,
-  love: 2,
-  haha: 3,
-  wow: 4,
-  sad: 5,
-  angry: 6,
-};
-
 const GET_TAGS = gql`
   query GetTags {
     tags {
@@ -80,17 +49,6 @@ const query = gql`
   }
 `;
 
-export const REACT_POST = gql`
-  mutation reactPost($id: ID!, $weight: Int!) {
-    reactPost(id: $id, weight: $weight) {
-      post {
-        id
-        title
-      }
-    }
-  }
-`;
-
 export type LoginFormValues = Post;
 
 export const validationSchema = Yup.object().shape({
@@ -100,63 +58,9 @@ export const validationSchema = Yup.object().shape({
 
 const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
-  const [showComment, setShowComment] = useState<boolean>(false);
-  const [reaction, setReaction] = useState<Reaction>('thumb');
-  const [searchText, setSearchText] = useState('');
 
   //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
   const { loading, error, data } = useQuery(GET_TAGS);
-
-  const [reactPost] = useMutation(REACT_POST);
-
-  const [reactionController, setReactionController] = useState<{ toggler: boolean; reaction: any }>({
-    toggler: false,
-    reaction: 'thumb',
-  });
-
-  const handleLikeClick = async () => {
-    setReactionController({
-      toggler: false,
-      reaction: 'thumb',
-    });
-
-    await reactPost({
-      variables: {
-        id: values.id,
-        weight: 0,
-      },
-    });
-  };
-
-  const handleReaction = async (label: string) => {
-    setReactionController({
-      toggler: false,
-      reaction: label,
-    });
-
-    await reactPost({
-      variables: {
-        id: values.id,
-        weight: weights[reactionController.reaction],
-      },
-    });
-  };
-
-  const handleComment = () => {
-    setShowComment(!showComment);
-  };
-
-  const handleHideReaction = () =>
-    setReactionController((prevValues) => {
-      return { ...prevValues, toggler: false };
-    });
-
-  const handleShowReaction = () =>
-    setReactionController((prevValues) => {
-      return { ...prevValues, toggler: true };
-    });
-
-  const debouncedChangeHandler = useMemo(() => debounce(handleHideReaction, 1000), []);
 
   const loadOptions = (inputValue: string, callback: (options: any) => void) => {
     client.query({ query, variables: { query: inputValue } }).then((response) => {
@@ -229,18 +133,6 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             Save
           </LoadingButton>
         </Box>
-      </Box>
-      <Box>{showComment && values && <CommentList post_id={values.id} children={values.comments} />}</Box>
-      <Box>
-        <button
-          className="mr-4"
-          onMouseOver={handleShowReaction}
-          onMouseOut={debouncedChangeHandler}
-          onClick={handleLikeClick}
-        >
-          <img src={icons[reactionController.reaction]} />
-        </button>
-        <button onClick={handleComment}>Comment</button>
       </Box>
     </Container>
   );
