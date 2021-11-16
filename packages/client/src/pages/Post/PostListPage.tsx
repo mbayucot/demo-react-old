@@ -14,44 +14,10 @@ import SecurityIcon from '@mui/icons-material/Security';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router-dom';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
-
-const GET_POSTS = gql`
-  query GetPosts($page: Int, $query: String!, $sort: String!) {
-    posts(page: $page, query: $query, sort: $sort) {
-      collection {
-        id
-        title
-        body
-        slug
-        updatedAt
-        user {
-          id
-          firstName
-          lastName
-        }
-      }
-      metadata {
-        totalPages
-        totalCount
-        currentPage
-        limitValue
-      }
-    }
-  }
-`;
-
-export const DELETE_POST = gql`
-  mutation destroyPost($id: ID!) {
-    destroyPost(id: $id) {
-      post {
-        id
-        title
-      }
-    }
-  }
-`;
+import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
+import { DELETE_POST } from '../../operations/mutations/deletePost';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(
@@ -102,7 +68,7 @@ const PostListPage: FC = () => {
   const [query, setSearchText] = React.useState('');
   const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'date', sort: 'asc' }]);
 
-  const { loading, error, data, refetch } = useQuery(GET_POSTS, {
+  const { loading, error, data, refetch } = useQuery(GET_ALL_POSTS, {
     variables: { page, query, sort: sortModel.length === 0 ? 'asc' : sortModel[0].sort },
   });
   const [destroyPost] = useMutation(DELETE_POST);

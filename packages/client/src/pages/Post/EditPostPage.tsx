@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
+import { GET_POST } from '../../operations/queries/getPost';
+import { UPDATE_POST } from '../../operations/mutations/updatePost';
 
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
@@ -32,44 +34,6 @@ export type Comment = {
   body: string;
   children: Comment[];
 };
-
-const GET_POST = gql`
-  query GetPost($id: ID!) {
-    post(id: $id) {
-      id
-      title
-      body
-      slug
-      tags {
-        id
-        name
-      }
-      comments {
-        id
-        body
-        postId
-        ancestry
-        children {
-          id
-          body
-          postId
-          ancestry
-        }
-      }
-    }
-  }
-`;
-
-export const UPDATE_POST = gql`
-  mutation UpdatePost($id: ID!, $attributes: PostAttributes!) {
-    updateArticle(id: $id, attributes: $attributes) {
-      post {
-        id
-        title
-      }
-    }
-  }
-`;
 
 const EditPostPage: FC = () => {
   let history = useHistory();

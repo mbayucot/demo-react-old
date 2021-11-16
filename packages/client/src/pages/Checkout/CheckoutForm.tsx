@@ -1,18 +1,9 @@
 import React from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { CREATE_SUBSCRIPTION } from '../../operations/mutations/createSubscription';
 
 import CardSection from './CardSection';
-
-export const CREATE_SUBSCRIPTION = gql`
-  mutation CreateSubscription($token: String!) {
-    createSubscription(token: $token) {
-      user {
-        id
-      }
-    }
-  }
-`;
 
 export default function CheckoutForm() {
   const stripe = useStripe();

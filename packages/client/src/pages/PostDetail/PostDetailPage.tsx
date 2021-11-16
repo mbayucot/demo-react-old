@@ -1,58 +1,17 @@
 import React, { FC, useMemo, useState } from 'react';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useMutation } from '@apollo/client';
+import { GET_POST } from '../../operations/queries/getPost';
+import { REACT_POST } from '../../operations/mutations/reactPost';
 
-import { Reaction } from '@demo/shared';
 import debounce from 'debounce';
-import CommentList from '../../blog/comment/CommentList';
 
 type Params = {
   slug: string;
 };
-
-const GET_POST = gql`
-  query GetPost($id: ID!) {
-    post(id: $id) {
-      id
-      title
-      body
-      slug
-      tags {
-        id
-        name
-      }
-      comments {
-        id
-        body
-        postId
-        ancestry
-        children {
-          id
-          body
-          postId
-          ancestry
-        }
-      }
-    }
-  }
-`;
-
-export const REACT_POST = gql`
-  mutation reactPost($id: ID!, $weight: Int!) {
-    reactPost(id: $id, weight: $weight) {
-      post {
-        id
-        title
-      }
-    }
-  }
-`;
 
 export const weights: any = {
   thumb: 0,

@@ -4,18 +4,8 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PostForm from '@demo/client/src/pages/Post/PostForm';
 import { useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
-
-export const CREATE_POST = gql`
-  mutation createPost($title: String!, $body: String!, $tagList: [String!]!) {
-    createPost(title: $title, body: $body, tagList: $tagList) {
-      post {
-        id
-        title
-      }
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { CREATE_POST } from '../../operations/mutations/createPost';
 
 type Tag = {
   id: number;

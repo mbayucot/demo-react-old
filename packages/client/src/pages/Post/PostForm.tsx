@@ -60,7 +60,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
 
   //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
-  const { loading, error, data } = useQuery(GET_TAGS);
+  //const { loading, error, data } = useQuery(GET_TAGS);
 
   const loadOptions = (inputValue: string, callback: (options: any) => void) => {
     client.query({ query, variables: { query: inputValue } }).then((response) => {

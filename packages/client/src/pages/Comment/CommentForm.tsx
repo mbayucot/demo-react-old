@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
+import { CREATE_COMMENT } from '../../operations/mutations/createComment';
 
 export type Comment = {
   id: number;
@@ -15,18 +16,6 @@ export interface CommentFormProps {
   postId: number;
   onSuccess: (comment: Comment) => void;
 }
-
-export const CREATE_COMMENT = gql`
-  mutation CreateComment($postId: ID!, $body: String!, $parentId: ID!) {
-    createComment(postId: $postId, body: $body, parentId: $parentId) {
-      comment {
-        id
-        body
-        parentId
-      }
-    }
-  }
-`;
 
 const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
   const [searchText, setSearchText] = useState<string>('');

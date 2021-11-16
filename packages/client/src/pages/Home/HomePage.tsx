@@ -3,38 +3,12 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 
 import NavBar from './NavBar';
 import PostCard from './PostCard';
-import CommentListItem from '../../blog/comment/CommentListItem';
-
-const GET_POSTS = gql`
-  query GetPosts($page: Int, $query: String!) {
-    posts(page: $page, query: $query) {
-      collection {
-        id
-        title
-        body
-        slug
-        updatedAt
-        tagList
-        user {
-          id
-          firstName
-          lastName
-        }
-      }
-      metadata {
-        totalPages
-        totalCount
-        currentPage
-        limitValue
-      }
-    }
-  }
-`;
+import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
 
 const HomePage: FC = () => {
   const [query, setSearchText] = React.useState('');
 
-  const { loading, error, data, refetch } = useQuery(GET_POSTS, {
+  const { loading, error, data, refetch } = useQuery(GET_ALL_POSTS, {
     variables: { query },
   });
 
