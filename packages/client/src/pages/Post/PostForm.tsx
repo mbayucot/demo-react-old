@@ -9,27 +9,7 @@ import Container from '@mui/material/Container';
 import { gql, useQuery } from '@apollo/client';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { client } from '../../index';
-
-type Tag = {
-  id: number;
-  name: string;
-};
-
-export type Comment = {
-  id: number;
-  post_id: number;
-  body: string;
-  children: Comment[];
-};
-
-interface Post {
-  id?: number;
-  title: string;
-  body: string;
-  tags: Tag[];
-  tag_list?: string[];
-  comments: Comment[];
-}
+import { Tag, Comment, Post } from '../../types/index';
 
 const GET_TAGS = gql`
   query GetTags {

@@ -3,18 +3,8 @@ import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import UserForm from '@demo/admin/src/pages/User/UserForm';
-import { gql, useMutation } from '@apollo/client';
-
-export const CREATE_USER = gql`
-  mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!) {
-    createUser(email: $email, firstName: $firstName, lastName: $lastName, password: $password) {
-      user {
-        id
-        email
-      }
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../../operations/mutations/createUser';
 
 import { LoginFormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
 

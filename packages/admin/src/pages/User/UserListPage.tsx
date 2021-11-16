@@ -9,48 +9,15 @@ import {
   GridOverlay,
 } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import ClearIcon from '@mui/icons-material/Clear';
-import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
-
-const GET_USERS = gql`
-  query GetUsers($page: Int, $query: String!) {
-    users(page: $page, query: $query) {
-      collection {
-        id
-        email
-        name
-      }
-      metadata {
-        totalPages
-        totalCount
-        currentPage
-        limitValue
-      }
-    }
-  }
-`;
-
-export const DELETE_USER = gql`
-  mutation destroyUser($id: ID!) {
-    destroyUser(id: $id) {
-      user {
-        id
-        email
-      }
-    }
-  }
-`;
+import { GET_USERS } from '../../operations/queries/getUsers';
+import { DELETE_USER } from '../../operations/mutations/deleteUser';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(

@@ -6,6 +6,8 @@ import UserForm from '@demo/admin/src/pages/User/UserForm';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
+import { GET_USER } from '../../operations/queries/getUser';
+import { UPDATE_USER } from '../../user/Profile/ProfilePage';
 
 import { LoginFormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
 
@@ -19,28 +21,6 @@ type UserAttributes = {
   lastName?: string;
   password?: string;
 };
-
-const GET_USER = gql`
-  query GetUser($id: ID!) {
-    user(id: $id) {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-`;
-
-export const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $attributes: UserAttributes!) {
-    updateUser(id: $id, attributes: $attributes) {
-      user {
-        id
-        email
-      }
-    }
-  }
-`;
 
 const EditUserPage: FC = () => {
   let { id } = useParams<Params>();

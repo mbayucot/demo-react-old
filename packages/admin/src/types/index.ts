@@ -20,6 +20,14 @@ export interface Post {
   comments: Comment[];
 }
 
+interface User {
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+}
+
 export type Tag = {
   id: number;
   name: string;

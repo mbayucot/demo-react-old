@@ -6,11 +6,7 @@ import PostForm from '@demo/client/src/pages/Post/PostForm';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../../operations/mutations/createPost';
-
-type Tag = {
-  id: number;
-  name: string;
-};
+import { Tag } from '../../types/index';
 
 import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
