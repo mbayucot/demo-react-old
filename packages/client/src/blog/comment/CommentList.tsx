@@ -5,18 +5,18 @@ import CommentForm from './CommentForm';
 
 export type Comment = {
   id: number;
-  post_id: number;
+  postId: number;
   body: string;
   children: Comment[];
 };
 
 export interface Comments {
-  post_id?: number;
+  postId?: number;
   children: Comment[];
   count?: number;
 }
 
-const CommentList: FC<Comments> = ({ post_id, children }) => {
+const CommentList: FC<Comments> = ({ postId, children }) => {
   const [items, setItems] = useState<Comment[]>(children);
 
   const handleSuccess = (comment: Comment) => {
@@ -26,9 +26,9 @@ const CommentList: FC<Comments> = ({ post_id, children }) => {
   return (
     <>
       {items.map((row: any) => (
-        <CommentListItem {...row} post_id={row.postId} key={row.id} />
+        <CommentListItem {...row} postId={row.postId} key={row.id} />
       ))}
-      <CommentForm post_id={post_id} onSuccess={handleSuccess} />
+      <CommentForm postId={postId} onSuccess={handleSuccess} />
     </>
   );
 };

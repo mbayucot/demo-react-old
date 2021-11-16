@@ -4,12 +4,12 @@ import CommentForm from './CommentForm';
 
 export type Comment = {
   id: number;
-  article_id: number;
+  post_id: number;
   body: string;
   children: Comment[];
 };
 
-const CommentListItem: FC<Comment> = ({ id, article_id, body, children }) => {
+const CommentListItem: FC<Comment> = ({ id, post_id, body, children }) => {
   const [showReply, setShowReply] = useState<boolean>(false);
   const [items, setItems] = useState<Comment[]>(children);
 
@@ -28,7 +28,7 @@ const CommentListItem: FC<Comment> = ({ id, article_id, body, children }) => {
       <div>
         {items && items.map((row: Comment) => <CommentListItem {...row} key={row.id} />)}
 
-        {showReply && <CommentForm article_id={article_id} parent_id={id} onSuccess={handleSuccess} />}
+        {showReply && <CommentForm post_id={post_id} parent_id={id} onSuccess={handleSuccess} />}
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 
 import NavBar from './NavBar';
 import PostCard from './PostCard';
-import CommentListItem from '../../blog/comment/CommentListItem';
 
 const GET_POSTS = gql`
   query GetPosts($page: Int, $query: String!) {

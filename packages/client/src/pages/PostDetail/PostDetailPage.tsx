@@ -146,7 +146,7 @@ const PostDetailPage: FC = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Box>{showComment && data && <CommentList post_id={data.post.id} children={data.post.comments} />}</Box>
+        <Box>{showComment && data && <CommentList postId={data.post.id} children={data.post.comments} />}</Box>
         <Reaction
           handleShowReaction={handleShowReaction}
           debouncedChangeHandler={debouncedChangeHandler}

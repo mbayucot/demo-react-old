@@ -3,14 +3,14 @@ import { gql, useMutation } from '@apollo/client';
 
 export type Comment = {
   id: number;
-  post_id: number;
+  postId: number;
   body: string;
   children: Comment[];
 };
 
 interface CommentFormProps {
-  parent_id?: number;
-  post_id?: number;
+  parentId?: number;
+  postId?: number;
   onSuccess: (result: Comment) => void;
 }
 
@@ -31,7 +31,7 @@ export const CREATE_COMMENT = gql`
   }
 `;
 
-const CommentForm: FC<CommentFormProps> = ({ post_id, parent_id, onSuccess }) => {
+const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
   const [searchText, setSearchText] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [createComment, { data, loading }] = useMutation(CREATE_COMMENT);
@@ -40,15 +40,15 @@ const CommentForm: FC<CommentFormProps> = ({ post_id, parent_id, onSuccess }) =>
     setSearchText(e.currentTarget.value);
   };
 
-  console.log(post_id);
+  console.log(postId);
 
   const handleSubmit = async (value: string) => {
     try {
       await createComment({
         variables: {
-          postId: post_id,
+          postId: postId,
           body: value,
-          parentId: parent_id || null,
+          parentId: parentId || null,
         },
       });
       if (!loading && data) {
