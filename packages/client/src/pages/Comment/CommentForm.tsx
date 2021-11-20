@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { CREATE_COMMENT } from '../../operations/mutations/createComment';
 
