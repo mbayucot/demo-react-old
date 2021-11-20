@@ -18,6 +18,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
 import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
 import { DELETE_POST } from '../../operations/mutations/deletePost';
+import { GET_USERS } from '@demo/admin/src/operations/queries/getUsers';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(
@@ -64,6 +65,7 @@ const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarPro
 };
 
 const PostListPage: FC = () => {
+  let history = useHistory();
   const [page, setPage] = useState(0);
   const [query, setSearchText] = React.useState('');
   const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'date', sort: 'asc' }]);
@@ -71,8 +73,9 @@ const PostListPage: FC = () => {
   const { loading, error, data, refetch } = useQuery(GET_ALL_POSTS, {
     variables: { page, query, sort: sortModel.length === 0 ? 'asc' : sortModel[0].sort },
   });
-  const [destroyPost] = useMutation(DELETE_POST);
-  let history = useHistory();
+  const [destroyPost] = useMutation(DELETE_POST, {
+    refetchQueries: [{ query: GET_ALL_POSTS }],
+  });
 
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState<GridRowId>();

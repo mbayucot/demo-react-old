@@ -4,12 +4,15 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import UserForm from '@demo/admin/src/pages/User/UserForm';
 import { useMutation } from '@apollo/client';
+import { GET_USERS } from '../../operations/queries/getUsers';
 import { CREATE_USER } from '../../operations/mutations/createUser';
 
 import { FormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
 
 const NewUserPage: FC = () => {
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+  const [createUser, { data, loading, error }] = useMutation(CREATE_USER, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
 
   const EnhancedLoginForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({

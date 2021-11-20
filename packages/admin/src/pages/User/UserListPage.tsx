@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
 import { GET_USERS } from '../../operations/queries/getUsers';
 import { DELETE_USER } from '../../operations/mutations/deleteUser';
+import { GET_ALL_POSTS } from '@demo/client/src/operations/queries/getAllPosts';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(
@@ -64,13 +65,15 @@ const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarPro
 };
 
 const UserListPage: FC = () => {
+  let history = useHistory();
   const [page, setPage] = useState(0);
   const [query, setSearchText] = React.useState('');
   const { loading, error, data, refetch } = useQuery(GET_USERS, {
     variables: { page, query },
   });
-  const [destroyUser] = useMutation(DELETE_USER);
-  let history = useHistory();
+  const [destroyUser] = useMutation(DELETE_USER, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
 
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState<GridRowId>();

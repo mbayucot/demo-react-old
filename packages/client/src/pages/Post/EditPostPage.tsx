@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { GET_POST } from '../../operations/queries/getPost';
 import { UPDATE_POST } from '../../operations/mutations/updatePost';
+import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
 
 import { FormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
@@ -24,7 +25,9 @@ const EditPostPage: FC = () => {
     variables: { id: id },
   });
 
-  const [updatePost] = useMutation(UPDATE_POST);
+  const [updatePost] = useMutation(UPDATE_POST, {
+    refetchQueries: [{ query: GET_ALL_POSTS }],
+  });
 
   const EnhancedLoginForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({

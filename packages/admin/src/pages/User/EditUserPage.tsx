@@ -6,8 +6,10 @@ import UserForm from '@demo/admin/src/pages/User/UserForm';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { GET_USER } from '../../operations/queries/getUser';
-import { UPDATE_USER } from '../../user/Profile/ProfilePage';
+import { GET_USERS } from '../../operations/queries/getUsers';
+import { UPDATE_USER } from '../../operations/mutations/updateUser';
 
 import { FormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
 
@@ -16,13 +18,16 @@ type Params = {
 };
 
 const EditUserPage: FC = () => {
+  let history = useHistory();
   let { id } = useParams<Params>();
 
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { id: id },
   });
 
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
 
   if (loading) return <p>'Loading...'</p>;
   if (error) return <p>`Error! ${error.message}`</p>;
@@ -47,6 +52,7 @@ const EditUserPage: FC = () => {
           },
         },
       });
+      history.push('/users');
     },
   })(UserForm);
 
