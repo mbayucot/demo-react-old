@@ -4,35 +4,16 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PostForm from '@demo/client/src/pages/Post/PostForm';
 import { useParams } from 'react-router-dom';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { GET_POST } from '../../operations/queries/getPost';
 import { UPDATE_POST } from '../../operations/mutations/updatePost';
 
-import { LoginFormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
+import { FormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 
 type Params = {
   id: string;
-};
-
-type Tag = {
-  id: number;
-  name: string;
-};
-
-type PostAttributes = {
-  id?: number;
-  title?: string;
-  body?: string;
-  tag_list?: string;
-};
-
-export type Comment = {
-  id: number;
-  post_id: number;
-  body: string;
-  children: Comment[];
 };
 
 const EditPostPage: FC = () => {
@@ -45,34 +26,23 @@ const EditPostPage: FC = () => {
 
   const [updatePost] = useMutation(UPDATE_POST);
 
-  const EnhancedLoginForm = withFormik<
-    {
-      id?: number;
-      title: string;
-      body: string;
-      tags: Tag[];
-      comments: Comment[];
-    },
-    LoginFormValues
-  >({
+  const EnhancedLoginForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({
-      id: props.id || undefined,
-      title: props.title || '',
-      body: props.body || '',
-      tags: props.tags || {},
-      comments: props.comments || [],
+      title: props.title,
+      body: props.body,
+      tags: props.tags,
     }),
 
     validationSchema: validationSchema,
 
-    handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
+    handleSubmit: async (values: FormValues, { props, ...actions }) => {
       await updatePost({
         variables: {
           id: id,
           attributes: {
             title: values.title,
             body: values.body,
-            tag_list: values.tag_list,
+            tagList: values.tagList,
           },
         },
       });
@@ -85,9 +55,7 @@ const EditPostPage: FC = () => {
 
   return (
     <Container>
-      <Box>
-        <EnhancedLoginForm {...data.post} />
-      </Box>
+      <Box>{data && <EnhancedLoginForm {...data.post} />}</Box>
     </Container>
   );
 };

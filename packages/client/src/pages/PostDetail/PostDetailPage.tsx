@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';

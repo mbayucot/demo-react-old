@@ -9,27 +9,7 @@ import Container from '@mui/material/Container';
 import { gql, useQuery } from '@apollo/client';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { client } from '../../index';
-
-type Tag = {
-  id: number;
-  name: string;
-};
-
-export type Comment = {
-  id: number;
-  post_id: number;
-  body: string;
-  children: Comment[];
-};
-
-interface Post {
-  id?: number;
-  title: string;
-  body: string;
-  tags: Tag[];
-  tag_list?: string[];
-  comments: Comment[];
-}
+import { Post } from '@demo/shared';
 
 const GET_TAGS = gql`
   query GetTags {
@@ -49,18 +29,18 @@ const query = gql`
   }
 `;
 
-export type LoginFormValues = Post;
+export type FormValues = Pick<Post, 'title' | 'body' | 'comments' | 'tags' | 'tagList'>;
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   body: Yup.string().required('Body is required'),
 });
 
-const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const PostForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
 
   //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
-  const { loading, error, data } = useQuery(GET_TAGS);
+  //const { loading, error, data } = useQuery(GET_TAGS);
 
   const loadOptions = (inputValue: string, callback: (options: any) => void) => {
     client.query({ query, variables: { query: inputValue } }).then((response) => {
@@ -115,7 +95,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             placeholder="Tags"
             inputId="tags"
             name="tags"
-            defaultValue={values.tags.map((x: any) => ({ value: x.id, label: x.name }))}
+            defaultValue={values.tagList && values.tagList.map((x: any) => ({ value: x.id, label: x.name }))}
             loadOptions={loadOptions}
             styles={{
               container: (base) => ({

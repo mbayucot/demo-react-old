@@ -25,13 +25,13 @@ export type CollectionMetadata = {
 export type Comment = {
   __typename?: 'Comment';
   ancestry?: Maybe<Scalars['String']>;
-  body?: Maybe<Scalars['String']>;
+  body: Scalars['String'];
   children?: Maybe<Array<Comment>>;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt?: Maybe<Scalars['ISO8601DateTime']>;
   id: Scalars['ID'];
-  parentId: Scalars['ID'];
+  parentId?: Maybe<Scalars['ID']>;
   postId: Scalars['Int'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt?: Maybe<Scalars['ISO8601DateTime']>;
   user?: Maybe<User>;
 };
 
@@ -153,15 +153,15 @@ export type Plan = {
 
 export type Post = {
   __typename?: 'Post';
-  body?: Maybe<Scalars['String']>;
+  body: Scalars['String'];
   comments?: Maybe<Array<Comment>>;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt?: Maybe<Scalars['ISO8601DateTime']>;
   id: Scalars['ID'];
   slug?: Maybe<Scalars['String']>;
   tagList?: Maybe<Array<Scalars['String']>>;
   tags?: Maybe<Array<Tag>>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['ISO8601DateTime'];
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['ISO8601DateTime']>;
   user?: Maybe<User>;
 };
 
@@ -248,18 +248,19 @@ export type UpdateUserPayload = {
 
 export type User = {
   __typename?: 'User';
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt?: Maybe<Scalars['ISO8601DateTime']>;
   email: Scalars['String'];
-  encryptedPassword: Scalars['String'];
+  encryptedPassword?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  password: Scalars['String'];
   rememberCreatedAt?: Maybe<Scalars['ISO8601DateTime']>;
   resetPasswordSentAt?: Maybe<Scalars['ISO8601DateTime']>;
   resetPasswordToken?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['Int']>;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt?: Maybe<Scalars['ISO8601DateTime']>;
 };
 
 /** Attributes for creating or updating a blog post comment */

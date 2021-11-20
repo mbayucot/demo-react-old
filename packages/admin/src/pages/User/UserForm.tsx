@@ -1,31 +1,14 @@
 import React from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { User } from '@demo/shared';
 
-interface User {
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  //role: string;
-}
-
-export type LoginFormValues = User;
+export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -48,7 +31,7 @@ export const validationSchema = Yup.object().shape({
     ),
 });
 
-const UserForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const UserForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
 
   return (
@@ -86,10 +69,10 @@ const UserForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             name="first_name"
             autoComplete="first_name"
             autoFocus
-            value={values.first_name}
+            value={values.firstName}
             onChange={handleChange}
-            error={touched.first_name && Boolean(errors.first_name)}
-            helperText={touched.first_name && errors.first_name}
+            error={touched.firstName && Boolean(errors.firstName)}
+            helperText={touched.firstName && errors.firstName}
           />
           <TextField
             margin="normal"
@@ -100,10 +83,10 @@ const UserForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             name="last_name"
             autoComplete="last_name"
             autoFocus
-            value={values.last_name}
+            value={values.lastName}
             onChange={handleChange}
-            error={touched.last_name && Boolean(errors.last_name)}
-            helperText={touched.last_name && errors.last_name}
+            error={touched.lastName && Boolean(errors.lastName)}
+            helperText={touched.lastName && errors.lastName}
           />
           <TextField
             margin="normal"

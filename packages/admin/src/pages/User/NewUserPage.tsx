@@ -6,27 +6,27 @@ import UserForm from '@demo/admin/src/pages/User/UserForm';
 import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../operations/mutations/createUser';
 
-import { LoginFormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
+import { FormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
 
 const NewUserPage: FC = () => {
   const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
 
-  const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
+  const EnhancedLoginForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({
       email: '',
-      first_name: '',
-      last_name: '',
+      firstName: '',
+      lastName: '',
       password: '',
     }),
 
     validationSchema: validationSchema,
 
-    handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
+    handleSubmit: async (values: FormValues, { props, ...actions }) => {
       await createUser({
         variables: {
           email: values.email,
-          firstName: values.first_name,
-          lastName: values.last_name,
+          firstName: values.firstName,
+          lastName: values.lastName,
           password: values.password,
         },
       });

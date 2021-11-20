@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import { gql, useQuery } from '@apollo/client';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { client } from '../../index';
-import { Tag, Comment, Post } from '../../types/index';
+import { Post } from '@demo/shared';
 
 const GET_TAGS = gql`
   query GetTags {
@@ -29,14 +29,14 @@ const query = gql`
   }
 `;
 
-export type LoginFormValues = Post;
+export type FormValues = Pick<Post, 'title' | 'body' | 'comments' | 'tags' | 'tagList'>;
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   body: Yup.string().required('Body is required'),
 });
 
-const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const PostForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
 
   //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
@@ -95,7 +95,7 @@ const PostForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
             placeholder="Tags"
             inputId="tags"
             name="tags"
-            defaultValue={values.tags.map((x: any) => ({ value: x.id, label: x.name }))}
+            defaultValue={values.tagList && values.tagList.map((x: any) => ({ value: x.id, label: x.name }))}
             loadOptions={loadOptions}
             styles={{
               container: (base) => ({
