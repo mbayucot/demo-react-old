@@ -10,13 +10,13 @@ import { RootState } from '../../app/store';
 
 import { login } from '../../features/authentication/authenticationSlice';
 
-import { LoginFormValues, validationSchema } from '@demo/admin/src/user/SignIn/SignInForm';
+import { FormValues, validationSchema } from '@demo/admin/src/user/SignIn/SignInForm';
 
 const SignInPage: FC = () => {
   const authState = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
+  const EnhancedLoginForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({
       email: '',
       password: '',
@@ -24,7 +24,7 @@ const SignInPage: FC = () => {
 
     validationSchema: validationSchema,
 
-    handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
+    handleSubmit: async (values: FormValues, { props, ...actions }) => {
       // @ts-ignore
       dispatch(login({ user: { ...values } }));
     },

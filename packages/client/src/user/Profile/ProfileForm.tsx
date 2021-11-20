@@ -8,24 +8,17 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
+import { User } from '@demo/shared';
 
-interface User {
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  role: string;
-}
-
-export type LoginFormValues = User;
+export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
-  first_name: Yup.string()
+  firstName: Yup.string()
     .required('First name is required')
     .min(2, 'First name is too short')
     .max(32, 'First name is too long'),
-  last_name: Yup.string()
+  lastName: Yup.string()
     .required('Last name is required')
     .min(2, 'Last name is too short')
     .max(32, 'Last name is too long'),
@@ -40,7 +33,7 @@ export const validationSchema = Yup.object().shape({
     ),
 });
 
-const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const ProfileForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
 
   return (
@@ -85,29 +78,29 @@ const ProfileForm = (props: FormikProps<LoginFormValues>): React.ReactElement =>
             margin="normal"
             required
             fullWidth
-            id="first_name"
+            id="firstName"
             label="First name"
-            name="first_name"
-            autoComplete="first_name"
+            name="firstName"
+            autoComplete="firstName"
             autoFocus
-            value={values.first_name}
+            value={values.firstName}
             onChange={handleChange}
-            error={touched.first_name && Boolean(errors.first_name)}
-            helperText={touched.first_name && errors.first_name}
+            error={touched.firstName && Boolean(errors.firstName)}
+            helperText={touched.firstName && errors.firstName}
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            id="last_name"
+            id="lastName"
             label="Last name"
-            name="last_name"
-            autoComplete="last_name"
+            name="lastName"
+            autoComplete="lastName"
             autoFocus
-            value={values.last_name}
+            value={values.lastName}
             onChange={handleChange}
-            error={touched.last_name && Boolean(errors.last_name)}
-            helperText={touched.last_name && errors.last_name}
+            error={touched.lastName && Boolean(errors.lastName)}
+            helperText={touched.lastName && errors.lastName}
           />
           <h1>Account Management</h1>
           <p>New Password</p>

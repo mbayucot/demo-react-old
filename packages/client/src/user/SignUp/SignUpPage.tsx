@@ -2,30 +2,30 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import SignUpForm from '@demo/client/src/user/SignUp/SignUpForm';
 
-import { LoginFormValues, validationSchema } from '@demo/client/src/user/SignUp/SignUpForm';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormValues, validationSchema } from '@demo/client/src/user/SignUp/SignUpForm';
 import { RootState } from '../../app/store';
 import { register } from '../../features/authentication/authenticationSlice';
-import { Redirect } from 'react-router-dom';
 
 const SignUpPage: FC = () => {
   const authState = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const EnhancedLoginForm = withFormik<{}, LoginFormValues>({
+  const EnhancedLoginForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({
       email: '',
       password: '',
-      first_name: '',
-      last_name: '',
+      firstName: '',
+      lastName: '',
     }),
 
     validationSchema: validationSchema,
 
-    handleSubmit: async (values: LoginFormValues, { props, ...actions }) => {
+    handleSubmit: async (values: FormValues, { props, ...actions }) => {
       // @ts-ignore
       dispatch(register({ user: { ...values } }));
     },

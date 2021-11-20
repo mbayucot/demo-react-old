@@ -3,10 +3,7 @@ import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -15,23 +12,17 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Link as RouterLink } from 'react-router-dom';
+import { User } from '@demo/shared';
 
-interface User {
-  email: string;
-  first_name: string;
-  last_name: string;
-  password: string;
-}
-
-export type LoginFormValues = User;
+export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
-  first_name: Yup.string()
+  firstName: Yup.string()
     .required('First name is required')
     .min(2, 'First name is too short')
     .max(32, 'First name is too long'),
-  last_name: Yup.string()
+  lastName: Yup.string()
     .required('Last name is required')
     .min(2, 'Last name is too short')
     .max(32, 'Last name is too long'),
@@ -41,7 +32,7 @@ export const validationSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const SignUpForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const SignUpForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
 
   return (
@@ -65,29 +56,29 @@ const SignUpForm = (props: FormikProps<LoginFormValues>): React.ReactElement => 
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                name="first_name"
+                name="firstName"
                 required
                 fullWidth
-                id="first_name"
+                id="firstName"
                 label="First Name"
                 autoFocus
-                value={values.first_name}
+                value={values.firstName}
                 onChange={handleChange}
-                error={touched.first_name && Boolean(errors.first_name)}
-                helperText={touched.first_name && errors.first_name}
+                error={touched.firstName && Boolean(errors.firstName)}
+                helperText={touched.firstName && errors.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
-                id="last_name"
+                id="lastName"
                 label="Last Name"
-                name="last_name"
-                value={values.last_name}
+                name="lastName"
+                value={values.lastName}
                 onChange={handleChange}
-                error={touched.last_name && Boolean(errors.last_name)}
-                helperText={touched.last_name && errors.last_name}
+                error={touched.lastName && Boolean(errors.lastName)}
+                helperText={touched.lastName && errors.lastName}
               />
             </Grid>
             <Grid item xs={12}>

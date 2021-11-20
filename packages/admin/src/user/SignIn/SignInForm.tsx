@@ -14,14 +14,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Link as RouterLink } from 'react-router-dom';
+import { User } from '@demo/shared';
 
-interface User {
-  email: string;
-  password: string;
-}
-
-export type LoginFormValues = Pick<User, 'email' | 'password'>;
+export type FormValues = Pick<User, 'email' | 'password'>;
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -31,7 +26,7 @@ export const validationSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const SignInForm = (props: FormikProps<LoginFormValues>): React.ReactElement => {
+const SignInForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit } = props;
 
   return (
