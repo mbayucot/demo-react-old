@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { Tag } from '@demo/shared';
 
 interface TagListProps {
-  tag_list: string[];
+  tags: Tag[];
 }
 
-const TagList: FC<TagListProps> = ({ tag_list }) => {
+const TagList: FC<TagListProps> = ({ tags }) => {
   return (
     <>
-      {tag_list.map((tag) => (
-        <Link key={tag} to={`/?tag=${tag}`}>
-          <a>{tag}</a>
+      {tags.map((tag) => (
+        <Link key={tag.id} to={`/?tag=${tag.name}`}>
+          <a>{tag.name}</a>
         </Link>
       ))}
     </>

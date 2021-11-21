@@ -162,7 +162,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             </div>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer open={open}>
           <Toolbar
             sx={{
               display: 'flex',
