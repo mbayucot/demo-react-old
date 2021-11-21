@@ -17,8 +17,6 @@ const PostList = lazy(() => import('../pages/Post/PostListPage'));
 const Profile = lazy(() => import('../user/Profile/ProfilePage'));
 const NewUser = lazy(() => import('../pages/User/NewUserPage'));
 const EditUser = lazy(() => import('../pages/User/EditUserPage'));
-const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
-const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
 const NoMatch = NoMatchPage;
 const UnAuthorized = UnAuthorizedPage;
@@ -58,14 +56,6 @@ const AppRoutes: FC = () => {
           <Route path="/post/:slug">
             <PostDetail />
           </Route>
-
-          <PrivateRoute path="/posts/:id/edit">
-            <EditPost />
-          </PrivateRoute>
-
-          <PrivateRoute path="/posts/new">
-            <NewPost />
-          </PrivateRoute>
 
           <PrivateRoute path="/posts">
             <PostList />
