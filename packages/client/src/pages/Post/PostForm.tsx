@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import { gql, useQuery } from '@apollo/client';
-import AsyncCreatableSelect from 'react-select/async-creatable';
 import { client } from '../../index';
 import { Post } from '@demo/shared';
 
@@ -89,26 +88,7 @@ const PostForm = (props: FormikProps<FormValues>): React.ReactElement => {
             error={touched.body && Boolean(errors.body)}
             helperText={touched.body && errors.body}
           />
-          <AsyncCreatableSelect
-            cacheOptions
-            defaultOptions
-            placeholder="Tags"
-            inputId="tags"
-            name="tags"
-            defaultValue={values.tagList && values.tagList.map((x: any) => ({ value: x.id, label: x.name }))}
-            loadOptions={loadOptions}
-            styles={{
-              container: (base) => ({
-                ...base,
-                width: 250,
-              }),
-            }}
-            isClearable
-            isMulti
-            onChange={(value) => {
-              setFieldValue('tag_list', value ? value.map((x: any) => x.label) : '');
-            }}
-          />
+
           <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
             Save
           </LoadingButton>
