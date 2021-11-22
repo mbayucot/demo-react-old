@@ -1,4 +1,3 @@
-// server-mock.ts
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { gql } from '@apollo/client';
@@ -6,7 +5,7 @@ import { gql } from '@apollo/client';
 import { buildClientSchema, execute } from 'graphql';
 import { addMocksToSchema } from '@graphql-tools/mock';
 
-import introspection from './schema.json';
+import introspection from './introspection.json';
 
 // Build a schema using the introspection
 // @ts-ignore

@@ -12,9 +12,6 @@ import { FormValues, validationSchema } from '@demo/client/src/pages/Post/PostFo
 
 const NewPostPage: FC = () => {
   let history = useHistory();
-  const [createPost, { data, loading, error }] = useMutation(CREATE_POST, {
-    refetchQueries: [{ query: GET_ALL_POSTS }],
-  });
 
   const EnhancedLoginForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({
@@ -25,16 +22,7 @@ const NewPostPage: FC = () => {
 
     validationSchema: validationSchema,
 
-    handleSubmit: async (values: FormValues, { props, ...actions }) => {
-      await createPost({
-        variables: {
-          title: values.title,
-          body: values.body,
-          tagList: values.tagList,
-        },
-      });
-      history.push('/posts');
-    },
+    handleSubmit: async (values: FormValues, { props, ...actions }) => {},
   })(PostForm);
 
   return (
