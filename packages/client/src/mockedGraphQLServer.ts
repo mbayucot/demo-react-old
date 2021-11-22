@@ -15,8 +15,10 @@ const schema = buildClientSchema(introspection);
 const mockedSchema = addMocksToSchema({ schema });
 
 // Set up a server that reads a GraphQL document and returns the data for it
-setupServer(
-  rest.post<{ query: string; variables: any }>('http://localhost:4000/graphql', async (req, res, ctx) => {
+
+export const req = rest.post<{ query: string; variables: any }>(
+  'http://localhost:4000/graphql',
+  async (req, res, ctx) => {
     const result = await execute(
       mockedSchema,
       gql`
@@ -28,5 +30,5 @@ setupServer(
     );
 
     return res(ctx.json(result));
-  }),
+  },
 );

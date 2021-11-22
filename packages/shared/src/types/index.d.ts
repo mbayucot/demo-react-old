@@ -155,13 +155,13 @@ export type Post = {
   __typename?: 'Post';
   body: Scalars['String'];
   comments?: Maybe<Array<Comment>>;
-  createdAt?: Maybe<Scalars['ISO8601DateTime']>;
+  createdAt?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   slug?: Maybe<Scalars['String']>;
   tagList?: Maybe<Array<Scalars['String']>>;
   tags?: Maybe<Array<Tag>>;
   title: Scalars['String'];
-  updatedAt?: Maybe<Scalars['ISO8601DateTime']>;
+  updatedAt?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
 };
 

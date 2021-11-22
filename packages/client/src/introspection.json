@@ -1046,7 +1046,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "ISO8601DateTime",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1142,7 +1142,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "ISO8601DateTime",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
