@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import { gql, useQuery } from '@apollo/client';
-import { client } from '../../index';
+import { client } from '../../app/apolloClient';
 import { Post } from '@demo/shared';
 
 const GET_TAGS = gql`

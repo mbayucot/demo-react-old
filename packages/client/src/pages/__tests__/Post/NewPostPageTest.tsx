@@ -7,18 +7,9 @@ import { client } from '../../../client';
 import NewPostPage from '../../Post/NewPostPage';
 import '../../../mockedGraphQLServer';
 
-const setup = () => {
-  const utils = render(<NewPostPage />);
-  const changeEmailInput = (value: string) => userEvent.type(utils.getByLabelText(/title/i), value);
-  const changeLastNameInput = (value: string) => userEvent.type(utils.getByLabelText(/body/i), value);
-  return {
-    changeEmailInput,
-    changeLastNameInput,
-  };
-};
-
 describe('ProfilePage', () => {
   it('should render page', async () => {
-    //setup();
+    render(<NewPostPage />);
+    console.log('here');
   });
 });
