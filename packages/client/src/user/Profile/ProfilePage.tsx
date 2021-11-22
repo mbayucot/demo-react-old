@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import UserForm, { FormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
+import UserForm, { FormValues, validationSchema } from './ProfileForm';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { UPDATE_USER } from '@demo/admin/src/operations/mutations/updateUser';
