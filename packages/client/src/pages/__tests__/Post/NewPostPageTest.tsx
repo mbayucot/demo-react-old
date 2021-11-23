@@ -48,12 +48,21 @@ describe('ProfilePage', () => {
 
   afterAll(() => server.close());
 
-  it('should render page', async () => {
+  it('should redirect to posts page after saving', async () => {
     const { utils, changeTitleInput, changeBodyInput, clickSubmit, title } = setup();
     changeTitleInput('john');
     changeBodyInput(faker.random.word());
     await clickSubmit();
     await waitForElementToBeRemoved(() => utils.queryByText('Loading...'));
     await waitFor(() => utils.findByText(/posts/i));
+  });
+
+  it('should show validation errors', async () => {
+    const { utils, changeTitleInput, changeBodyInput, clickSubmit, title } = setup();
+    await act(async () => {
+      await clickSubmit();
+    });
+    expect(await screen.findByText(/title is required/i)).toBeInTheDocument();
+    expect(await screen.findByText(/body is required/i)).toBeInTheDocument();
   });
 });
