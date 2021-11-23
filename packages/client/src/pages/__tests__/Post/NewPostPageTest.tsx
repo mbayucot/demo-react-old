@@ -37,7 +37,7 @@ const setup = () => {
   };
 };
 
-describe('ProfilePage', () => {
+describe('NewPostPage', () => {
   const server = setupServer(req);
 
   beforeAll(() => server.listen());
