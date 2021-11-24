@@ -13,7 +13,7 @@ const data = {
 const token = '__test_token__';
 
 const handlers = [
-  rest.post(`/signup`, (req, res, ctx) => {
+  rest.post(`http://localhost:4000/signup`, (req, res, ctx) => {
     const { user } = req.body as {
       user: User;
     };
@@ -33,7 +33,7 @@ const handlers = [
 
     return res(ctx.status(200), ctx.set('authorization', token), ctx.json(data));
   }),
-  rest.delete(`/logout`, (req, res, ctx) => {
+  rest.delete(`http://localhost:4000/logout`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
 ];

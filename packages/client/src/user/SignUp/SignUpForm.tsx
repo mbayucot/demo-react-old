@@ -18,6 +18,7 @@ export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'passwo
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
+  /**
   firstName: Yup.string()
     .required('First name is required')
     .min(2, 'First name is too short')
@@ -26,6 +27,7 @@ export const validationSchema = Yup.object().shape({
     .required('Last name is required')
     .min(2, 'Last name is too short')
     .max(32, 'Last name is too long'),
+   **/
   password: Yup.string()
     .min(8, 'Password is too short')
     .max(20, 'Password is too long')

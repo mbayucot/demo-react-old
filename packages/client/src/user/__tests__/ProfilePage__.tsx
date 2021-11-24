@@ -4,9 +4,9 @@ import { render, screen, act, waitFor, fireEvent, waitForElementToBeRemoved, wit
 import userEvent from '@testing-library/user-event';
 import { ApolloProvider } from '@apollo/client';
 
-import { client } from '../../../client';
-import ProfilePage from '../../Profile/ProfilePage';
-import '../../../mockedGraphQLServer';
+import { client } from '../../client';
+import ProfilePage from '../Profile/ProfilePage';
+import '../../mockedGraphQLServer';
 
 const setup = () => {
   const props = {

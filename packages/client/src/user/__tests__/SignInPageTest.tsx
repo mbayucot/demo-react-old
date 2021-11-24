@@ -7,13 +7,13 @@ import { setupServer } from 'msw/node';
 import faker from 'faker';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '../../../app/store';
+import { store, persistor } from '../../app/store';
 
-import { client } from '../../../client';
-import SignInPage from '../../SignIn/SignInPage';
-import '../../../mockedGraphQLServer';
+import { client } from '../../client';
+import SignInPage from '../SignIn/SignInPage';
+import '../../mockedGraphQLServer';
 
-import { handlers } from '../../__mocks__/auth';
+import { handlers } from '../__mocks__/auth';
 
 const setup = () => {
   const utils = render(
