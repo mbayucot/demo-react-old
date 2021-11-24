@@ -162,6 +162,7 @@ const PostListPage: FC = () => {
     <>
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
+          autoHeight
           rows={data.posts.collection}
           columns={columns}
           loading={loading}

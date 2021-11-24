@@ -42,6 +42,7 @@ const SearchBar: FC<Props> = ({ value, onChange, clearSearch }) => {
       onChange={onChange}
       placeholder="Search…"
       className={classes.textField}
+      inputProps={{ 'data-testid': 'searchfield' }}
       InputProps={{
         startAdornment: <SearchIcon fontSize="small" />,
         endAdornment: (
