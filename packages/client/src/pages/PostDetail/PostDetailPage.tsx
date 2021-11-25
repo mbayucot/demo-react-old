@@ -7,11 +7,11 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useMutation } from '@apollo/client';
-import { GET_POST } from '../../operations/queries/getPost';
-import { REACT_POST } from '../../operations/mutations/reactPost';
-
 import { Reaction } from '@demo/shared';
 import debounce from 'debounce';
+
+import { GET_POST } from '../../operations/queries/getPost';
+import { REACT_POST } from '../../operations/mutations/reactPost';
 import CommentList from '../../blog/comment/CommentList';
 
 type Params = {
