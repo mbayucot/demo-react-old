@@ -14,7 +14,7 @@ const PostList = lazy(() => import('../pages/Post/PostListPage'));
 const Profile = lazy(() => import('../user/Profile/ProfilePage'));
 const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
-const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
+const PostDetail = lazy(() => import('../pages/Post/PostDetailPage'));
 const Checkout = lazy(() => import('../pages/Checkout/CheckoutPage'));
 const NoMatch = NoMatchPage;
 const UnAuthorized = UnAuthorizedPage;

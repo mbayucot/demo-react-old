@@ -6,13 +6,13 @@ import faker from 'faker';
 import { MemoryRouter, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setupServer } from 'msw/node';
 
-import { client } from '../../../client';
+import { apolloClient } from '../../../app/apolloClient';
 import EditPostPage from '../../Post/EditPostPage';
-import { req } from '../../../mockedGraphQLServer';
+import { graphqlHandler } from '../../../mockedGraphQLServer';
 
 const setup = () => {
   const utils = render(
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <MemoryRouter initialEntries={['/posts/1/edit']}>
         <Route path="/posts/:id/edit">
           <EditPostPage />
@@ -29,7 +29,7 @@ const setup = () => {
 };
 
 describe('EditPostPage', () => {
-  const server = setupServer(req);
+  const server = setupServer(graphqlHandler);
 
   beforeAll(() => server.listen());
 

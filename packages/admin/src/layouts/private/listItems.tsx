@@ -6,7 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import { useHistory } from 'react-router-dom';
-import { Can } from '../../config/can';
+import { Can } from '../../app/casl';
 
 export const MainListItems = () => {
   const history = useHistory();

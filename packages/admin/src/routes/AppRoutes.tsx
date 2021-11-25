@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import { AbilityContext, defineAbilityFor } from '../config/can';
+import { AbilityContext, defineAbilityFor } from '../app/casl';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
@@ -15,7 +15,7 @@ const Dashboard = lazy(() => import('../pages/DashboardPage'));
 //const UserList = lazy(() => import('../pages/User/UserListPage'));
 const PostList = lazy(() => import('../pages/Post/PostListPage'));
 const Profile = lazy(() => import('../user/Profile/ProfilePage'));
-const PostDetail = lazy(() => import('../pages/PostDetail/PostDetailPage'));
+const PostDetail = lazy(() => import('../pages/Post/PostDetailPage'));
 const NoMatch = NoMatchPage;
 const UnAuthorized = UnAuthorizedPage;
 

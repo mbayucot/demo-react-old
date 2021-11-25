@@ -6,13 +6,13 @@ import faker from 'faker';
 import { MemoryRouter, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setupServer } from 'msw/node';
 
-import { client } from '../../../client';
+import { apolloClient } from '../../../app/apolloClient';
 import PostListPage from '../../Post/PostListPage';
-import { req } from '../../../mockedGraphQLServer';
+import { graphqlHandler } from '../../../mockedGraphQLServer';
 
 const setup = () => {
   const utils = render(
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <MemoryRouter initialEntries={['/posts']}>
         <PostListPage />
         <Route path="/posts/new">
@@ -27,7 +27,7 @@ const setup = () => {
 };
 
 describe('PostListPage', () => {
-  const server = setupServer(req);
+  const server = setupServer(graphqlHandler);
 
   beforeAll(() => server.listen());
 

@@ -4,7 +4,7 @@ import { render, screen, act, waitFor, fireEvent, waitForElementToBeRemoved, wit
 import userEvent from '@testing-library/user-event';
 import { ApolloProvider } from '@apollo/client';
 
-import { client } from '../../client';
+import { apolloClient } from '../../app/apolloClient';
 import ProfilePage from '../Profile/ProfilePage';
 import '../../mockedGraphQLServer';
 
@@ -13,7 +13,7 @@ const setup = () => {
     id: 1,
   };
   const utils = render(
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <ProfilePage />
     </ApolloProvider>,
   );

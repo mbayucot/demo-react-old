@@ -1,7 +1,5 @@
 import { rest } from 'msw';
-import { setupServer } from 'msw/node';
 import { gql } from '@apollo/client';
-
 import { buildClientSchema, execute } from 'graphql';
 import { addMocksToSchema } from '@graphql-tools/mock';
 
@@ -16,8 +14,8 @@ const mockedSchema = addMocksToSchema({ schema });
 
 // Set up a server that reads a GraphQL document and returns the data for it
 
-export const req = rest.post<{ query: string; variables: any }>(
-  'http://localhost:4000/graphql',
+export const graphqlHandler = rest.post<{ query: string; variables: any }>(
+  `${process.env.REACT_APP_HOST_URL}/graphql`,
   async (req, res, ctx) => {
     const result = await execute(
       mockedSchema,

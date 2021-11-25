@@ -1,14 +1,8 @@
 import { FC, useState } from 'react';
+import { Comment } from '@demo/shared';
 
 import CommentListItem from './CommentListItem';
 import CommentForm from './CommentForm';
-
-export type Comment = {
-  id: number;
-  postId: number;
-  body: string;
-  children: Comment[];
-};
 
 export interface Comments {
   postId?: number;

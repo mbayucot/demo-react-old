@@ -1,35 +1,13 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
-
-export type Comment = {
-  id: number;
-  postId: number;
-  body: string;
-  children: Comment[];
-};
+import { useMutation } from '@apollo/client';
+import { CREATE_COMMENT } from '../../operations/mutations/createComment';
+import { Comment } from '@demo/shared';
 
 interface CommentFormProps {
   parentId?: number;
   postId?: number;
   onSuccess: (result: Comment) => void;
 }
-
-export const CREATE_COMMENT = gql`
-  mutation CreateComment($postId: ID!, $body: String!, $parentId: ID) {
-    createComment(postId: $postId, body: $body, parentId: $parentId) {
-      comment {
-        id
-        body
-        ancestry
-        children {
-          id
-          body
-          ancestry
-        }
-      }
-    }
-  }
-`;
 
 const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
   const [searchText, setSearchText] = useState<string>('');
@@ -39,8 +17,6 @@ const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
   const setSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value);
   };
-
-  console.log(postId);
 
   const handleSubmit = async (value: string) => {
     try {

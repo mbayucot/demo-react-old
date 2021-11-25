@@ -6,7 +6,7 @@ import faker from 'faker';
 import { MemoryRouter, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setupServer } from 'msw/node';
 
-import { client } from '../../../client';
+import { client } from '../../../app/apolloClient';
 import EditUserPage from '../../User/EditUserPage';
 import { req } from '../../../mockedGraphQLServer';
 
