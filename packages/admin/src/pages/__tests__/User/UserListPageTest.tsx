@@ -46,7 +46,6 @@ describe('UserListPage', () => {
     expect(await gridUtils.findByText(/email/i)).toBeInTheDocument();
     expect(await gridUtils.findByText(/name/i)).toBeInTheDocument();
     expect(await gridUtils.findByText(/role/i)).toBeInTheDocument();
-    expect(await gridUtils.findByText(/posts/i)).toBeInTheDocument();
     expect(await gridUtils.getByTestId('searchfield')).toBeInTheDocument();
   });
 

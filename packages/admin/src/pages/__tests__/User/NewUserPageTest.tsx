@@ -21,7 +21,6 @@ const setup = () => {
       </MemoryRouter>
     </ApolloProvider>,
   );
-  const title = utils.getByLabelText(/title/i) as HTMLInputElement;
   const changeFirstNameInput = (value: string) => userEvent.type(utils.getByLabelText(/first name/i), value);
   const changeLastNameInput = (value: string) => userEvent.type(utils.getByLabelText(/last name/i), value);
   const changeEmailInput = (value: string) => userEvent.type(utils.getByLabelText(/email/i), value);
@@ -32,7 +31,6 @@ const setup = () => {
   const clickSubmit = () => userEvent.click(submitButton);
   return {
     utils,
-    title,
     changeFirstNameInput,
     changeLastNameInput,
     changeEmailInput,
@@ -52,26 +50,27 @@ describe('NewUserPage', () => {
 
   afterAll(() => server.close());
 
-  it('should redirect to posts page after saving', async () => {
-    const { utils, changeFirstNameInput, changeLastNameInput, changeEmailInput, changePasswordInput, clickSubmit } =
-      setup();
-    changeFirstNameInput('john');
-    changeLastNameInput(faker.random.word());
-    changeEmailInput(faker.random.word());
-    changePasswordInput(faker.random.word());
-    await clickSubmit();
-    await waitForElementToBeRemoved(() => utils.queryByText('Loading...'));
-    await waitFor(() => utils.findByText(/posts/i));
-  });
-
   it('should show validation errors', async () => {
     const { clickSubmit } = setup();
     await act(async () => {
       await clickSubmit();
     });
+
+    expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/first name is required/i)).toBeInTheDocument();
-    expect(await screen.findByText(/last name required/i)).toBeInTheDocument();
-    expect(await screen.findByText(/email required/i)).toBeInTheDocument();
+    expect(await screen.findByText(/last name is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/password is required/i)).toBeInTheDocument();
+  });
+
+  it('should redirect to posts page after saving', async () => {
+    const { utils, changeFirstNameInput, changeLastNameInput, changeEmailInput, changePasswordInput, clickSubmit } =
+      setup();
+    changeEmailInput(faker.internet.email());
+    changeFirstNameInput(faker.random.word());
+    changeLastNameInput(faker.random.word());
+    changePasswordInput(faker.random.word());
+    await clickSubmit();
+    await waitForElementToBeRemoved(() => utils.queryByText('Loading...'));
+    await waitFor(() => utils.findByText(/users/i));
   });
 });

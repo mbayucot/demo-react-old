@@ -12,23 +12,22 @@ export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'passwo
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
-  first_name: Yup.string()
+  firstName: Yup.string()
     .required('First name is required')
     .min(2, 'First name is too short')
     .max(32, 'First name is too long'),
-  last_name: Yup.string()
+  lastName: Yup.string()
     .required('Last name is required')
     .min(2, 'Last name is too short')
     .max(32, 'Last name is too long'),
   //role: Yup.string().required('Role is required'),
-  password: Yup.string()
-    .min(8, 'Password is too short')
-    .max(20, 'Password is too long')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      'Must contain 8 characters, one uppercase, one\n' +
-        '                lowercase, one Number and one special case character',
-    ),
+  password: Yup.string().required('Password is required'),
+  //password: Yup.string().min(8, 'Password is too short').max(20, 'Password is too long'),
+  //.matches(
+  //  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+  // 'Must contain 8 characters, one uppercase, one\n' +
+  //  '                lowercase, one Number and one special case character',
+  //),
 });
 
 const UserForm = (props: FormikProps<FormValues>): React.ReactElement => {
@@ -64,10 +63,10 @@ const UserForm = (props: FormikProps<FormValues>): React.ReactElement => {
             margin="normal"
             required
             fullWidth
-            id="first_name"
+            id="firstName"
             label="First name"
-            name="first_name"
-            autoComplete="first_name"
+            name="firstName"
+            autoComplete="firstName"
             autoFocus
             value={values.firstName}
             onChange={handleChange}
@@ -78,10 +77,10 @@ const UserForm = (props: FormikProps<FormValues>): React.ReactElement => {
             margin="normal"
             required
             fullWidth
-            id="last_name"
+            id="lastName"
             label="Last name"
-            name="last_name"
-            autoComplete="last_name"
+            name="lastName"
+            autoComplete="lastName"
             autoFocus
             value={values.lastName}
             onChange={handleChange}
@@ -103,7 +102,7 @@ const UserForm = (props: FormikProps<FormValues>): React.ReactElement => {
             helperText={touched.password && errors.password}
           />
           <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
-            Update Profile
+            Save
           </LoadingButton>
         </Box>
       </Box>
