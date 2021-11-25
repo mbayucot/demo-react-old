@@ -7,11 +7,11 @@ import { setupServer } from 'msw/node';
 import faker from 'faker';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '../../app/store';
+import { store, persistor } from '../../../app/store';
 
-import { apolloClient } from '../../app/apolloClient';
-import SignUpPage from '../SignUp/SignUpPage';
-import '../../mockedGraphQLServer';
+import { apolloClient } from '../../../app/apolloClient';
+import SignInPage from '../SignIn/SignInPage';
+import '../../../mockedGraphQLServer';
 
 import { handlers } from '../__mocks__/auth';
 
@@ -20,8 +20,8 @@ const setup = () => {
     <PersistGate loading={null} persistor={persistor}>
       <Provider store={store}>
         <ApolloProvider client={apolloClient}>
-          <MemoryRouter initialEntries={['/signup']}>
-            <SignUpPage />
+          <MemoryRouter initialEntries={['/sigin']}>
+            <SignInPage />
             <Route path="/dashboard">
               <div>Dashboard</div>
             </Route>
@@ -30,11 +30,11 @@ const setup = () => {
       </Provider>
     </PersistGate>,
   );
-  const changeEmailInput = (value: string) => userEvent.type(utils.getByLabelText(/email address/i), value);
+  const changeEmailInput = (value: string) => userEvent.type(utils.getByLabelText(/email/i), value);
   const changePasswordInput = (value: string) => userEvent.type(utils.getByLabelText(/password/i), value);
   utils.debug(undefined, 300000);
   const submitButton = screen.getByRole('button', {
-    name: /sign up/i,
+    name: /sign in/i,
   });
   const clickSubmit = () => userEvent.click(submitButton);
   return {
@@ -46,7 +46,7 @@ const setup = () => {
   };
 };
 
-describe('SignUpPage', () => {
+describe('ProfilePage', () => {
   const server = setupServer(...handlers);
 
   beforeAll(() => server.listen());

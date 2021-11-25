@@ -10,11 +10,11 @@ import { RootState } from '../app/store';
 import { NoMatchPage, UnAuthorizedPage } from '@demo/shared';
 
 const Home = lazy(() => import('../pages/Home/HomePage'));
-const Login = lazy(() => import('../user/SignIn/SignInPage'));
+const Login = lazy(() => import('../pages/User/SignInPage'));
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
 //const UserList = lazy(() => import('../pages/User/UserListPage'));
 const PostList = lazy(() => import('../pages/Post/PostListPage'));
-const Profile = lazy(() => import('../user/Profile/ProfilePage'));
+const Profile = lazy(() => import('../pages/User/ProfilePage'));
 const PostDetail = lazy(() => import('../pages/Post/PostDetailPage'));
 const NoMatch = NoMatchPage;
 const UnAuthorized = UnAuthorizedPage;

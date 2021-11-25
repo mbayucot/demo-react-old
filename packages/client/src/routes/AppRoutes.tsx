@@ -7,11 +7,11 @@ import PublicRoute from './PublicRoute';
 import { NoMatchPage, UnAuthorizedPage } from '@demo/shared';
 
 const Home = lazy(() => import('../pages/Home/HomePage'));
-const Login = lazy(() => import('../user/SignIn/SignInPage'));
-const Register = lazy(() => import('../user/SignUp/SignUpPage'));
+const Login = lazy(() => import('../pages/User/SignIn/SignInPage'));
+const Register = lazy(() => import('../pages/User/SignUp/SignUpPage'));
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
 const PostList = lazy(() => import('../pages/Post/PostListPage'));
-const Profile = lazy(() => import('../user/Profile/ProfilePage'));
+const Profile = lazy(() => import('../pages/User/Profile/ProfilePage'));
 const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
 const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 const PostDetail = lazy(() => import('../pages/Post/PostDetailPage'));

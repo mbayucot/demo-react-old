@@ -12,7 +12,7 @@ import debounce from 'debounce';
 
 import { GET_POST } from '../../operations/queries/getPost';
 import { REACT_POST } from '../../operations/mutations/reactPost';
-import CommentList from '../../blog/comment/CommentList';
+import CommentList from './CommentList';
 
 type Params = {
   slug: string;

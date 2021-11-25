@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { Tag } from '@demo/shared';
 
-import TagList from '../TagList';
+import TagList from '../Post/TagList';
 
 interface PostCardProps {
   id: number;
