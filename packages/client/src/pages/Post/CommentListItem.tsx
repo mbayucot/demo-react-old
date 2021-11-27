@@ -22,7 +22,8 @@ const CommentListItem: FC<Comment> = ({ id, postId, body, children }) => {
       <div className="pl-4">
         {items && items.map((row: Comment) => <CommentListItem {...row} key={row.id} />)}
 
-        {showReply && <CommentForm postId={postId} parentId={id as unknown as number} onSuccess={handleSuccess} />}
+        {/**showReply && <CommentForm postId={postId} parentId={id as unknown as number} onSuccess={handleSuccess} />
+         **/}
       </div>
     </div>
   );

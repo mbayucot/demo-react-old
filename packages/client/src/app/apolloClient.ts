@@ -23,7 +23,7 @@ const httpLink = createHttpLink({
   fetch,
 });
 
-export const apolloClient = new ApolloClient({
+export const client = new ApolloClient({
   link: from([authLink, retryLink, queueLink, httpLink]),
   cache: new InMemoryCache(),
   defaultOptions: {

@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import SignInForm from '@demo/client/src/user/SignIn/SignInForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -10,7 +9,8 @@ import { RootState } from '../../../app/store';
 
 import { login } from '../../../features/authentication/authenticationSlice';
 
-import { LoginFormValues, validationSchema } from '@demo/client/src/user/SignIn/SignInForm';
+import { LoginFormValues, validationSchema } from './SignInForm';
+import SignInForm from './SignInForm';
 
 const SignInPage: FC = () => {
   const authState = useSelector((state: RootState) => state);
