@@ -10,14 +10,13 @@ describe('AppRoutes', () => {
 
   it('should navigate to login', async () => {
     renderWithRouter(<App />);
-    userEvent.click(screen.getByText(/Sign in/i), leftClick);
+    userEvent.click(await screen.findByText(/sign in/i), leftClick);
     expect(await screen.findByText(/sign in to account/i)).toBeInTheDocument();
   });
 
   it('should navigate to register', async () => {
     renderWithRouter(<App />);
-    expect(await screen.findByText(/Lorem ipsum dolor sit amet/i)).toBeInTheDocument();
-    userEvent.click(screen.getByText(/sign up/i), leftClick);
+    userEvent.click(await screen.findByText(/sign up/i), leftClick);
     expect(await screen.findByText(/create your account/i)).toBeInTheDocument();
   });
 

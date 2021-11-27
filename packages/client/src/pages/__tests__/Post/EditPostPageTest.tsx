@@ -6,13 +6,13 @@ import faker from 'faker';
 import { MemoryRouter, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setupServer } from 'msw/node';
 
-import { apolloClient } from '../../../app/apolloClient';
+import { client } from '../../../app/apolloClient';
 import EditPostPage from '../../Post/EditPostPage';
 import { graphqlHandler } from '../../../mockedGraphQLServer';
 
 const setup = () => {
   const utils = render(
-    <ApolloProvider client={apolloClient}>
+    <ApolloProvider client={client}>
       <MemoryRouter initialEntries={['/posts/1/edit']}>
         <Route path="/posts/:id/edit">
           <EditPostPage />

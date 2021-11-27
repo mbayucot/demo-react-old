@@ -9,9 +9,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../../../app/store';
 
-import { apolloClient } from '../../../app/apolloClient';
+import { client } from '../../../app/apolloClient';
 import SignUpPage from '../SignUp/SignUpPage';
-import '../../../mockedGraphQLServer';
+import { mockedGraphQLServer } from '@demo/shared';
 
 import { handlers } from '../__mocks__/auth';
 
@@ -19,7 +19,7 @@ const setup = () => {
   const utils = render(
     <PersistGate loading={null} persistor={persistor}>
       <Provider store={store}>
-        <ApolloProvider client={apolloClient}>
+        <ApolloProvider client={client}>
           <MemoryRouter initialEntries={['/signup']}>
             <SignUpPage />
             <Route path="/dashboard">
