@@ -7,9 +7,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-import { GET_POST } from '../../operations/queries/getPost';
-import { UPDATE_POST } from '../../operations/mutations/updatePost';
-import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
+
+import { GET_POST, UPDATE_POST, GET_ALL_POSTS } from '@demo/shared';
 
 import { FormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
 

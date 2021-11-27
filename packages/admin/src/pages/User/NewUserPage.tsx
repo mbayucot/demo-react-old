@@ -2,13 +2,10 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import UserForm from '@demo/admin/src/pages/User/UserForm';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { GET_USERS } from '../../operations/queries/getUsers';
-import { CREATE_USER } from '../../operations/mutations/createUser';
-
-import { FormValues, validationSchema } from '@demo/admin/src/pages/User/UserForm';
+import { GET_USERS, CREATE_USER } from '@demo/shared';
+import UserForm, { FormValues, validationSchema } from './UserForm';
 
 const NewUserPage: FC = () => {
   let history = useHistory();

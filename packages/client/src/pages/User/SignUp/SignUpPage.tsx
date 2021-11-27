@@ -5,9 +5,8 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import SignUpForm from './SignUpForm';
+import SignUpForm, { FormValues, validationSchema } from './SignUpForm';
 
-import { FormValues, validationSchema } from './SignUpForm';
 import { RootState } from '../../../app/store';
 import { register } from '../../../features/authentication/authenticationSlice';
 

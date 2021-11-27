@@ -16,9 +16,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
-import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
-import { DELETE_POST } from '../../operations/mutations/deletePost';
-import { GET_USERS } from '@demo/admin/src/operations/queries/getUsers';
+import { GET_ALL_POSTS, DELETE_POST } from '@demo/shared';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(

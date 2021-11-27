@@ -9,11 +9,14 @@ import { RootState } from '../app/store';
 
 import { NoMatchPage, UnAuthorizedPage } from '@demo/shared';
 
-const Home = lazy(() => import('../pages/Home/HomePage'));
 const Login = lazy(() => import('../pages/User/SignInPage'));
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
-//const UserList = lazy(() => import('../pages/User/UserListPage'));
+const UserList = lazy(() => import('../pages/User/UserListPage'));
+const NewUser = lazy(() => import('../pages/User/NewUserPage'));
+const EditUser = lazy(() => import('../pages/User/EditUserPage'));
 const PostList = lazy(() => import('../pages/Post/PostListPage'));
+const NewPost = lazy(() => import('../pages/Post/NewPostPage'));
+const EditPost = lazy(() => import('../pages/Post/EditPostPage'));
 const Profile = lazy(() => import('../pages/User/ProfilePage'));
 const PostDetail = lazy(() => import('../pages/Post/PostDetailPage'));
 const NoMatch = NoMatchPage;
@@ -28,10 +31,6 @@ const AppRoutes: FC = () => {
       <Suspense fallback={<CircularProgress />}>
         <Switch>
           <Route exact path="/">
-            <Home />
-          </Route>
-
-          <Route path="/login">
             <Login />
           </Route>
 
@@ -45,6 +44,26 @@ const AppRoutes: FC = () => {
 
           <PrivateRoute path="/posts">
             <PostList />
+          </PrivateRoute>
+
+          <PrivateRoute path="/posts/:id/edit">
+            <EditPost />
+          </PrivateRoute>
+
+          <PrivateRoute path="/posts/new">
+            <NewPost />
+          </PrivateRoute>
+
+          <PrivateRoute path="/users">
+            <UserList />
+          </PrivateRoute>
+
+          <PrivateRoute path="/users/:id/edit">
+            <EditUser />
+          </PrivateRoute>
+
+          <PrivateRoute path="/users/new">
+            <NewUser />
           </PrivateRoute>
 
           <PrivateRoute path="/profile">

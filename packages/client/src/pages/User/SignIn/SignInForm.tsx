@@ -3,7 +3,6 @@ import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -15,11 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Link as RouterLink } from 'react-router-dom';
-
-interface User {
-  email: string;
-  password: string;
-}
+import { User } from '@demo/shared';
 
 export type LoginFormValues = Pick<User, 'email' | 'password'>;
 

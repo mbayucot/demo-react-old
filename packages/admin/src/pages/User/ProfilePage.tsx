@@ -4,11 +4,8 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
-import { UPDATE_USER } from '../../operations/mutations/updateUser';
-import { GET_USER } from '../../operations/queries/getUser';
-import ProfileForm from './ProfileForm';
-
-import { FormValues, validationSchema } from './ProfileForm';
+import { UPDATE_USER, GET_USER } from '@demo/shared';
+import ProfileForm, { FormValues, validationSchema } from './ProfileForm';
 
 const ProfilePage: FC = () => {
   const { loading, error, data } = useQuery(GET_USER);

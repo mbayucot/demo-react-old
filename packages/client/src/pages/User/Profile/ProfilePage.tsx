@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import UserForm, { FormValues, validationSchema } from './ProfileForm';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { UPDATE_USER } from '@demo/admin/src/operations/mutations/updateUser';
 import { GET_USER } from '@demo/admin/src/operations/queries/getUser';
+
+import UserForm, { FormValues, validationSchema } from './ProfileForm';
 
 const ProfilePage: FC = () => {
   const { loading, error, data } = useQuery(GET_USER);

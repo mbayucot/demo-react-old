@@ -15,10 +15,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router-dom';
-import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
-import { GET_USERS } from '../../operations/queries/getUsers';
-import { DELETE_USER } from '../../operations/mutations/deleteUser';
-import { GET_ALL_POSTS } from '@demo/client/src/operations/queries/getAllPosts';
+import { ConfirmDialog, SearchBar, NoRowsOverlay, GET_USERS, DELETE_USER } from '@demo/shared';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(

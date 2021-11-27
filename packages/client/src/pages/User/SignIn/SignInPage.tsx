@@ -9,8 +9,7 @@ import { RootState } from '../../../app/store';
 
 import { login } from '../../../features/authentication/authenticationSlice';
 
-import { LoginFormValues, validationSchema } from './SignInForm';
-import SignInForm from './SignInForm';
+import SignInForm, { LoginFormValues, validationSchema } from './SignInForm';
 
 const SignInPage: FC = () => {
   const authState = useSelector((state: RootState) => state);

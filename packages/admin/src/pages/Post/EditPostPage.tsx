@@ -7,59 +7,58 @@ import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
-import { GET_USER, GET_USERS, UPDATE_USER } from '@demo/shared';
-import UserForm, { FormValues, validationSchema } from './UserForm';
+import { GET_POST, UPDATE_POST, GET_ALL_POSTS } from '@demo/shared';
+
+import PostForm, { FormValues, validationSchema } from './PostForm';
 
 type Params = {
   id: string;
 };
 
-const EditUserPage: FC = () => {
+const EditPostPage: FC = () => {
   let history = useHistory();
   let { id } = useParams<Params>();
 
-  const { loading, error, data } = useQuery(GET_USER, {
+  const { loading, error, data } = useQuery(GET_POST, {
     variables: { id: id },
   });
 
-  const [updateUser] = useMutation(UPDATE_USER, {
-    refetchQueries: [{ query: GET_USERS }],
+  const [updatePost] = useMutation(UPDATE_POST, {
+    refetchQueries: [{ query: GET_ALL_POSTS }],
   });
-
-  if (loading) return <p>'Loading...'</p>;
-  if (error) return <p>`Error! ${error.message}`</p>;
 
   const EnhancedLoginForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({
-      email: props.email,
-      firstName: props.firstName,
-      lastName: props.lastName,
-      password: props.password,
+      title: props.title,
+      body: props.body,
+      tags: props.tags,
     }),
 
     validationSchema: validationSchema,
 
     handleSubmit: async (values: FormValues, { props, ...actions }) => {
-      await updateUser({
+      await updatePost({
         variables: {
           id: id,
           attributes: {
-            firstName: values.firstName,
-            lastName: values.lastName,
+            title: values.title,
+            body: values.body,
+            tagList: values.tagList,
           },
         },
       });
-      history.push('/users');
+      history.push('/posts');
     },
-  })(UserForm);
+  })(PostForm);
+
+  if (loading) return <p>'Loading...'</p>;
+  if (error) return <p>`Error! ${error.message}`</p>;
 
   return (
     <Container>
-      <Box>
-        <EnhancedLoginForm {...data.user} />
-      </Box>
+      <Box>{data && <EnhancedLoginForm {...data.post} />}</Box>
     </Container>
   );
 };
 
-export default EditUserPage;
+export default EditPostPage;
