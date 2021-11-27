@@ -15,6 +15,6 @@ describe('login', function () {
     cy.findByLabelText(/email address/i).type(email);
     cy.findByLabelText(/password/i).type(password);
     cy.findByRole('button', { name: /sign in/i }).click();
-    cy.url().should('include', '/projects');
+    cy.url().should('include', '/posts');
   });
 });

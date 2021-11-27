@@ -7,16 +7,16 @@ import { MemoryRouter, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setupServer } from 'msw/node';
 
 import { client } from '../../../app/apolloClient';
-import UserListPage from '../../User/UserListPage';
+import PostListPage from '../../Post/PostListPage';
 import { graphqlHandler } from '../../../mockedGraphQLServer';
 
 const setup = () => {
   const utils = render(
     <ApolloProvider client={client}>
-      <MemoryRouter initialEntries={['/users']}>
-        <UserListPage />
-        <Route path="/users/new">
-          <div>New User</div>
+      <MemoryRouter initialEntries={['/posts']}>
+        <PostListPage />
+        <Route path="/posts/new">
+          <div>New Post</div>
         </Route>
       </MemoryRouter>
     </ApolloProvider>,
@@ -26,7 +26,7 @@ const setup = () => {
   };
 };
 
-describe('UserListPage', () => {
+describe('PostListPage', () => {
   const server = setupServer(graphqlHandler);
 
   beforeAll(() => server.listen());
@@ -43,9 +43,8 @@ describe('UserListPage', () => {
     const gridTable = utils.getByRole('grid');
     const gridUtils = within(gridTable);
     expect(await gridUtils.findByText(/add new/i)).toBeInTheDocument();
-    expect(await gridUtils.findByText(/email/i)).toBeInTheDocument();
-    expect(await gridUtils.findByText(/name/i)).toBeInTheDocument();
-    expect(await gridUtils.findByText(/role/i)).toBeInTheDocument();
+    expect(await gridUtils.findByText(/title/i)).toBeInTheDocument();
+    expect(await gridUtils.findByText(/full name/i)).toBeInTheDocument();
     expect(await gridUtils.getByTestId('searchfield')).toBeInTheDocument();
   });
 
@@ -56,7 +55,8 @@ describe('UserListPage', () => {
       name: /add new/i,
     });
     await userEvent.click(addNewButton);
-    expect(await utils.findByText(/new user/i)).toBeInTheDocument();
+    expect(await utils.findByText(/new post/i)).toBeInTheDocument();
+    await screen.findByTitle(/go to next page/i);
   });
 
   it('should search', async () => {
