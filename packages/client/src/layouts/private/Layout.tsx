@@ -9,19 +9,15 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { MainListItems } from './listItems';
+import { MenuItems } from './MenuItems';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { RootState } from '../../app/store';
 import { logout } from '../../features/authentication/authenticationSlice';
 
@@ -176,7 +172,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           </Toolbar>
           <Divider />
           <List>
-            <MainListItems />
+            <MenuItems />
           </List>
         </Drawer>
         <Box

@@ -10,7 +10,6 @@ import { RootState } from '../app/store';
 import { NoMatchPage, UnAuthorizedPage } from '@demo/shared';
 
 const Login = lazy(() => import('../pages/User/SignInPage'));
-const Dashboard = lazy(() => import('../pages/DashboardPage'));
 const UserList = lazy(() => import('../pages/User/UserListPage'));
 const NewUser = lazy(() => import('../pages/User/NewUserPage'));
 const EditUser = lazy(() => import('../pages/User/EditUserPage'));
@@ -33,10 +32,6 @@ const AppRoutes: FC = () => {
           <Route exact path="/">
             <Login />
           </Route>
-
-          <PrivateRoute path="/dashboard">
-            <Dashboard />
-          </PrivateRoute>
 
           <Route path="/post/:slug">
             <PostDetail />
