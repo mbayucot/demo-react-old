@@ -4,8 +4,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
-import { UPDATE_USER } from '@demo/admin/src/operations/mutations/updateUser';
-import { GET_USER } from '@demo/admin/src/operations/queries/getUser';
+import { UPDATE_USER, GET_USER } from '@demo/shared';
 
 import UserForm, { FormValues, validationSchema } from './ProfileForm';
 

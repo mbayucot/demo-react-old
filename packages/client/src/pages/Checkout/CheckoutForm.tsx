@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useMutation } from '@apollo/client';
-import { CREATE_SUBSCRIPTION } from '../../operations/mutations/createSubscription';
+import { CREATE_SUBSCRIPTION } from '@demo/shared';
 
 import CardSection from './CardSection';
 

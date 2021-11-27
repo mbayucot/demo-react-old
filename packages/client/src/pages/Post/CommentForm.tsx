@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_COMMENT } from '../../operations/mutations/createComment';
-import { Comment } from '@demo/shared';
+import { Comment, CREATE_COMMENT } from '@demo/shared';
 
 interface CommentFormProps {
   parentId?: number;

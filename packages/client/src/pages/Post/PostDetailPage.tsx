@@ -10,8 +10,8 @@ import { useMutation } from '@apollo/client';
 import { Reaction } from '@demo/shared';
 import debounce from 'debounce';
 
-import { GET_POST } from '../../operations/queries/getPost';
-import { REACT_POST } from '../../operations/mutations/reactPost';
+import { GET_POST, REACT_POST } from '@demo/shared';
+
 import CommentList from './CommentList';
 
 type Params = {

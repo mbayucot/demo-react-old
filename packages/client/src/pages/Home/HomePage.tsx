@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+
+import { GET_ALL_POSTS } from '@demo/shared';
 
 import NavBar from './NavBar';
 import PostCard from './PostCard';
-import { GET_ALL_POSTS } from '../../operations/queries/getAllPosts';
 
 const HomePage: FC = () => {
   const [query, setSearchText] = React.useState('');

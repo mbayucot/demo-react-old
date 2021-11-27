@@ -9,6 +9,8 @@ export { default as UnAuthorizedPage } from './pages/UnAuthorizedPage';
 export type { Comment, Post, PostCollection, Tag, User, UserCollection } from './types/index';
 
 export { CREATE_COMMENT } from './graphql/operations/mutations/createComment';
+export { CREATE_SUBSCRIPTION } from './graphql/operations/mutations/createSubscription';
+
 export { CREATE_POST } from './graphql/operations/mutations/createPost';
 export { UPDATE_POST } from './graphql/operations/mutations/updatePost';
 export { DELETE_POST } from './graphql/operations/mutations/deletePost';
