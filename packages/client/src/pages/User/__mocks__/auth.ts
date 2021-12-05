@@ -1,8 +1,9 @@
 import { rest } from 'msw';
 
 interface User {
-  id: number;
+  id?: number;
   email: string;
+  password?: string;
 }
 
 const data = {
@@ -27,6 +28,7 @@ const handlers = [
     const { user } = req.body as {
       user: User;
     };
+
     if (user.email === 'invalid@email.com') {
       return res(ctx.status(422), ctx.json({ email: '__test_error_description__' }));
     }

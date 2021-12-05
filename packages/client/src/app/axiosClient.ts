@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 const constants = {
-  HOST_URL: process.env.REACT_APP_HOST_URL,
+  HOST_URL: 'http://localhost:4000', // FIXME in test
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
