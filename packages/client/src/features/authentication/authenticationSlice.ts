@@ -43,3 +43,4 @@ const authenticationSlice = createSlice({
 export const { login, register, logout, loginSuccess, loginFailure, logoutSuccess, logoutFailure } =
   authenticationSlice.actions;
 export default authenticationSlice.reducer;
+export { initialState };
