@@ -5,13 +5,6 @@ describe('login', function () {
   const users = Cypress.env('users');
   const { email, password } = users.client;
 
-  /**
-   *
-   after(() => {
-    cy.logout();
-  });
-   */
-
   it('should login an existing user', () => {
     cy.visit('/');
     cy.findByLabelText(/email address/i).type(email);

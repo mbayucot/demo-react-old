@@ -139,6 +139,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 color="inherit"
+                data-testid="account-dropdown"
                 onClick={handleMenu}
               >
                 <AccountCircle />
@@ -159,7 +160,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout} data-testid="my-wrapper">
+                  Logout
+                </MenuItem>
               </Menu>
             </div>
           </Toolbar>

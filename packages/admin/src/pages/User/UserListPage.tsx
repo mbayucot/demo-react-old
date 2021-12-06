@@ -50,7 +50,7 @@ const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarPro
     <GridToolbarContainer className={classes.toolbar}>
       <div>
         <Button variant="contained" onClick={onAddNewClick}>
-          Add New
+          New User
         </Button>
         <GridToolbarExport />
       </div>
