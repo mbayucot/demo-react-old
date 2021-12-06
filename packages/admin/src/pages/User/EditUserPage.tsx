@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-
+import Typography from '@mui/material/Typography';
 import { GET_USER, GET_USERS, UPDATE_USER } from '@demo/shared';
 import UserForm, { FormValues, validationSchema } from './UserForm';
 
@@ -29,7 +29,7 @@ const EditUserPage: FC = () => {
   if (loading) return <p>'Loading...'</p>;
   if (error) return <p>`Error! ${error.message}`</p>;
 
-  const EnhancedLoginForm = withFormik<FormValues, FormValues>({
+  const EnhancedUserForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({
       email: props.email,
       firstName: props.firstName,
@@ -56,7 +56,10 @@ const EditUserPage: FC = () => {
   return (
     <Container>
       <Box>
-        <EnhancedLoginForm {...data.user} />
+        <Typography variant="h1" component="div" gutterBottom>
+          Edit User
+        </Typography>
+        <EnhancedUserForm {...data.user} />
       </Box>
     </Container>
   );

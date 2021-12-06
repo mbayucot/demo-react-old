@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
@@ -14,7 +15,7 @@ const NewPostPage: FC = () => {
     refetchQueries: [{ query: GET_ALL_POSTS }],
   });
 
-  const EnhancedLoginForm = withFormik<{}, FormValues>({
+  const EnhancedPostForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({
       title: '',
       body: '',
@@ -38,7 +39,10 @@ const NewPostPage: FC = () => {
   return (
     <Container>
       <Box>
-        <EnhancedLoginForm />
+        <Typography variant="h1" component="div" gutterBottom>
+          New Post
+        </Typography>
+        <EnhancedPostForm />
       </Box>
     </Container>
   );

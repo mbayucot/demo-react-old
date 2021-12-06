@@ -3,6 +3,7 @@ import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
+import Typography from '@mui/material/Typography';
 import { Redirect } from 'react-router-dom';
 
 import { RootState } from '../../app/store';
@@ -36,6 +37,9 @@ const SignInPage: FC = () => {
   return (
     <Container>
       <Box>
+        <Typography component="h1" variant="h5">
+          Sign In to Account
+        </Typography>
         <EnhancedLoginForm />
       </Box>
     </Container>

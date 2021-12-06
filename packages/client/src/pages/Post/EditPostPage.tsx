@@ -3,6 +3,7 @@ import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PostForm from '@demo/client/src/pages/Post/PostForm';
+import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
@@ -28,7 +29,7 @@ const EditPostPage: FC = () => {
     refetchQueries: [{ query: GET_ALL_POSTS }],
   });
 
-  const EnhancedLoginForm = withFormik<FormValues, FormValues>({
+  const EnhancedPostForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({
       title: props.title,
       body: props.body,
@@ -57,7 +58,10 @@ const EditPostPage: FC = () => {
 
   return (
     <Container>
-      <Box>{data && <EnhancedLoginForm {...data.post} />}</Box>
+      <Typography variant="h1" component="div" gutterBottom>
+        Edit Post
+      </Typography>
+      <Box>{data && <EnhancedPostForm {...data.post} />}</Box>
     </Container>
   );
 };

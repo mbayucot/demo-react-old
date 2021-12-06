@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { GET_USERS, CREATE_USER } from '@demo/shared';
+import Typography from '@mui/material/Typography';
 import UserForm, { FormValues, validationSchema } from './UserForm';
 
 const NewUserPage: FC = () => {
@@ -14,7 +15,7 @@ const NewUserPage: FC = () => {
     refetchQueries: [{ query: GET_USERS }],
   });
 
-  const EnhancedLoginForm = withFormik<{}, FormValues>({
+  const EnhancedUserForm = withFormik<{}, FormValues>({
     mapPropsToValues: () => ({
       email: '',
       firstName: '',
@@ -40,7 +41,10 @@ const NewUserPage: FC = () => {
   return (
     <Container>
       <Box>
-        <EnhancedLoginForm />
+        <Typography variant="h1" component="div" gutterBottom>
+          New User
+        </Typography>
+        <EnhancedUserForm />
       </Box>
     </Container>
   );
