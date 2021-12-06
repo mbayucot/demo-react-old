@@ -10,14 +10,13 @@
 //
 //
 // -- This is a parent command --
-import "@testing-library/cypress/add-commands";
-import "cypress-file-upload";
+import '@testing-library/cypress/add-commands';
 
-import "./localStorage";
-import "./login";
-import "./modal";
-import "./table";
-import "./search";
+import './localStorage';
+import './login';
+import './modal';
+import './table';
+import './search';
 
-import "./project";
-import "./task";
+import './project';
+import './task';

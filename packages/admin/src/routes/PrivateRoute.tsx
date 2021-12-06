@@ -24,7 +24,7 @@ const PrivateRoute = ({ children, title, ...rest }: RouterProps): React.ReactEle
           ) : (
             <Redirect
               to={{
-                pathname: '/login',
+                pathname: '/',
               }}
             />
           )}

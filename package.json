@@ -30,6 +30,7 @@
     "@types/react": "^17.0.22",
     "@types/react-dom": "^17.0.9",
     "customize-cra": "^0.8.0",
+    "cypress": "9.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
