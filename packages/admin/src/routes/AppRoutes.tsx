@@ -1,10 +1,11 @@
 import React, { FC, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useSelector } from 'react-redux';
+
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { AbilityContext, defineAbilityFor } from '../app/casl';
-import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
 import { NoMatchPage, UnAuthorizedPage } from '@demo/shared';

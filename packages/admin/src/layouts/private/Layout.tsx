@@ -14,11 +14,11 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { MainListItems } from './ListItems';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
+import { MainListItems } from './ListItems';
 import { RootState } from '../../app/store';
 import { logout } from '../../features/authentication/authenticationSlice';
 

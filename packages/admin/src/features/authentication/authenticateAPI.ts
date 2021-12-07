@@ -15,7 +15,7 @@ export function* loginSaga(action: { payload: any }) {
     // @ts-ignore
     const response = yield call(postRequest, 'login', action.payload);
     yield put(loginSuccess(response.headers.authorization));
-  } catch (e: unknown) {
+  } catch (e) {
     if (typeof e === 'string') {
       yield put(loginFailure(e.toString()));
     } else if (e instanceof Error) {
@@ -42,7 +42,7 @@ export function* registerSaga(action: { payload: any }) {
     // @ts-ignore
     const response = yield call(postRequest, 'signup', action.payload);
     yield put(loginSuccess(response.headers.authorization));
-  } catch (e: unknown) {
+  } catch (e) {
     if (typeof e === 'string') {
       yield put(loginFailure(e.toString()));
     } else if (e instanceof Error) {

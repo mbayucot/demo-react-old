@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Link as RouterLink } from 'react-router-dom';
+
 import { User } from '@demo/shared';
 
 export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;

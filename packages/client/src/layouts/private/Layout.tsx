@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,12 +13,11 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { MenuItems } from './MenuItems';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { MenuItems } from './MenuItems';
 import { RootState } from '../../app/store';
 import { logout } from '../../features/authentication/authenticationSlice';
 

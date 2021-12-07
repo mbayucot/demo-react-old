@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
+import { useQuery, useMutation } from '@apollo/client';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client';
+
 import { UPDATE_USER, GET_USER } from '@demo/shared';
 import ProfileForm, { FormValues, validationSchema } from './ProfileForm';
 

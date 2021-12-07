@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
+import { useParams, useHistory } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import Alert from '@mui/material/Alert';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useParams, useHistory } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
 
 import { GET_USER, GET_USERS, UPDATE_USER } from '@demo/shared';
 import UserForm, { FormValues, validationSchema } from './UserForm';

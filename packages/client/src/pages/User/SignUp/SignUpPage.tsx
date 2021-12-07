@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import { Redirect } from 'react-router-dom';
 
 import SignUpForm, { FormValues, validationSchema } from './SignUpForm';
 

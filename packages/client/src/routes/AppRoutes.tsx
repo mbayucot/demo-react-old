@@ -1,6 +1,7 @@
 import React, { FC, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 

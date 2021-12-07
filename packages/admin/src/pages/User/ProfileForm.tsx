@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
+
 import { User } from '@demo/shared';
 
 export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;

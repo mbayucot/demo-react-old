@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   DataGrid,
   GridColDef,
@@ -13,9 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+
 import { ConfirmDialog, SearchBar, NoRowsOverlay, GET_USERS, DELETE_USER } from '@demo/shared';
 
 const defaultTheme = createTheme();

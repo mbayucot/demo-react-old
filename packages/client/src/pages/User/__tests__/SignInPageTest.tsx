@@ -11,7 +11,7 @@ import { store, persistor } from '../../../app/store';
 
 import { client } from '../../../app/apolloClient';
 import SignInPage from '../SignIn/SignInPage';
-import '../../../mockedGraphQLServer';
+import '../../../app/mockedGraphQLServer';
 
 import { handlers } from '../__mocks__/auth';
 

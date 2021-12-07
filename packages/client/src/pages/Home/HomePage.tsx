@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { useQuery } from '@apollo/client';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 
 import { GET_ALL_POSTS } from '@demo/shared';
 
@@ -9,13 +11,12 @@ import PostCard from './PostCard';
 const HomePage: FC = () => {
   const [query, setSearchText] = React.useState('');
 
-  const { loading, error, data, refetch } = useQuery(GET_ALL_POSTS, {
+  const { loading, error, data } = useQuery(GET_ALL_POSTS, {
     variables: { query },
   });
 
-  if (loading) return <p>Loading..</p>;
-  if (error) return <p>ERROR</p>;
-  if (!data) return <p>Not found</p>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
 
   return (
     <>

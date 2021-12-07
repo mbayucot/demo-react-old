@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
 import Alert from '@mui/material/Alert';
 
 import { CREATE_POST, GET_ALL_POSTS } from '@demo/shared';

@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { buildClientSchema, execute } from 'graphql';
 import { addMocksToSchema } from '@graphql-tools/mock';
 
-import introspection from './introspection.json';
+import introspection from '../schema.json';
 
 // Build a schema using the introspection
 // @ts-ignore

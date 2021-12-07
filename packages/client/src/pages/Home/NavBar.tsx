@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,7 +10,6 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link as RouterLink } from 'react-router-dom';
 
 // @ts-ignore
 const Search = styled('div')(({ theme }) => ({

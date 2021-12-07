@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+
+import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER, GET_USER } from '@demo/shared';
 
 import UserForm, { FormValues, validationSchema } from './ProfileForm';
@@ -11,10 +13,7 @@ import UserForm, { FormValues, validationSchema } from './ProfileForm';
 const ProfilePage: FC = () => {
   const { loading, error, data } = useQuery(GET_USER);
 
-  const [updateUser] = useMutation(UPDATE_USER);
-
-  if (loading) return <p>'Loading...'</p>;
-  if (error) return <p>`Error! ${error.message}`</p>;
+  const [updateUser, { error: mutationError }] = useMutation(UPDATE_USER);
 
   const EnhancedLoginForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({
@@ -37,6 +36,10 @@ const ProfilePage: FC = () => {
       });
     },
   })(UserForm);
+
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <Container>

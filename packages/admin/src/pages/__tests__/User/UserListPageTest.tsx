@@ -8,7 +8,7 @@ import { setupServer } from 'msw/node';
 
 import { client } from '../../../app/apolloClient';
 import UserListPage from '../../User/UserListPage';
-import { graphqlHandler } from '../../../mockedGraphQLServer';
+import { graphqlHandler } from '../../../app/mockedGraphQLServer';
 
 const setup = () => {
   const utils = render(

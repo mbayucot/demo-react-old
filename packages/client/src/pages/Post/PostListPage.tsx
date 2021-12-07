@@ -1,4 +1,6 @@
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -15,8 +17,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
 import { GET_ALL_POSTS, DELETE_POST } from '@demo/shared';
 

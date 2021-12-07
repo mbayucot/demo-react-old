@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
+
 import { User } from '@demo/shared';
 
 export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;

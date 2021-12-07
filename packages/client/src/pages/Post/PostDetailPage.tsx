@@ -1,6 +1,9 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { Reaction } from '@demo/shared';
+import debounce from 'debounce';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,9 +11,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useMutation } from '@apollo/client';
-import { Reaction } from '@demo/shared';
-import debounce from 'debounce';
 
 import { GET_POST, REACT_POST } from '@demo/shared';
 

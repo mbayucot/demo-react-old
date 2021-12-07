@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/client';
 
 import { apolloClient } from '../../../app/apolloClient';
 import ProfilePage from '../Profile/ProfilePage';
-import '../../../mockedGraphQLServer';
+import '../../../app/mockedGraphQLServer';
 
 const setup = () => {
   const props = {
