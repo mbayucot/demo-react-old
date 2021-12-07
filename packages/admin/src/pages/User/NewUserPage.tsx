@@ -4,14 +4,16 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { GET_USERS, CREATE_USER } from '@demo/shared';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+
+import { GET_USERS, CREATE_USER } from '@demo/shared';
 import UserForm, { FormValues, validationSchema } from './UserForm';
 
 const NewUserPage: FC = () => {
   let history = useHistory();
 
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER, {
+  const [createUser, { error: mutationError }] = useMutation(CREATE_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
 
@@ -37,6 +39,8 @@ const NewUserPage: FC = () => {
       history.push('/users');
     },
   })(UserForm);
+
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <Container>

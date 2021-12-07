@@ -5,13 +5,14 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { CREATE_POST, GET_ALL_POSTS } from '@demo/shared';
+import Alert from '@mui/material/Alert';
 
+import { CREATE_POST, GET_ALL_POSTS } from '@demo/shared';
 import PostForm, { FormValues, validationSchema } from './PostForm';
 
 const NewPostPage: FC = () => {
   let history = useHistory();
-  const [createPost, { data, loading, error }] = useMutation(CREATE_POST, {
+  const [createPost, { error: mutationError }] = useMutation(CREATE_POST, {
     refetchQueries: [{ query: GET_ALL_POSTS }],
   });
 
@@ -35,6 +36,8 @@ const NewPostPage: FC = () => {
       history.push('/posts');
     },
   })(PostForm);
+
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <Container>

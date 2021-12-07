@@ -33,6 +33,7 @@ type StateType = {
   isAuthenticated: boolean;
   loader: boolean;
   user?: User;
+  error?: string;
 };
 
 const initialState: StateType = {
@@ -60,13 +61,13 @@ const authenticationSlice = createSlice({
         role: data.role_fmt,
       };
       state.user = user;
-      console.log('here');
       localStorage.setItem('token', action.payload.headers.authorization);
     },
-    loginFailure(state) {
+    loginFailure(state, action) {
       state.loader = false;
       state.isAuthenticated = false;
       state.user = undefined;
+      state.error = action.payload;
     },
     logout(state) {
       state.loader = false;
@@ -79,10 +80,11 @@ const authenticationSlice = createSlice({
       state.user = undefined;
       localStorage.removeItem('token');
     },
-    logoutFailure(state) {
+    logoutFailure(state, action) {
       state.loader = false;
       state.isAuthenticated = false;
       state.user = undefined;
+      state.error = action.payload;
     },
   },
 });

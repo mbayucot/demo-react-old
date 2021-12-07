@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
+import Alert from '@mui/material/Alert';
+
 import { Comment, CREATE_COMMENT } from '@demo/shared';
 
 interface CommentFormProps {
@@ -10,29 +12,24 @@ interface CommentFormProps {
 
 const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
   const [searchText, setSearchText] = useState<string>('');
-  const [error, setError] = useState<boolean>(false);
-  const [createComment, { data, loading }] = useMutation(CREATE_COMMENT);
+  const [createComment, { data, loading, error: mutationError }] = useMutation(CREATE_COMMENT);
 
   const setSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value);
   };
 
   const handleSubmit = async (value: string) => {
-    try {
-      await createComment({
-        variables: {
-          postId: postId,
-          body: value,
-          parentId: parentId || null,
-        },
-      });
-      if (!loading && data) {
-        onSuccess(data.comment);
-      }
-      setSearchText('');
-    } catch (error) {
-      setError(true);
+    await createComment({
+      variables: {
+        postId: postId,
+        body: value,
+        parentId: parentId || null,
+      },
+    });
+    if (!loading && data) {
+      onSuccess(data.comment);
     }
+    setSearchText('');
   };
 
   const handleKeyPress = async (e: KeyboardEvent<HTMLInputElement>) => {
@@ -41,7 +38,7 @@ const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
     }
   };
 
-  if (error) return <div>failed to load</div>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <input

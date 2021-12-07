@@ -6,6 +6,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useMutation } from '@apollo/client';
 import { Reaction } from '@demo/shared';
 import debounce from 'debounce';
@@ -93,8 +95,8 @@ const PostDetailPage: FC = () => {
     setShowComment(!showComment);
   };
 
-  if (loading) return <p>Loading..</p>;
-  if (error) return <p>ERROR</p>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
   if (!data) return <p>Not found</p>;
 
   return (

@@ -6,7 +6,6 @@ import {
   GridToolbarExport,
   GridActionsCellItem,
   GridRowId,
-  GridOverlay,
 } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { useQuery, useMutation } from '@apollo/client';
@@ -15,6 +14,8 @@ import SecurityIcon from '@mui/icons-material/Security';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 import { ConfirmDialog, SearchBar, NoRowsOverlay, GET_USERS, DELETE_USER } from '@demo/shared';
 
 const defaultTheme = createTheme();
@@ -65,10 +66,10 @@ const UserListPage: FC = () => {
   let history = useHistory();
   const [page, setPage] = useState(0);
   const [query, setSearchText] = React.useState('');
-  const { loading, error, data, refetch } = useQuery(GET_USERS, {
+  const { loading, error, data } = useQuery(GET_USERS, {
     variables: { page, query },
   });
-  const [destroyUser] = useMutation(DELETE_USER, {
+  const [destroyUser, { error: mutationError }] = useMutation(DELETE_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
 
@@ -102,8 +103,6 @@ const UserListPage: FC = () => {
         id: id,
       },
     });
-
-    await refetch();
   };
 
   const onDeleteClick = React.useCallback(
@@ -141,8 +140,9 @@ const UserListPage: FC = () => {
     [editUser, destroyUser],
   );
 
-  if (loading) return <p>'Loading...'</p>;
-  if (error) return <p>`Error! ${error.message}`</p>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <>

@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import { Redirect } from 'react-router-dom';
 
 import SignUpForm, { FormValues, validationSchema } from './SignUpForm';
@@ -33,6 +34,10 @@ const SignUpPage: FC = () => {
 
   if (authState.authentication.isAuthenticated) {
     return <Redirect to="/posts" />;
+  }
+
+  if (authState.authentication.error) {
+    return <Alert severity="error">${authState.authentication.error}</Alert>;
   }
 
   return (

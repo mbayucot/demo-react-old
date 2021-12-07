@@ -2,16 +2,14 @@ import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import PostForm from '@demo/client/src/pages/Post/PostForm';
 import Typography from '@mui/material/Typography';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import { useParams, useHistory } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 
 import { GET_POST, UPDATE_POST, GET_ALL_POSTS } from '@demo/shared';
-
-import { FormValues, validationSchema } from '@demo/client/src/pages/Post/PostForm';
+import PostForm, { FormValues, validationSchema } from './PostForm';
 
 type Params = {
   id: string;
@@ -25,7 +23,7 @@ const EditPostPage: FC = () => {
     variables: { id: id },
   });
 
-  const [updatePost] = useMutation(UPDATE_POST, {
+  const [updatePost, { error: mutationError }] = useMutation(UPDATE_POST, {
     refetchQueries: [{ query: GET_ALL_POSTS }],
   });
 
@@ -53,15 +51,18 @@ const EditPostPage: FC = () => {
     },
   })(PostForm);
 
-  if (loading) return <p>'Loading...'</p>;
-  if (error) return <p>`Error! ${error.message}`</p>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <Container>
-      <Typography variant="h1" component="div" gutterBottom>
-        Edit Post
-      </Typography>
-      <Box>{data && <EnhancedPostForm {...data.post} />}</Box>
+      <Box>
+        <Typography variant="h1" component="div" gutterBottom>
+          Edit Post
+        </Typography>
+        {data && <EnhancedPostForm {...data.post} />}
+      </Box>
     </Container>
   );
 };

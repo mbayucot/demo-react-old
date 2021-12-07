@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import Typography from '@mui/material/Typography';
 import { Redirect } from 'react-router-dom';
 
 import { RootState } from '../../../app/store';
@@ -32,6 +33,10 @@ const SignInPage: FC = () => {
 
   if (authState.authentication.isAuthenticated) {
     return <Redirect to="/posts" />;
+  }
+
+  if (authState.authentication.error) {
+    return <Alert severity="error">${authState.authentication.error}</Alert>;
   }
 
   return (

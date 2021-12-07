@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
+import Alert from '@mui/material/Alert';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useParams, useHistory } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
+
 import { GET_USER, GET_USERS, UPDATE_USER } from '@demo/shared';
 import UserForm, { FormValues, validationSchema } from './UserForm';
 
@@ -22,12 +23,9 @@ const EditUserPage: FC = () => {
     variables: { id: id },
   });
 
-  const [updateUser] = useMutation(UPDATE_USER, {
+  const [updateUser, { error: mutationError }] = useMutation(UPDATE_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
-
-  if (loading) return <p>'Loading...'</p>;
-  if (error) return <p>`Error! ${error.message}`</p>;
 
   const EnhancedUserForm = withFormik<FormValues, FormValues>({
     mapPropsToValues: (props) => ({
@@ -52,6 +50,10 @@ const EditUserPage: FC = () => {
       history.push('/users');
     },
   })(UserForm);
+
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <Container>

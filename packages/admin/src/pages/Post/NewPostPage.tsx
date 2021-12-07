@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import Typography from '@mui/material/Typography';
 import { CREATE_POST, GET_ALL_POSTS } from '@demo/shared';
 
 import PostForm, { FormValues, validationSchema } from './PostForm';
@@ -38,6 +39,9 @@ const NewPostPage: FC = () => {
   return (
     <Container>
       <Box>
+        <Typography variant="h1" component="div" gutterBottom>
+          New Post
+        </Typography>
         <EnhancedLoginForm />
       </Box>
     </Container>

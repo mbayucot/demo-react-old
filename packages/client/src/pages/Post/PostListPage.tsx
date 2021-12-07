@@ -11,6 +11,8 @@ import {
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router-dom';
@@ -71,7 +73,7 @@ const PostListPage: FC = () => {
   const { loading, error, data, refetch } = useQuery(GET_ALL_POSTS, {
     variables: { page, query, sort: sortModel.length === 0 ? 'asc' : sortModel[0].sort },
   });
-  const [destroyPost] = useMutation(DELETE_POST, {
+  const [destroyPost, { error: mutationError }] = useMutation(DELETE_POST, {
     refetchQueries: [{ query: GET_ALL_POSTS }],
   });
 
@@ -108,8 +110,6 @@ const PostListPage: FC = () => {
         id: id,
       },
     });
-
-    await refetch();
   };
 
   const onDeleteClick = React.useCallback(
@@ -153,8 +153,9 @@ const PostListPage: FC = () => {
     [editPost, destroyPost],
   );
 
-  if (loading) return <p>'Loading...'</p>;
-  if (error) return <p>`Error! ${error.message}`</p>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">${error.message}</Alert>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <>
