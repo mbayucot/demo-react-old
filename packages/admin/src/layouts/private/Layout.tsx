@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -14,24 +12,30 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import PeopleIcon from '@mui/icons-material/People';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { MainListItems } from './ListItems';
 import { RootState } from '../../app/store';
 import { logout } from '../../features/authentication/authenticationSlice';
+import { Can } from '../../app/casl';
 
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
-  theme?: any;
   open?: boolean;
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop: any) => prop !== 'open',
-})<AppBarProps>(({ theme, open }: AppBarProps) => ({
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -47,31 +51,29 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: any) => prop !== 'open' })(
-  ({ theme, open }: AppBarProps) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
+  '& .MuiDrawer-paper': {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    boxSizing: 'border-box',
+    ...(!open && {
+      overflowX: 'hidden',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    }),
+  },
+}));
 
 const mdTheme = createTheme();
 
@@ -80,11 +82,11 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-  let history = useHistory();
   const authState = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(true);
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -95,11 +97,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleProfile = () => {
-    history.push('/profile');
-    handleClose();
   };
 
   const handleLogout = () => {
@@ -139,7 +136,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 color="inherit"
-                data-testid="account-dropdown"
                 onClick={handleMenu}
               >
                 <AccountCircle />
@@ -159,15 +155,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout} data-testid="my-wrapper">
-                  Logout
-                </MenuItem>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           </Toolbar>
         </AppBar>
-        <Drawer open={open}>
+        <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
               display: 'flex',
@@ -182,7 +176,22 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           </Toolbar>
           <Divider />
           <List>
-            <MainListItems />
+            <div>
+              <ListItem button onClick={() => history.push('/posts')}>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Posts" />
+              </ListItem>
+              <Can I="read" a="User">
+                <ListItem button onClick={() => history.push('/users')}>
+                  <ListItemIcon>
+                    <PeopleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Users" />
+                </ListItem>
+              </Can>
+            </div>
           </List>
         </Drawer>
         <Box

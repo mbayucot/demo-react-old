@@ -54,14 +54,14 @@ const authenticationSlice = createSlice({
     loginSuccess(state, action) {
       state.loader = false;
       state.isAuthenticated = !!action.payload;
-      const data = action.payload.data;
+      const data = action.payload.user;
       const user: User = {
         id: data.email,
         email: data.email,
         role: data.role_fmt,
       };
       state.user = user;
-      localStorage.setItem('token', action.payload.headers.authorization);
+      localStorage.setItem('token', action.payload.token);
     },
     loginFailure(state, action) {
       state.loader = false;

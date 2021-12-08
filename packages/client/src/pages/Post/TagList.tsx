@@ -11,7 +11,7 @@ const TagList: FC<TagListProps> = ({ tags }) => {
     <>
       {tags.map((tag) => (
         <Link key={tag.id} to={`/?tag=${tag.name}`}>
-          <a>{tag.name}</a>
+          <p>{tag.name}</p>
         </Link>
       ))}
     </>
