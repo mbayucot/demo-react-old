@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { GET_POST, REACT_POST } from '@demo/shared';
+import { GET_POST_DETAIL, REACT_POST } from '@demo/shared';
 
 import CommentList from './CommentList';
 
@@ -34,7 +34,7 @@ const PostDetailPage: FC = () => {
   let { slug } = useParams<Params>();
   const [showComment, setShowComment] = useState<boolean>(false);
 
-  const { loading, error, data } = useQuery(GET_POST, {
+  const { loading, error, data } = useQuery(GET_POST_DETAIL, {
     variables: { id: slug },
   });
 
@@ -108,7 +108,7 @@ const PostDetailPage: FC = () => {
           </Typography>
         </Link>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {data.post.body}
+          {data.post.content}
         </Typography>
       </CardContent>
       <CardActions>
@@ -121,6 +121,15 @@ const PostDetailPage: FC = () => {
         />
         <button onClick={handleComment}>Comment</button>
       </CardActions>
+      <div>
+        {data.post.subscribed && (
+          <Link to={`/checkout`}>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Please subscribe to continue!
+            </Typography>
+          </Link>
+        )}
+      </div>
     </Card>
   );
 };

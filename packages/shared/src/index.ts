@@ -21,6 +21,7 @@ export { DELETE_USER } from './operations/mutations/deleteUser';
 
 export { GET_ALL_POSTS } from './operations/queries/getAllPosts';
 export { GET_POST } from './operations/queries/getPost';
+export { GET_POST_DETAIL } from './operations/queries/getPostDetail';
 
 export { GET_USERS } from './operations/queries/getUsers';
 export { GET_USER } from './operations/queries/getUser';

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useMutation } from '@apollo/client';
+import Alert from '@mui/material/Alert';
+import { useHistory } from 'react-router-dom';
+
 import { CREATE_SUBSCRIPTION } from '@demo/shared';
 
 import CardSection from './CardSection';
 
 export default function CheckoutForm() {
+  let history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
-  const [createSubscription, { data, loading, error }] = useMutation(CREATE_SUBSCRIPTION);
+  const [error, setError] = useState<string>();
+  const [createSubscription, { data, loading, error: mutationError }] = useMutation(CREATE_SUBSCRIPTION);
 
   const handleSubmit = async (event: any) => {
     // We don't want to let default form submission happen here,
@@ -27,7 +32,7 @@ export default function CheckoutForm() {
 
     if (result.error) {
       // Show error to your customer.
-      console.log(result.error.message);
+      setError(result.error.message);
     } else {
       // Send the token to your server.
       // This function does not exist yet; we will define it in the next step.
@@ -41,7 +46,11 @@ export default function CheckoutForm() {
         token: token.id,
       },
     });
+    history.push('/posts');
   };
+
+  if (error) return <Alert severity="error">${error}</Alert>;
+  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
 
   return (
     <form onSubmit={handleSubmit}>

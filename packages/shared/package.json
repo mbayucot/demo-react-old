@@ -50,6 +50,7 @@
     "cypress": "^9.1.0",
     "debounce": "^1.2.1",
     "faker": "^5.5.3",
+    "flagged": "^2.0.1",
     "formik": "^2.2.9",
     "graphql": "^15.6.0",
     "jest": "^27.3.1",

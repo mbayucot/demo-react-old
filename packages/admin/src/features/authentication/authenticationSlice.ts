@@ -48,9 +48,6 @@ const authenticationSlice = createSlice({
     login(state) {
       state.loader = true;
     },
-    register(state) {
-      state.loader = true;
-    },
     loginSuccess(state, action) {
       state.loader = false;
       state.isAuthenticated = !!action.payload;
@@ -89,6 +86,5 @@ const authenticationSlice = createSlice({
   },
 });
 
-export const { login, register, logout, loginSuccess, loginFailure, logoutSuccess, logoutFailure } =
-  authenticationSlice.actions;
+export const { login, logout, loginSuccess, loginFailure, logoutSuccess, logoutFailure } = authenticationSlice.actions;
 export default authenticationSlice.reducer;
