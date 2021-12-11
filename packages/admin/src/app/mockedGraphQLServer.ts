@@ -2,12 +2,17 @@ import { rest } from 'msw';
 import { gql } from '@apollo/client';
 import { buildClientSchema, execute } from 'graphql';
 import { addMocksToSchema } from '@graphql-tools/mock';
+import casual from 'casual';
 
 import introspection from '../schema.json';
 
+const mocks = {
+  ISO8601DateTime: () => casual.date('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
+};
+
 // Build a schema using the introspection
 // @ts-ignore
-const schema = buildClientSchema(introspection);
+const schema = buildClientSchema(introspection, mocks);
 
 // Stub out our schema with fake data
 const mockedSchema = addMocksToSchema({ schema });
