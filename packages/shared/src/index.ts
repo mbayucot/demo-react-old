@@ -25,3 +25,4 @@ export { GET_POST_DETAIL } from './operations/queries/getPostDetail';
 
 export { GET_USERS } from './operations/queries/getUsers';
 export { GET_USER } from './operations/queries/getUser';
+export { GET_USER_PROFILE } from './operations/queries/getUserProfile';

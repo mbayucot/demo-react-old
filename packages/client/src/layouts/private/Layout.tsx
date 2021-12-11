@@ -93,6 +93,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleProfile = () => {
+    history.push('/profile');
+    handleClose();
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -153,7 +158,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

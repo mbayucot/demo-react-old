@@ -4,11 +4,11 @@ import { useQuery, useMutation } from '@apollo/client';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-import { UPDATE_USER, GET_USER } from '@demo/shared';
+import { UPDATE_USER, GET_USER_PROFILE } from '@demo/shared';
 import ProfileForm, { FormValues, validationSchema } from './ProfileForm';
 
 const ProfilePage: FC = () => {
-  const { loading, error, data } = useQuery(GET_USER);
+  const { loading, error, data } = useQuery(GET_USER_PROFILE);
 
   const [updateUser] = useMutation(UPDATE_USER);
 
