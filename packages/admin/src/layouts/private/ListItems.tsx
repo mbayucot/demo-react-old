@@ -3,23 +3,16 @@ import { useHistory } from 'react-router-dom';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 
 import { Can } from '../../app/casl';
 
-export const MainListItems = () => {
+const ListItems = () => {
   const history = useHistory();
 
   return (
     <div>
-      <ListItem button onClick={() => history.push('/dashboard')}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
       <ListItem button onClick={() => history.push('/posts')}>
         <ListItemIcon>
           <ShoppingCartIcon />
@@ -34,12 +27,8 @@ export const MainListItems = () => {
           <ListItemText primary="Users" />
         </ListItem>
       </Can>
-      <ListItem button onClick={() => history.push('/users')}>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItem>
     </div>
   );
 };
+
+export default ListItems;

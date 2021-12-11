@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useFeature } from 'flagged';
 
 import { GET_POST_DETAIL, REACT_POST } from '@demo/shared';
 
@@ -33,6 +34,7 @@ export const weights: any = {
 const PostDetailPage: FC = () => {
   let { slug } = useParams<Params>();
   const [showComment, setShowComment] = useState<boolean>(false);
+  const hasSubscription = useFeature('subscription');
 
   const { loading, error, data } = useQuery(GET_POST_DETAIL, {
     variables: { id: slug },
@@ -122,7 +124,7 @@ const PostDetailPage: FC = () => {
         <button onClick={handleComment}>Comment</button>
       </CardActions>
       <div>
-        {data.post.subscribed && (
+        {hasSubscription && !data.post.subscribed && (
           <Link to={`/checkout`}>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               Please subscribe to continue!

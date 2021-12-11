@@ -31,18 +31,13 @@ const SignInPage: FC = () => {
     },
   })(SignInForm);
 
-  console.log(authState.authentication.isAuthenticated);
-
   if (authState.authentication.isAuthenticated) {
     return <Redirect to="/posts" />;
   }
 
-  /**
-   *
-   if (authState.authentication.error) {
+  if (authState.authentication.error) {
     return <Alert severity="error">${authState.authentication.error}</Alert>;
   }
-   */
 
   return (
     <Container>
