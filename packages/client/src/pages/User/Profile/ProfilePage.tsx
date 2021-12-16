@@ -5,8 +5,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { useQuery, useMutation } from '@apollo/client';
-
-import stripe from '../../../app/stripe';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { UPDATE_USER, GET_USER_PROFILE } from '@demo/shared';
 
@@ -40,11 +39,15 @@ const ProfilePage: FC = () => {
   })(UserForm);
 
   const handleAccount = async () => {
-    const { url } = await stripe.billingPortal.sessions.create({
+    /**
+     *
+     const stripe = await loadStripe(process.env.STRIPE_SECRET_KEY!);
+     const { url } = await stripe!.billingPortal.sessions.create({
       customer: data.user.stripeCustomerId,
       return_url: `${process.env.STRIPE_SECRET_KEY_LIVE}/profile`,
     });
-    window.location.href = url;
+     window.location.href = url;
+     */
   };
 
   if (loading) return <CircularProgress />;

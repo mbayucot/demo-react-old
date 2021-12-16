@@ -138,6 +138,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 aria-haspopup="true"
                 color="inherit"
                 onClick={handleMenu}
+                data-testid="account-dropdown"
               >
                 <AccountCircle />
               </IconButton>

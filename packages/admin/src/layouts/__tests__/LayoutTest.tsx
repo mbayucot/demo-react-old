@@ -1,41 +1,100 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { FC } from 'react';
+import { render, screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { setupServer } from 'msw/node';
+import { Provider } from 'react-redux';
+import { ApolloProvider } from '@apollo/client';
+import faker from 'faker';
+
+import { User } from '@demo/shared';
+
+import { store } from '../../app/store';
 
 import Layout from '../private/Layout';
+import { AbilityContext, defineAbilityFor } from '../../app/casl';
+import { client } from '../../app/apolloClient';
 
-const setup = () => {
-  const handleClose = jest.fn();
-  const handleConfirm = jest.fn();
-  const props = {
-    message: '__test_message__',
-    open: true,
-    handleClose,
-    handleConfirm,
-  };
-  const utils = render(<ConfirmDialog {...props} />);
-  const clickOk = () => userEvent.click(utils.getByText(/ok/i));
-  const clickCancel = () => userEvent.click(utils.getByText(/cancel/i));
-  return { clickOk, clickCancel, handleClose };
+import { handlers } from '../../pages/User/__mocks__/auth';
+
+export const admin: User = {
+  id: '1',
+  email: faker.internet.email(),
+  role: 'Admin',
 };
 
-describe('ConfirmDialog', () => {
-  it('should render modal', async () => {
-    const { clickOk, handleClose } = setup();
-    expect(screen.getByText(/__test_message__/i)).toBeInTheDocument();
-    clickOk();
-    expect(handleClose).toHaveBeenCalledWith(true);
+export const editor: User = {
+  id: '2',
+  email: faker.internet.email(),
+  role: 'Editor',
+};
+
+const setup = (user: User) => {
+  const ability = defineAbilityFor(user);
+  const MyComponent: FC = () => {
+    return <p>My Component</p>;
+  };
+  const utils = render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <AbilityContext.Provider value={ability}>
+            <Switch>
+              <Route path="/">
+                <p>landing page</p>
+              </Route>
+            </Switch>
+            <Layout>
+              <MyComponent />
+            </Layout>
+          </AbilityContext.Provider>
+        </ApolloProvider>
+      </Provider>
+    </BrowserRouter>,
+  );
+  const accountMenu = utils.getByTestId('account-dropdown') as HTMLButtonElement;
+  const clickAccountMenu = () => userEvent.click(accountMenu);
+  return { utils, clickAccountMenu };
+};
+
+describe('Header', () => {
+  const server = setupServer(...handlers);
+
+  beforeAll(() => server.listen());
+
+  afterEach(() => {
+    server.resetHandlers();
   });
 
-  it('should close modal when ok button is clicked', async () => {
-    const { clickOk, handleClose } = setup();
-    clickOk();
-    expect(handleClose).toHaveBeenCalledWith(true);
+  afterAll(() => server.close());
+
+  it('should render admin menu', async () => {
+    setup(admin);
+    expect(screen.getByText(/posts/i)).toBeInTheDocument();
+    expect(screen.getByText(/users/i)).toBeInTheDocument();
   });
 
-  it('should close modal when cancel button is clicked', async () => {
-    const { clickCancel, handleClose } = setup();
-    clickCancel();
-    expect(handleClose).toHaveBeenCalledWith(false);
+  it('should render editor menu', async () => {
+    setup(editor);
+    expect(screen.getByText(/posts/i)).toBeInTheDocument();
+  });
+
+  it('should render account menu', async () => {
+    const { clickAccountMenu } = setup(admin);
+
+    clickAccountMenu();
+    expect(screen.getByText(/profile/i)).toBeInTheDocument();
+    expect(screen.getByText(/logout/i)).toBeInTheDocument();
+  });
+
+  it('should handle sign out', async () => {
+    const { utils, clickAccountMenu } = setup(editor);
+    clickAccountMenu();
+    await act(async () => {
+      userEvent.click(utils.getByText(/logout/i));
+    });
+    await waitFor(() => {
+      expect(screen.getByText('landing page')).toBeInTheDocument();
+    });
   });
 });

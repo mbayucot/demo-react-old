@@ -33,16 +33,20 @@ const AppRoutes: FC = () => {
             <Login />
           </Route>
 
-          <PrivateRoute path="/posts/new">
-            <NewPost />
-          </PrivateRoute>
-
           <PrivateRoute path="/posts/:id/edit">
             <EditPost />
           </PrivateRoute>
 
+          <PrivateRoute path="/posts/new">
+            <NewPost />
+          </PrivateRoute>
+
           <PrivateRoute path="/posts">
             <PostList />
+          </PrivateRoute>
+
+          <PrivateRoute path="/users/:id/edit">
+            <EditUser />
           </PrivateRoute>
 
           <PrivateRoute path="/users/new">
@@ -51,10 +55,6 @@ const AppRoutes: FC = () => {
 
           <PrivateRoute path="/users">
             <UserList />
-          </PrivateRoute>
-
-          <PrivateRoute path="/users/:id/edit">
-            <EditUser />
           </PrivateRoute>
 
           <PrivateRoute path="/profile">

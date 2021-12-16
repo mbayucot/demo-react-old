@@ -6,10 +6,13 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 import { User } from '@demo/shared';
 
-export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password'>;
+export type FormValues = Pick<User, 'email' | 'firstName' | 'lastName' | 'password' | 'role'>;
 
 export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -21,7 +24,7 @@ export const validationSchema = Yup.object().shape({
     .required('Last name is required')
     .min(2, 'Last name is too short')
     .max(32, 'Last name is too long'),
-  //role: Yup.string().required('Role is required'),
+  role: Yup.string().required('Role is required'),
   password: Yup.string().required('Password is required'),
   //password: Yup.string().min(8, 'Password is too short').max(20, 'Password is too long'),
   //.matches(
@@ -102,6 +105,13 @@ const UserForm = (props: FormikProps<FormValues>): React.ReactElement => {
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />
+          <FormControl fullWidth>
+            <Select id="role" name="role" value={values.role} label="Role" onChange={handleChange}>
+              <MenuItem value="author">Author</MenuItem>
+              <MenuItem value="editor">Editor</MenuItem>
+              <MenuItem value="admin">Admin</MenuItem>
+            </Select>
+          </FormControl>
           <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
             Save
           </LoadingButton>

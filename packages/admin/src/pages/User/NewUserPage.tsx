@@ -23,6 +23,7 @@ const NewUserPage: FC = () => {
       firstName: '',
       lastName: '',
       password: '',
+      role: '',
     }),
 
     validationSchema: validationSchema,
@@ -34,6 +35,7 @@ const NewUserPage: FC = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           password: values.password,
+          role: values.role,
         },
       });
       history.push('/users');

@@ -113,6 +113,7 @@ export type MutationCreateUserArgs = {
   firstName?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -270,11 +271,12 @@ export type User = {
   id: Scalars['ID'];
   lastName?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  password: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
   rememberCreatedAt?: Maybe<Scalars['ISO8601DateTime']>;
   resetPasswordSentAt?: Maybe<Scalars['ISO8601DateTime']>;
   resetPasswordToken?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['Int']>;
+  role?: Maybe<Scalars['String']>;
+  stripeCustomerId?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['ISO8601DateTime']>;
 };
 
@@ -286,6 +288,8 @@ export type UserAttributes = {
   firstName?: InputMaybe<Scalars['String']>;
   /** Full body of the comment */
   lastName?: InputMaybe<Scalars['String']>;
+  /** Full body of the comment */
+  role?: InputMaybe<Scalars['String']>;
 };
 
 export type UserCollection = {

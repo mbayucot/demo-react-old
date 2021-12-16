@@ -33,6 +33,7 @@ const EditUserPage: FC = () => {
       firstName: props.firstName,
       lastName: props.lastName,
       password: props.password,
+      role: props.role,
     }),
 
     validationSchema: validationSchema,
@@ -44,6 +45,7 @@ const EditUserPage: FC = () => {
           attributes: {
             firstName: values.firstName,
             lastName: values.lastName,
+            role: values.role,
           },
         },
       });

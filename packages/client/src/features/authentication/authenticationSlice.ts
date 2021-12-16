@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 
 const initialState = {
   isAuthenticated: false,
@@ -19,7 +20,7 @@ const authenticationSlice = createSlice({
     loginSuccess(state, action) {
       state.loader = false;
       state.isAuthenticated = !!action.payload;
-      localStorage.setItem('token', action.payload);
+      Cookies.set('token', action.payload.token, { expires: 1 });
     },
     loginFailure(state, action) {
       state.loader = false;
@@ -33,7 +34,7 @@ const authenticationSlice = createSlice({
     logoutSuccess(state) {
       state.loader = false;
       state.isAuthenticated = false;
-      localStorage.removeItem('token');
+      Cookies.remove('token');
     },
     logoutFailure(state, action) {
       state.loader = false;

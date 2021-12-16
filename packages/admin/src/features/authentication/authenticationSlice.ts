@@ -1,32 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { User } from '@demo/shared';
+import Cookies from 'js-cookie';
 
 export enum Role {
   Author = 'Author',
   Editor = 'Editor',
   Admin = 'Admin',
-}
-
-interface Model {
-  id: number;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-export interface User extends Model {
-  email: string;
-  role: string;
-  role_fmt?: string;
-  password?: string;
-  first_name?: string;
-  last_name?: string;
-  name?: string;
-  avatar?: string;
-}
-
-export interface Post extends Model {
-  name: string;
-  created_by?: number;
-  //readonly client?: User;
 }
 
 type StateType = {
@@ -53,12 +32,12 @@ const authenticationSlice = createSlice({
       state.isAuthenticated = !!action.payload;
       const data = action.payload.user;
       const user: User = {
-        id: data.email,
+        id: data.id,
         email: data.email,
         role: data.role_fmt,
       };
       state.user = user;
-      localStorage.setItem('token', action.payload.token);
+      Cookies.set('token', action.payload.token, { expires: 1 });
     },
     loginFailure(state, action) {
       state.loader = false;
@@ -75,7 +54,7 @@ const authenticationSlice = createSlice({
       state.loader = false;
       state.isAuthenticated = false;
       state.user = undefined;
-      localStorage.removeItem('token');
+      Cookies.remove('token');
     },
     logoutFailure(state, action) {
       state.loader = false;

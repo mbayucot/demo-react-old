@@ -27,7 +27,7 @@ const SignInPage: FC = () => {
 
     handleSubmit: async (values: FormValues, { props, ...actions }) => {
       // @ts-ignore
-      dispatch(login({ user: { ...values } }));
+      dispatch(login({ user: { ...values }, domain: 'author' }));
     },
   })(SignInForm);
 
@@ -35,15 +35,12 @@ const SignInPage: FC = () => {
     return <Redirect to="/posts" />;
   }
 
-  if (authState.authentication.error) {
-    return <Alert severity="error">${authState.authentication.error}</Alert>;
-  }
-
   return (
     <Container>
       <Box>
         <Typography component="h1" variant="h5">
           Sign In to Account
+          {authState.authentication.error && <Alert severity="error">${authState.authentication.error}</Alert>}
         </Typography>
         <EnhancedLoginForm />
       </Box>

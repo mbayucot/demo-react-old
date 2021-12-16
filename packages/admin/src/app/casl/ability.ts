@@ -1,32 +1,11 @@
 import { Ability, AbilityClass, AbilityBuilder } from '@casl/ability';
 
+import { User } from '@demo/shared';
+
 export enum Role {
   Author = 'Author',
   Editor = 'Editor',
   Admin = 'Admin',
-}
-
-interface Model {
-  id: number;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-export interface User extends Model {
-  email: string;
-  role: string;
-  role_fmt?: string;
-  password?: string;
-  first_name?: string;
-  last_name?: string;
-  name?: string;
-  avatar?: string;
-}
-
-export interface Post extends Model {
-  name: string;
-  created_by?: number;
-  //readonly client?: User;
 }
 
 const manage = ['create', 'read', 'update', 'delete'];
