@@ -19,6 +19,8 @@ export { CREATE_USER } from './operations/mutations/createUser';
 export { UPDATE_USER } from './operations/mutations/updateUser';
 export { DELETE_USER } from './operations/mutations/deleteUser';
 
+export { GET_TAGS } from './operations/queries/getTags';
+
 export { GET_ALL_POSTS } from './operations/queries/getAllPosts';
 export { GET_POST } from './operations/queries/getPost';
 export { GET_POST_DETAIL } from './operations/queries/getPostDetail';

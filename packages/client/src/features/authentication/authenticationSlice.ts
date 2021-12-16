@@ -20,6 +20,7 @@ const authenticationSlice = createSlice({
     loginSuccess(state, action) {
       state.loader = false;
       state.isAuthenticated = !!action.payload;
+      console.log(action.payload.token);
       Cookies.set('token', action.payload.token, { expires: 1 });
     },
     loginFailure(state, action) {

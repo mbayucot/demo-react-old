@@ -26,6 +26,7 @@ const NewPostPage: FC = () => {
     validationSchema: validationSchema,
 
     handleSubmit: async (values: FormValues, { props, ...actions }) => {
+      console.log(values.tagList);
       await createPost({
         variables: {
           title: values.title,

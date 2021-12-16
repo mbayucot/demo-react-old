@@ -3,6 +3,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import QueueLink from 'apollo-link-queue';
 import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Cookies from 'js-cookie';
 
 const queueLink = new QueueLink();
 const retryLink = new RetryLink();
@@ -13,7 +14,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      Authorization: localStorage.getItem('token') || '',
+      Authorization: Cookies.get('token') || '',
     },
   };
 });

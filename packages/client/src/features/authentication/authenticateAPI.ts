@@ -16,7 +16,7 @@ export function* loginSaga(action: { payload: any }) {
   try {
     // @ts-ignore
     const response = yield call(postRequest, 'login', action.payload);
-    yield put(loginSuccess(response.headers.authorization));
+    yield put(loginSuccess({ token: response.headers.authorization }));
   } catch (e) {
     if (typeof e === 'string') {
       yield put(loginFailure(e.toString()));

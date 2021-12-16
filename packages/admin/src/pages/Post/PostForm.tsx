@@ -8,25 +8,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import { gql, useQuery } from '@apollo/client';
 import { client } from '../../app/apolloClient';
-import { Post } from '@demo/shared';
-
-const GET_TAGS = gql`
-  query GetTags {
-    tags {
-      id
-      name
-    }
-  }
-`;
-
-const query = gql`
-  query GetTags($query: String!) {
-    tags(query: $query) {
-      id
-      name
-    }
-  }
-`;
+import AsyncCreatableSelect from 'react-select/async-creatable';
+import { Post, GET_TAGS } from '@demo/shared';
 
 export type FormValues = Pick<Post, 'title' | 'body' | 'comments' | 'tags' | 'tagList'>;
 
@@ -38,11 +21,8 @@ export const validationSchema = Yup.object().shape({
 const PostForm = (props: FormikProps<FormValues>): React.ReactElement => {
   const { touched, values, handleChange, errors, isSubmitting, handleSubmit, setFieldValue } = props;
 
-  //const [getTags, { loading, error, data }] = useLazyQuery(GET_TAGS);
-  //const { loading, error, data } = useQuery(GET_TAGS);
-
   const loadOptions = (inputValue: string, callback: (options: any) => void) => {
-    client.query({ query, variables: { query: inputValue } }).then((response) => {
+    client.query({ query: GET_TAGS, variables: { query: inputValue } }).then((response) => {
       callback(response.data.tags.map((x: any) => ({ value: x.id, label: x.name })));
     });
   };
@@ -89,6 +69,26 @@ const PostForm = (props: FormikProps<FormValues>): React.ReactElement => {
             helperText={touched.body && errors.body}
           />
 
+          <AsyncCreatableSelect
+            cacheOptions
+            defaultOptions
+            placeholder="Tags"
+            inputId="tags"
+            name="tags"
+            defaultValue={values?.tags?.map((x: any) => ({ value: x.id, label: x.name }))}
+            loadOptions={loadOptions}
+            styles={{
+              container: (base) => ({
+                ...base,
+                width: 250,
+              }),
+            }}
+            isClearable
+            isMulti
+            onChange={(value) => {
+              setFieldValue('tagList', value ? value.map((x: any) => x.label) : '');
+            }}
+          />
           <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
             Save
           </LoadingButton>
