@@ -5,32 +5,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { setupServer } from 'msw/node';
 import { Provider } from 'react-redux';
 import { ApolloProvider } from '@apollo/client';
-import faker from 'faker';
-
-import { User } from '@demo/shared';
 
 import { store } from '../../app/store';
-
 import Layout from '../private/Layout';
-import { AbilityContext, defineAbilityFor } from '../../app/casl';
 import { client } from '../../app/apolloClient';
-
 import { handlers } from '../../pages/User/__mocks__/auth';
 
-export const admin: User = {
-  id: '1',
-  email: faker.internet.email(),
-  role: 'Admin',
-};
-
-export const editor: User = {
-  id: '2',
-  email: faker.internet.email(),
-  role: 'Editor',
-};
-
-const setup = (user: User) => {
-  const ability = defineAbilityFor(user);
+const setup = () => {
   const MyComponent: FC = () => {
     return <p>My Component</p>;
   };
@@ -38,16 +19,14 @@ const setup = (user: User) => {
     <BrowserRouter>
       <Provider store={store}>
         <ApolloProvider client={client}>
-          <AbilityContext.Provider value={ability}>
-            <Switch>
-              <Route path="/">
-                <p>landing page</p>
-              </Route>
-            </Switch>
-            <Layout>
-              <MyComponent />
-            </Layout>
-          </AbilityContext.Provider>
+          <Switch>
+            <Route path="/">
+              <p>landing page</p>
+            </Route>
+          </Switch>
+          <Layout>
+            <MyComponent />
+          </Layout>
         </ApolloProvider>
       </Provider>
     </BrowserRouter>,
@@ -69,23 +48,17 @@ describe('Header', () => {
   afterAll(() => server.close());
 
   it('should wrap a class component', () => {
-    setup(admin);
+    setup();
     expect(screen.getByText('My Component')).toBeInTheDocument();
   });
 
-  it('should render admin menu', async () => {
-    setup(admin);
-    expect(screen.getByText(/posts/i)).toBeInTheDocument();
-    expect(screen.getByText(/users/i)).toBeInTheDocument();
-  });
-
-  it('should render editor menu', async () => {
-    setup(editor);
+  it('should render author menu', async () => {
+    setup();
     expect(screen.getByText(/posts/i)).toBeInTheDocument();
   });
 
   it('should render account menu', async () => {
-    const { clickAccountMenu } = setup(admin);
+    const { clickAccountMenu } = setup();
 
     clickAccountMenu();
     expect(screen.getByText(/profile/i)).toBeInTheDocument();
@@ -93,7 +66,7 @@ describe('Header', () => {
   });
 
   it('should handle sign out', async () => {
-    const { utils, clickAccountMenu } = setup(editor);
+    const { utils, clickAccountMenu } = setup();
     clickAccountMenu();
     await act(async () => {
       userEvent.click(utils.getByText(/logout/i));

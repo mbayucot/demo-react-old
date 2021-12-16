@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../app/store';
 import { logout } from '../../features/authentication/authenticationSlice';
+import ListItems from './ListItems';
 
 const drawerWidth: number = 240;
 
@@ -140,6 +141,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                 aria-haspopup="true"
                 color="inherit"
                 onClick={handleMenu}
+                data-testid="account-dropdown"
               >
                 <AccountCircle />
               </IconButton>
@@ -179,14 +181,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           </Toolbar>
           <Divider />
           <List>
-            <div>
-              <ListItem button onClick={() => history.push('/posts')}>
-                <ListItemIcon>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="Posts" />
-              </ListItem>
-            </div>
+            <ListItems />
           </List>
         </Drawer>
         <Box
