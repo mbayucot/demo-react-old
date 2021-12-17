@@ -27,7 +27,6 @@ export const defineAbilityFor = (user?: User): AppAbility => {
       can(manage, 'User');
       break;
     case Role.Editor:
-      can(['read'], 'User');
       can(manage, 'Post');
       break;
   }

@@ -29,44 +29,44 @@ const AppRoutes: FC = () => {
     <AbilityContext.Provider value={ability}>
       <Suspense fallback={<CircularProgress />}>
         <Switch>
-          <Route exact path="/">
+          <PublicRoute exact path="/" title="Login">
             <Login />
-          </Route>
+          </PublicRoute>
 
-          <PrivateRoute path="/posts/:id/edit">
+          <PrivateRoute path="/posts/:id/edit" title="Edit Post" subject="Post">
             <EditPost />
           </PrivateRoute>
 
-          <PrivateRoute path="/posts/new">
+          <PrivateRoute path="/posts/new" title="New Post" subject="Post">
             <NewPost />
           </PrivateRoute>
 
-          <PrivateRoute path="/posts">
+          <PrivateRoute path="/posts" title="Posts" subject="Post">
             <PostList />
           </PrivateRoute>
 
-          <PrivateRoute path="/users/:id/edit">
+          <PrivateRoute path="/users/:id/edit" title="Edit User" subject="User">
             <EditUser />
           </PrivateRoute>
 
-          <PrivateRoute path="/users/new">
+          <PrivateRoute path="/users/new" title="New User" subject="User">
             <NewUser />
           </PrivateRoute>
 
-          <PrivateRoute path="/users">
+          <PrivateRoute path="/users" title="Users" subject="User">
             <UserList />
           </PrivateRoute>
 
-          <PrivateRoute path="/profile">
+          <PrivateRoute path="/profile" title="Profile">
             <Profile />
           </PrivateRoute>
 
-          <Route path="*">
-            <NoMatch />
-          </Route>
-
           <Route path="/unauthorized">
             <UnAuthorized />
+          </Route>
+
+          <Route path="*">
+            <NoMatch />
           </Route>
         </Switch>
       </Suspense>
