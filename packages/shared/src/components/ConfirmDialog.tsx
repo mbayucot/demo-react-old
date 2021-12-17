@@ -13,16 +13,9 @@ interface Props {
 
 const ConfirmDialog: FC<Props> = ({ open, handleClose, handleConfirm }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
+    <Dialog open={open} onClose={handleClose}>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete this record?
-        </DialogContentText>
+        <DialogContentText>Are you sure you want to delete this record?</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>

@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 import { withFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Avatar from '@mui/material/Avatar';
 
 import { RootState } from '../../../app/store';
 
@@ -40,10 +43,21 @@ const SignInPage: FC = () => {
   }
 
   return (
-    <Container>
-      <Box>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
         <Typography component="h1" variant="h5">
-          Sign In to Account
+          Sign in to account
         </Typography>
         <EnhancedLoginForm />
       </Box>

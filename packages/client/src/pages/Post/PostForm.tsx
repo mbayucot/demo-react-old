@@ -1,15 +1,15 @@
 import React from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { gql, useQuery } from '@apollo/client';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import AsyncCreatableSelect from 'react-select/async-creatable';
-import { client } from '../../app/apolloClient';
+
 import { Post, GET_TAGS } from '@demo/shared';
+import { client } from '../../app/apolloClient';
 
 export type FormValues = Pick<Post, 'title' | 'body' | 'comments' | 'tags' | 'tagList'>;
 
