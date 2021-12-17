@@ -51,17 +51,15 @@ const EditPostPage: FC = () => {
     },
   })(PostForm);
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">${error.message}</Alert>;
-  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
-
   return (
     <Container>
       <Box>
-        <Typography variant="h1" component="div" gutterBottom>
+        <Typography component="h1" variant="h5">
           Edit Post
         </Typography>
-        {data && <EnhancedPostForm {...data.post} />}
+        {error && <Alert severity="error">${error.message}</Alert>}
+        {mutationError && <Alert severity="error">${mutationError.message}</Alert>}
+        {loading ? <CircularProgress /> : data && <EnhancedPostForm {...data.post} />}
       </Box>
     </Container>
   );

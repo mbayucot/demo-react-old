@@ -26,7 +26,6 @@ const NewPostPage: FC = () => {
     validationSchema: validationSchema,
 
     handleSubmit: async (values: FormValues, { props, ...actions }) => {
-      console.log(values.tagList);
       await createPost({
         variables: {
           title: values.title,
@@ -38,14 +37,13 @@ const NewPostPage: FC = () => {
     },
   })(PostForm);
 
-  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
-
   return (
     <Container>
       <Box>
-        <Typography variant="h1" component="div" gutterBottom>
+        <Typography component="h1" variant="h5">
           New Post
         </Typography>
+        {mutationError && <Alert severity="error">${mutationError?.message}</Alert>}
         <EnhancedPostForm />
       </Box>
     </Container>

@@ -39,7 +39,7 @@ const NewPostPage: FC = () => {
   return (
     <Container>
       <Box>
-        <Typography variant="h1" component="div" gutterBottom>
+        <Typography variant="h1" component="h1">
           New Post
         </Typography>
         <EnhancedLoginForm />

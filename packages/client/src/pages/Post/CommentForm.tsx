@@ -38,17 +38,18 @@ const CommentForm: FC<CommentFormProps> = ({ postId, parentId, onSuccess }) => {
     }
   };
 
-  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
-
   return (
-    <input
-      type="text"
-      placeholder="Write a comment..."
-      value={searchText}
-      onChange={setSearch}
-      onKeyPress={handleKeyPress}
-      className="border-2 border-black-300"
-    />
+    <div>
+      <input
+        type="text"
+        placeholder="Write a comment..."
+        value={searchText}
+        onChange={setSearch}
+        onKeyPress={handleKeyPress}
+        className="border-2 border-black-300"
+      />
+      {mutationError && <Alert severity="error">${mutationError.message}</Alert>}
+    </div>
   );
 };
 

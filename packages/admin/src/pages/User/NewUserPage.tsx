@@ -42,14 +42,13 @@ const NewUserPage: FC = () => {
     },
   })(UserForm);
 
-  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
-
   return (
     <Container>
       <Box>
-        <Typography variant="h1" component="div" gutterBottom>
+        <Typography variant="h1" component="h1">
           New User
         </Typography>
+        {mutationError && <Alert severity="error">${mutationError?.message}</Alert>}
         <EnhancedUserForm />
       </Box>
     </Container>

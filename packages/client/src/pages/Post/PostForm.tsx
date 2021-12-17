@@ -29,71 +29,59 @@ const PostForm = (props: FormikProps<FormValues>): React.ReactElement => {
 
   // @ts-ignore
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="title"
+        label="Title"
+        name="title"
+        autoComplete="title"
+        autoFocus
+        value={values.title}
+        onChange={handleChange}
+        error={touched.title && Boolean(errors.title)}
+        helperText={touched.title && errors.title}
+      />
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="body"
+        label="Body"
+        name="body"
+        autoComplete="body"
+        autoFocus
+        value={values.body}
+        onChange={handleChange}
+        error={touched.body && Boolean(errors.body)}
+        helperText={touched.body && errors.body}
+      />
+      <AsyncCreatableSelect
+        cacheOptions
+        defaultOptions
+        placeholder="Tags"
+        inputId="tags"
+        name="tags"
+        defaultValue={values?.tags?.map((x: any) => ({ value: x.id, label: x.name }))}
+        loadOptions={loadOptions}
+        styles={{
+          container: (base) => ({
+            ...base,
+            width: 250,
+          }),
         }}
-      >
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="title"
-            label="Title"
-            name="title"
-            autoComplete="title"
-            autoFocus
-            value={values.title}
-            onChange={handleChange}
-            error={touched.title && Boolean(errors.title)}
-            helperText={touched.title && errors.title}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="body"
-            label="Body"
-            name="body"
-            autoComplete="body"
-            autoFocus
-            value={values.body}
-            onChange={handleChange}
-            error={touched.body && Boolean(errors.body)}
-            helperText={touched.body && errors.body}
-          />
-          <AsyncCreatableSelect
-            cacheOptions
-            defaultOptions
-            placeholder="Tags"
-            inputId="tags"
-            name="tags"
-            defaultValue={values?.tags?.map((x: any) => ({ value: x.id, label: x.name }))}
-            loadOptions={loadOptions}
-            styles={{
-              container: (base) => ({
-                ...base,
-                width: 250,
-              }),
-            }}
-            isClearable
-            isMulti
-            onChange={(value) => {
-              setFieldValue('tagList', value ? value.map((x: any) => x.label) : '');
-            }}
-          />
-          <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
-            Save
-          </LoadingButton>
-        </Box>
-      </Box>
-    </Container>
+        isClearable
+        isMulti
+        onChange={(value) => {
+          setFieldValue('tagList', value ? value.map((x: any) => x.label) : '');
+        }}
+      />
+      <LoadingButton type="submit" loading={isSubmitting} loadingIndicator="Loading..." variant="outlined">
+        Save
+      </LoadingButton>
+    </Box>
   );
 };
 

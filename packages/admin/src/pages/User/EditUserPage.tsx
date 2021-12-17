@@ -53,17 +53,15 @@ const EditUserPage: FC = () => {
     },
   })(UserForm);
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">${error.message}</Alert>;
-  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
-
   return (
     <Container>
       <Box>
-        <Typography variant="h1" component="div" gutterBottom>
+        <Typography variant="h1" component="h1">
           Edit User
         </Typography>
-        <EnhancedUserForm {...data.user} />
+        {error && <Alert severity="error">${error.message}</Alert>}
+        {mutationError && <Alert severity="error">${mutationError.message}</Alert>}
+        {loading ? <CircularProgress /> : data && <EnhancedUserForm {...data.user} />}
       </Box>
     </Container>
   );

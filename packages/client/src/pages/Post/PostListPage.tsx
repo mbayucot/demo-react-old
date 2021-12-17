@@ -17,6 +17,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
+import Box from '@mui/material/Box';
 
 import { ConfirmDialog, SearchBar, NoRowsOverlay } from '@demo/shared';
 import { GET_ALL_POSTS, DELETE_POST } from '@demo/shared';
@@ -54,9 +55,8 @@ const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarPro
     <GridToolbarContainer className={classes.toolbar}>
       <div>
         <Button variant="contained" onClick={onAddNewClick}>
-          Add New
+          New Post
         </Button>
-        <GridToolbarExport />
       </div>
       <div>
         <SearchBar value={props.value} onChange={props.onChange} clearSearch={props.clearSearch} />
@@ -160,7 +160,13 @@ const PostListPage: FC = () => {
 
   return (
     <>
-      <div style={{ height: 300, width: '100%' }}>
+      <Box
+        sx={{
+          width: '100%',
+          height: 300,
+          backgroundColor: '#fff',
+        }}
+      >
         <DataGrid
           autoHeight
           rows={data.posts.collection}
@@ -190,7 +196,7 @@ const PostListPage: FC = () => {
             },
           }}
         />
-      </div>
+      </Box>
       <ConfirmDialog open={open} handleClose={handleClose} handleConfirm={handleConfirm} />
     </>
   );

@@ -97,42 +97,48 @@ const PostDetailPage: FC = () => {
     setShowComment(!showComment);
   };
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">${error.message}</Alert>;
-  if (!data) return <p>Not found</p>;
-
   return (
-    <Card>
-      <CardContent>
-        <Link to={`/posts/${slug}`}>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {data.post.title}
-          </Typography>
-        </Link>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {data.post.content}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Box>{showComment && data && <CommentList postId={data.post.id} children={data.post.comments} />}</Box>
-        <Reaction
-          handleShowReaction={handleShowReaction}
-          debouncedChangeHandler={debouncedChangeHandler}
-          handleLikeClick={handleLikeClick}
-          reaction={reactionController.reaction}
-        />
-        <button onClick={handleComment}>Comment</button>
-      </CardActions>
-      <div>
-        {hasSubscription && !data.post.subscribed && (
-          <Link to={`/checkout`}>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Please subscribe to continue!
-            </Typography>
-          </Link>
-        )}
-      </div>
-    </Card>
+    <div>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        data && (
+          <Card>
+            <CardContent>
+              <Link to={`/posts/${slug}`}>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                  {data.post.title}
+                </Typography>
+              </Link>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {data.post.content}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Box>{showComment && data && <CommentList postId={data.post.id} children={data.post.comments} />}</Box>
+              <Reaction
+                handleShowReaction={handleShowReaction}
+                debouncedChangeHandler={debouncedChangeHandler}
+                handleLikeClick={handleLikeClick}
+                reaction={reactionController.reaction}
+              />
+              <button onClick={handleComment}>Comment</button>
+            </CardActions>
+            <div>
+              {hasSubscription && !data.post.subscribed && (
+                <Link to={`/checkout`}>
+                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Please subscribe to continue!
+                  </Typography>
+                </Link>
+              )}
+            </div>
+          </Card>
+        )
+      )}
+      {error && <Alert severity="error">${error.message}</Alert>}
+      {!data && <Alert severity="error">Not found!</Alert>}
+    </div>
   );
 };
 

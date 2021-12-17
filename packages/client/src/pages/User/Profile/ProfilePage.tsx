@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { useQuery, useMutation } from '@apollo/client';
+import Typography from '@mui/material/Typography';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { UPDATE_USER, GET_USER_PROFILE } from '@demo/shared';
@@ -50,14 +51,15 @@ const ProfilePage: FC = () => {
      */
   };
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">${error.message}</Alert>;
-  if (mutationError) return <Alert severity="error">${mutationError.message}</Alert>;
-
   return (
     <Container>
       <Box>
-        <EnhancedLoginForm {...data.user} />
+        <Typography variant="h1" component="h1">
+          Profile
+        </Typography>
+        {loading ? <CircularProgress /> : data && <EnhancedLoginForm {...data.user} />}
+        {error && <Alert severity="error">${error.message}</Alert>}
+        {mutationError && <Alert severity="error">${mutationError.message}</Alert>}
         <button onClick={handleAccount}>Stripe Portal</button>
       </Box>
     </Container>
