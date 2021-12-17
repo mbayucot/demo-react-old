@@ -38,10 +38,6 @@ const SignInPage: FC = () => {
     return <Redirect to="/posts" />;
   }
 
-  if (authState.authentication.error) {
-    return <Alert severity="error">${authState.authentication.error}</Alert>;
-  }
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,6 +55,7 @@ const SignInPage: FC = () => {
         <Typography component="h1" variant="h5">
           Sign in to account
         </Typography>
+        {authState.authentication.error && <Alert severity="error">${authState.authentication.error}</Alert>}
         <EnhancedLoginForm />
       </Box>
     </Container>
