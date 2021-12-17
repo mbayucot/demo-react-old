@@ -9,6 +9,7 @@ import Alert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
+import Cookies from 'js-cookie';
 
 import { RootState } from '../../app/store';
 
@@ -34,7 +35,7 @@ const SignInPage: FC = () => {
     },
   })(SignInForm);
 
-  if (authState.authentication.isAuthenticated) {
+  if (authState.authentication.isAuthenticated && Cookies.get('token')) {
     return <Redirect to="/posts" />;
   }
 
@@ -55,6 +56,7 @@ const SignInPage: FC = () => {
         <Typography component="h1" variant="h5">
           Sign in to account
         </Typography>
+        {authState.authentication.error && <Alert severity="error">${authState.authentication.error}</Alert>}
         <EnhancedLoginForm />
       </Box>
     </Container>

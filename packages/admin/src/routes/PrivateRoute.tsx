@@ -6,13 +6,15 @@ import { useSelector } from 'react-redux';
 import Layout from '../layouts/private/Layout';
 
 import { RootState } from '../app/store';
+import Cookies from 'js-cookie';
 
 interface RouterProps extends RouteProps {
   title?: string;
 }
 
 const PrivateRoute = ({ children, title, ...rest }: RouterProps): React.ReactElement => {
-  const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated);
+  const isAuthenticated =
+    useSelector((state: RootState) => state.authentication.isAuthenticated) && Cookies.get('token');
 
   return (
     <Route
