@@ -22,7 +22,10 @@ const PrivateRoute = ({ children, title, ...rest }: RouterProps): React.ReactEle
       render={() => (
         <>
           {isAuthenticated ? (
-            <Layout>{children}</Layout>
+            <>
+              <Helmet title={title} />
+              <Layout>{children}</Layout>
+            </>
           ) : (
             <Redirect
               to={{

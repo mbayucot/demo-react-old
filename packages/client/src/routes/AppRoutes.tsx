@@ -23,39 +23,39 @@ const AppRoutes: FC = () => {
   return (
     <Suspense fallback={<CircularProgress />}>
       <Switch>
-        <Route exact path="/">
+        <PublicRoute exact path="/" title="Demo">
           <Home />
-        </Route>
+        </PublicRoute>
 
-        <Route path="/login">
+        <PublicRoute path="/login" title="Login">
           <Login />
-        </Route>
+        </PublicRoute>
 
-        <Route path="/register">
+        <PublicRoute path="/register" title="Sign Up">
           <Register />
-        </Route>
+        </PublicRoute>
 
         <Route path="/post/:slug">
           <PostDetail />
         </Route>
 
-        <PrivateRoute path="/posts/:id/edit">
+        <PrivateRoute path="/posts/:id/edit" title="Edit Post">
           <EditPost />
         </PrivateRoute>
 
-        <PrivateRoute path="/posts/new">
+        <PrivateRoute path="/posts/new" title="New Post">
           <NewPost />
         </PrivateRoute>
 
-        <PrivateRoute path="/posts">
+        <PrivateRoute path="/posts" title="Posts">
           <PostList />
         </PrivateRoute>
 
-        <PrivateRoute path="/profile">
+        <PrivateRoute path="/profile" title="Profile">
           <Profile />
         </PrivateRoute>
 
-        <PrivateRoute path="/checkout">
+        <PrivateRoute path="/checkout" title="Checkout">
           <Checkout />
         </PrivateRoute>
 
