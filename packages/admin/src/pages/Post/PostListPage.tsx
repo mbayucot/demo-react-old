@@ -78,6 +78,8 @@ const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarPro
   let history = useHistory();
   const classes = useStyles();
 
+  const handleSubmit = (query: string) => {};
+
   const onAddNewClick = () => {
     history.push('/posts/new');
   };
@@ -90,7 +92,7 @@ const CustomToolbar: FC<QuickSearchToolbarProps> = (props: QuickSearchToolbarPro
         </Button>
       </div>
       <div>
-        <SearchBar value={props.value} onChange={props.onChange} clearSearch={props.clearSearch} />
+        <SearchBar onSubmit={handleSubmit} />
       </div>
     </GridToolbarContainer>
   );

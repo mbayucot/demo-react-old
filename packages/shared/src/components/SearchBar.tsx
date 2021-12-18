@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState, ChangeEvent, KeyboardEvent } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -7,9 +7,7 @@ import { createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
 
 interface Props {
-  value: string;
-  onChange: () => void;
-  clearSearch: () => void;
+  onSubmit: (query: string) => void;
 }
 
 const defaultTheme = createTheme();
@@ -32,14 +30,34 @@ const useStyles = makeStyles(
   { defaultTheme },
 );
 
-const SearchBar: FC<Props> = ({ value, onChange, clearSearch }) => {
+const SearchBar: FC<Props> = ({ onSubmit }) => {
   const classes = useStyles();
+  const [searchText, setSearchText] = useState('');
+
+  const setSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.currentTarget.value);
+  };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleSearch = () => {
+    onSubmit(searchText);
+  };
+
+  const clearSearch = () => {
+    setSearchText('');
+  };
 
   return (
     <TextField
       variant="standard"
-      value={value}
-      onChange={onChange}
+      value={searchText}
+      onChange={setSearch}
+      onKeyPress={handleKeyPress}
       placeholder="Search…"
       className={classes.textField}
       inputProps={{ 'data-testid': 'searchfield' }}
@@ -50,7 +68,7 @@ const SearchBar: FC<Props> = ({ value, onChange, clearSearch }) => {
             title="Clear"
             aria-label="Clear"
             size="small"
-            style={{ visibility: value ? 'visible' : 'hidden' }}
+            style={{ visibility: searchText ? 'visible' : 'hidden' }}
             onClick={clearSearch}
           >
             <ClearIcon fontSize="small" />
